@@ -1,15 +1,17 @@
-import React, { PureComponent, Fragment } from "react";
-import PropTypes from "prop-types";
-import RegisterDialog from "./RegisterDialog";
-import TermsOfServiceDialog from "./TermsOfServiceDialog";
-import LoginDialog from "./LoginDialog";
-import ChangePasswordDialog from "./ChangePasswordDialog";
-import ModalBackdrop from "../../../shared/components/ModalBackdrop";
-
+import React, { PureComponent, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import RegisterDialog from './RegisterDialog';
+import TermsOfServiceDialog from './TermsOfServiceDialog';
+import LoginDialog from './LoginDialog';
+import ChangePasswordDialog from './ChangePasswordDialog';
+import ModalBackdrop from '../../../shared/components/ModalBackdrop';
+import { observer, inject } from 'mobx-react';
+@inject('articlesStore', 'profileStore', 'userStore')
+@observer
 class DialogSelector extends PureComponent {
   state = {
     loginStatus: null,
-    registerStatus: null
+    registerStatus: null,
   };
 
   setRegisterStatus = registerStatus => {
@@ -27,16 +29,17 @@ class DialogSelector extends PureComponent {
   };
 
   printDialog = () => {
+    this.props.articlesStore.loadArticles();
     const {
       dialogOpen,
       openTermsDialog,
       openRegisterDialog,
       openLoginDialog,
-      openChangePasswordDialog
+      openChangePasswordDialog,
     } = this.props;
     const { loginStatus, registerStatus } = this.state;
     switch (dialogOpen) {
-      case "register":
+      case 'register':
         return (
           <RegisterDialog
             onClose={this.onClose}
@@ -45,9 +48,9 @@ class DialogSelector extends PureComponent {
             setStatus={this.setRegisterStatus}
           />
         );
-      case "termsOfService":
+      case 'termsOfService':
         return <TermsOfServiceDialog onClose={openRegisterDialog} />;
-      case "login":
+      case 'login':
         return (
           <LoginDialog
             onClose={this.onClose}
@@ -56,19 +59,17 @@ class DialogSelector extends PureComponent {
             openChangePasswordDialog={openChangePasswordDialog}
           />
         );
-      case "changePassword":
+      case 'changePassword':
         return (
-          <ChangePasswordDialog
-            setLoginStatus={this.setLoginStatus}
-            onClose={openLoginDialog}
-          />
+          <ChangePasswordDialog setLoginStatus={this.setLoginStatus} onClose={openLoginDialog} />
         );
       default:
     }
   };
 
   render() {
-    const { dialogOpen } = this.props;
+    const { dialogOpen, articlesStore } = this.props;
+    console.log('ssss', articlesStore.totalPagesCount);
     return (
       <Fragment>
         {dialogOpen && <ModalBackdrop open />}
@@ -84,7 +85,8 @@ DialogSelector.propTypes = {
   onClose: PropTypes.func.isRequired,
   openTermsDialog: PropTypes.func.isRequired,
   openRegisterDialog: PropTypes.func.isRequired,
-  openChangePasswordDialog: PropTypes.func.isRequired
+  openChangePasswordDialog: PropTypes.func.isRequired,
 };
 
+//export default DialogSelector;
 export default DialogSelector;

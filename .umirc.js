@@ -16,7 +16,7 @@ export default {
         antd: false,
         dva: true,
         dynamicImport: { webpackChunkName: true },
-        title: 'umi-cra',
+        title: 'customer-frontend',
         dll: false,
 
         routes: {
