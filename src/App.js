@@ -14,7 +14,6 @@ import editorStore from './stores/editorStore'
 import userStore from './stores/userStore'
 import profileStore from './stores/profileStore'
 const LoggedInComponent = lazy(() => import('./logged_in/components/Main'))
-
 const LoggedOutComponent = lazy(() => import('./logged_out/components/Main'))
 const stores = {
   articlesStore,
