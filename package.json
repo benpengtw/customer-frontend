@@ -1,13 +1,11 @@
 {
+  "name": "react-saas-template",
+  "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
-    "test": "umi test",
-    "lint": "eslint {src,mock,tests}/**/*.{js,jsx} --fix",
-    "precommit": "lint-staged"
-  },
+  "homepage": "",
+  "description": "Template for building an SaaS/admin application using React + Material-UI",
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.8.3",
     "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
@@ -15,16 +13,9 @@
     "@material-ui/system": "^4.9.6",
     "@stripe/react-stripe-js": "^1.1.0",
     "@stripe/stripe-js": "^1.2.0",
-    "@types/classnames": "^2.2.10",
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.11.1",
-    "@types/qs": "^6.9.1",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.6",
-    "@types/react-router-dom": "^5.1.4",
     "aos": "^2.3.4",
-    "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "customize-cra": "^0.9.1",
     "date-fns": "^2.11.1",
     "emoji-mart": "^3.0.0",
     "js-cookie": "^2.2.0",
@@ -32,9 +23,11 @@
     "mobx-react": "^6.2.2",
     "mobx-state-tree": "^3.16.0",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
+    "react": "^16.13.1",
+    "react-app-rewired": "^2.1.5",
+    "react-countup": "^4.3.3",
     "react-cropper": "^1.3.0",
-    "react-dom": "^16.8.6",
+    "react-dom": "^16.13.1",
     "react-dropzone": "^10.2.2",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
@@ -45,27 +38,39 @@
     "superagent-promise": "^1.1.0"
   },
   "devDependencies": {
-    "babel-eslint": "^9.0.0",
-    "eslint": "^5.4.0",
-    "eslint-config-umi": "^1.4.0",
-    "eslint-plugin-flowtype": "^2.50.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.11.1",
-    "husky": "^0.14.3",
-    "prettier": "^1.19.1",
-    "lint-staged": "^7.2.2",
-    "react-test-renderer": "^16.7.0",
-    "umi": "^2.7.7",
-    "umi-plugin-react": "^1.8.4"
+    "@testing-library/jest-dom": "^5.3.0",
+    "@testing-library/react": "^10.0.1",
+    "@testing-library/user-event": "^10.0.0",
+    "prettier": "^1.19.1"
   },
-  "lint-staged": {
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
   },
-  "engines": {
-    "node": ">=8.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dunky11/react-saas-template.git"
+  },
+  "author": "dunky11",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dunky11/react-saas-template/issues"
   }
 }
