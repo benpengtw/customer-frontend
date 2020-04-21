@@ -10,11 +10,12 @@ import CountUp from 'react-countup'
 const styles = (theme) => ({
   img: {
     width: '100%',
-    height: '20vh',
+    height: '25vh',
     marginBottom: 8,
   },
   card: {
-    boxShadow: theme.shadows[2],
+    boxShadow: theme.shadows[6],
+    //boxShadow: 0,
     height: '40vw',
   },
   noDecoration: {
@@ -70,8 +71,8 @@ function BlogCard(props) {
   const progress = React.useRef(() => {})
   React.useEffect(() => {
     progress.current = () => {
-      if (completed >= 100) {
-        setCompleted(100)
+      if (completed >= 80) {
+        setCompleted(80)
         setcountAmount((date * completed) / 100)
         return
       } else {
@@ -86,7 +87,7 @@ function BlogCard(props) {
     function tick() {
       progress.current()
     }
-    const timer = setInterval(tick, 100)
+    const timer = setInterval(tick, 150)
 
     return () => {
       clearInterval(timer)
@@ -111,12 +112,13 @@ function BlogCard(props) {
           </Typography>
         </Link>
         <Typography variant="h6" color="textSecondary">
-          <CountUp end={countAmount} />
+          {/* <CountUp end={countAmount} /> */}
+          <span>{Math.floor(countAmount)}</span>
         </Typography>
         <Grid container spacing={1} justify="space-between">
-          <Grid item xs={12} spacing={0}>
+          <Grid item xs={12}>
             <div className={classes.progressLabel}>
-              <span>{completed.toFixed(2)}</span>
+              <span>{completed.toFixed(2) + '%'}</span>
             </div>
             <BorderLinearProgress className={classes.progress} variant="determinate" value={completed} />
           </Grid>

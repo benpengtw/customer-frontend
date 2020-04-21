@@ -50,7 +50,7 @@ function NavBar(props) {
     },
     {
       link: '/blog',
-      name: 'Blog',
+      name: '投資標的',
       icon: <BookIcon className="text-white" />,
     },
     {
