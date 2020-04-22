@@ -14,6 +14,7 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(4),
       marginRight: theme.spacing(4),
     },
+    marginTop: '-80px',
     maxWidth: 1280,
     width: '100%',
   },
@@ -49,7 +50,11 @@ function getVerticalBlogPosts(width, blogPosts) {
               title={blogPost.title}
               snippet={blogPost.snippet}
               date={blogPost.date}
+              startDate={blogPost.startDate}
+              endDate={blogPost.endDate}
+              irr={blogPost.irr}
               url={blogPost.url}
+              totalAmount={blogPost.totalAmount}
             />
           </LazyLoad>
         </Box>
