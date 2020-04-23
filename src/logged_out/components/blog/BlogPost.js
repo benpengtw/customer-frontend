@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import format from 'date-fns/format'
 import { Grid, Typography, Card, Box, withStyles } from '@material-ui/core'
-import BlogCard from './BlogCard'
+import BlogCardOld from './BlogCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
 import ZoomImage from '../../../shared/components/ZoomImage'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
@@ -86,7 +86,7 @@ function BlogPost(props) {
             </Typography>
             {otherArticles.map((blogPost) => (
               <Box key={blogPost.id} mb={3}>
-                <BlogCard
+                <BlogCardOld
                   title={blogPost.title}
                   snippet={blogPost.snippet}
                   date={blogPost.date}

@@ -15,8 +15,9 @@ import {
   GridListTile,
   GridListTileBar,
   GridList,
+  CardMedia,
 } from '@material-ui/core'
-
+import soldout from '../../../assets/soldout.png'
 const styles = (theme) => ({
   img: {
     width: '100%',
@@ -69,12 +70,14 @@ const styles = (theme) => ({
     fontSize: 20,
     letterSpacing: 2,
   },
-  // TileBarSubtitle: {
-  //   fontSize: 16,
-  //   letterSpacing: 1,
-  // },
   TileBarTitleWrap: {
     marginTop: '70px',
+  },
+  overlay: {
+    position: 'absolute',
+    // color: theme.palette.primary.main,
+    height: '75%',
+    // width: '80%',
   },
 })
 
@@ -137,14 +140,13 @@ function BlogCard(props) {
                 classes={{
                   root: classes.TileBar,
                   title: classes.TileBarTitle,
-                  //subtitle: classes.TileBarSubtitle,
                   titleWrap: classes.TileBarTitleWrap,
                 }}
                 title={title}
-                // subtitle={<span>by: {endDate}</span>}
                 titlePosition="bottom"
               />
             </Link>
+            <img src={soldout} className={classes.overlay} alt="" />
           </GridListTile>
         )}
       </GridList>
@@ -156,12 +158,12 @@ function BlogCard(props) {
                 awareOfUnicodeTokens: true,
               })}
             </Typography>
-            <Typography fontWeight="fontWeightBold" variant="subtitle1" color="textBlack" letterSpacing={1}>
+            <Typography fontWeight="fontWeightBold" variant="subtitle1" letterSpacing={1}>
               <span>貸款總額 $ {thousands_separators(totalAmount)} 萬</span>
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <Typography fontWeight="fontWeightBold" variant="subtitle1" color="textBlack" letterSpacing={1}>
+            <Typography fontWeight="fontWeightBold" variant="subtitle1" letterSpacing={1}>
               年化報酬率：<span style={{ color: '#FF0000' }}>{countIRR.toFixed(1) + '%'}</span>
             </Typography>
           </Grid>
