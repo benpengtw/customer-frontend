@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Grid, Typography, Card, Button, Hidden, Box, withStyles, withWidth, isWidthUp } from '@material-ui/core'
-import headerImage from '../../dummy_data/images/headerImage.jpg'
 import WaveBorder from '../../../shared/components/WaveBorder'
 
 const styles = (theme) => ({
@@ -51,7 +50,7 @@ function BlogHeadSection(props) {
       <div className={classNames('lg-p-top', classes.wrapper)}>
         <div className={classNames('container-fluid', classes.container)}>
           <Typography variant={isWidthUp('lg', width) ? 'h5' : 'h6'} className={classes.typographySub}>
-            透過資產抵押的方式，讓小額投資人可以參與台灣市場的投資、同時提供申貸人合理、可負擔的年化利率。
+            透過資產抵押的方式，可以讓小額投資人可以利用區塊鏈找到心儀的投資項目。
           </Typography>
         </div>
       </div>

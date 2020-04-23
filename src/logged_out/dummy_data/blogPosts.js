@@ -75,9 +75,9 @@ const content = (
 
 export default [
   {
-    title: '台北市士林區中山北路透天 1',
+    title: '台北市士林區中山北路透天',
     id: 1,
-    date: 1576281600,
+    date: 1598511600,
     imageSrc: blogPost1,
     snippet: 'Lorem ipsum dolor sit amet',
     content: content,
@@ -89,19 +89,19 @@ export default [
   {
     title: '新北市三重區大同南路透天',
     id: 2,
-    date: 1576391600,
+    date: 1586588400,
     imageSrc: blogPost2,
     snippet: 'Lorem ipsum dolor sit amet',
     content: content,
-    startDate: '2020-04-11',
-    endDate: '2020-07-17',
+    startDate: '2020-03-11',
+    endDate: '2020-04-11',
     irr: 7.5,
     totalAmount: 795,
   },
   {
     title: '新北市三芝長勤街公寓',
     id: 3,
-    date: 1577391600,
+    date: 1593068400,
     imageSrc: blogPost3,
     snippet: 'Lorem ipsum dolor sit amet',
     content: content,
@@ -113,7 +113,7 @@ export default [
   {
     title: '南投縣埔里鎮東興二街透天',
     id: 4,
-    date: 1572281600,
+    date: 1593414000,
     imageSrc: blogPost4,
     snippet: 'Lorem ipsum dolor sit amet',
     content: content,
@@ -125,7 +125,7 @@ export default [
   {
     title: '台北市信義區虎林街公寓',
     id: 5,
-    date: 1573281600,
+    date: 1595833200,
     imageSrc: blogPost5,
     snippet: 'Lorem ipsum dolor sit amet',
     content: content,
@@ -137,7 +137,7 @@ export default [
   {
     title: '新北市三峽區民族街電梯華廈',
     id: 6,
-    date: 1575281600,
+    date: 1601103600,
     imageSrc: blogPost6,
     snippet: 'Lorem ipsum dolor sit amet',
     content: content,

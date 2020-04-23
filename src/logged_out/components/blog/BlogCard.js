@@ -18,6 +18,8 @@ import {
   CardMedia,
 } from '@material-ui/core'
 import soldout from '../../../assets/soldout.png'
+import moment from 'moment'
+
 const styles = (theme) => ({
   img: {
     width: '100%',
@@ -26,7 +28,13 @@ const styles = (theme) => ({
   },
   card: {
     boxShadow: theme.shadows[6],
-    height: '700px',
+    height: '500px',
+  },
+  cardDisable: {
+    boxShadow: theme.shadows[6],
+    height: '500px',
+    background: 'rgba(0, 0, 0, 0.30)',
+    color: 'rgba(0, 0, 0, 0.22)',
   },
   noDecoration: {
     textDecoration: 'none !important',
@@ -70,6 +78,11 @@ const styles = (theme) => ({
     fontSize: 20,
     letterSpacing: 2,
   },
+  TileBarTitleDisable: {
+    fontSize: 20,
+    letterSpacing: 2,
+    color: 'rgba(255, 255, 255, 0.28)',
+  },
   TileBarTitleWrap: {
     marginTop: '70px',
   },
@@ -102,7 +115,15 @@ function BlogCard(props) {
   const [completed, setCompleted] = React.useState(0)
   const [countAmount, setcountAmount] = React.useState(0)
   const [countIRR, setcountIRR] = React.useState(0)
+  const [IFendDate, setIFendDate] = React.useState(false)
   const progress = React.useRef(() => {})
+  React.useEffect(() => {
+    if (moment().isAfter(moment(endDate, 'YYYY-MM-DD'))) {
+      console.log('sss', endDate)
+      setIFendDate(true)
+    }
+    console.log('dddddd', moment(endDate, 'YYYY-MM-DD').isValid())
+  }, [])
   React.useEffect(() => {
     progress.current = () => {
       if (completed >= 80) {
@@ -113,7 +134,7 @@ function BlogCard(props) {
       } else {
         const diff = Math.random() * 10
         setCompleted(completed + diff)
-        setcountAmount(countAmount + countAmount * (diff / 100))
+        setcountAmount(countAmount + diff)
         setcountIRR(countIRR + diff / 10)
       }
     }
@@ -130,23 +151,31 @@ function BlogCard(props) {
     }
   }, [])
   return (
-    <Card className={classes.card}>
+    <Card className={IFendDate ? classes.cardDisable : classes.card}>
       <GridList cellHeight={'auto'}>
         {src && (
           <GridListTile key={src} style={{ height: 'auto', padding: '0px', width: '100%' }}>
             <Link to={url} tabIndex={-1}>
               <img src={src} className={classes.img} alt="" />
               <GridListTileBar
-                classes={{
-                  root: classes.TileBar,
-                  title: classes.TileBarTitle,
-                  titleWrap: classes.TileBarTitleWrap,
-                }}
+                classes={
+                  IFendDate
+                    ? {
+                        root: classes.TileBar,
+                        title: classes.TileBarTitleDisable,
+                        titleWrap: classes.TileBarTitleWrap,
+                      }
+                    : {
+                        root: classes.TileBar,
+                        title: classes.TileBarTitle,
+                        titleWrap: classes.TileBarTitleWrap,
+                      }
+                }
                 title={title}
                 titlePosition="bottom"
               />
             </Link>
-            <img src={soldout} className={classes.overlay} alt="" />
+            {IFendDate && <img src={soldout} className={classes.overlay} alt="" />}
           </GridListTile>
         )}
       </GridList>
@@ -157,6 +186,7 @@ function BlogCard(props) {
               {format(new Date(date * 1000), 'PPP', {
                 awareOfUnicodeTokens: true,
               })}
+              {/*console.log(IFendDate)*/}
             </Typography>
             <Typography fontWeight="fontWeightBold" variant="subtitle1" letterSpacing={1}>
               <span>貸款總額 $ {thousands_separators(totalAmount)} 萬</span>
