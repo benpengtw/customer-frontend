@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
 import classNames from 'classnames'
-import CountUp from 'react-countup'
 import {
   Typography,
   Card,
@@ -29,16 +28,19 @@ const styles = (theme) => ({
   },
   card: {
     boxShadow: theme.shadows[6],
-    height: '500px',
+    height: '450px',
   },
   cardDisable: {
     boxShadow: theme.shadows[6],
-    height: '500px',
+    height: '450px',
     background: 'rgba(0, 0, 0, 0.30)',
-    //color: 'rgba(0, 0, 0, 0.22)',
   },
   noDecoration: {
     textDecoration: 'none !important',
+  },
+  noDecorationClick: {
+    textDecoration: 'none !important',
+    pointerEvents: 'none',
   },
   title: {
     transition: theme.transitions.create(['background-color'], {
@@ -79,11 +81,6 @@ const styles = (theme) => ({
       color: theme.palette.primary.dark,
     },
   },
-  showFocus: {
-    '&:focus span': {
-      color: theme.palette.secondary.dark,
-    },
-  },
   TileBar: {
     height: '130px',
     //background: 'rgba(0, 0, 0, 0.60)',
@@ -121,7 +118,10 @@ const BorderLinearProgress = withStyles({
 })(LinearProgress)
 
 const thousands_separators = (num) => {
-  var num_parts = num.toString().split('.')
+  let num_parts = num
+    .toFixed(2)
+    .toString()
+    .split('.')
   num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
   return num_parts.join('.')
 }
@@ -143,7 +143,6 @@ function BlogCard(props) {
     repaymentType,
   } = props
   const [completed, setCompleted] = React.useState(0)
-  const [countAmount, setcountAmount] = React.useState(0)
   const [countIRR, setcountIRR] = React.useState(0)
   const [IFendDate, setIFendDate] = React.useState(false)
   const [IFfullPercent, setIFfullPercent] = React.useState(false)
@@ -163,13 +162,11 @@ function BlogCard(props) {
     progress.current = () => {
       if (completed >= percent) {
         setCompleted(percent)
-        setcountAmount(totalAmount * (percent / 100))
         setcountIRR(irr)
         return
       } else {
         const diff = Math.random() * 10
         setCompleted(completed + diff)
-        setcountAmount(countAmount + diff)
         setcountIRR(countIRR + diff / 10)
       }
     }
@@ -190,7 +187,13 @@ function BlogCard(props) {
       <GridList cellHeight={'auto'}>
         {src && (
           <GridListTile key={src} style={{ height: 'auto', padding: '0px', width: '100%' }}>
-            <Link to={url} tabIndex={-1}>
+            <Link
+              to={IFfullPercent || IFendDate ? '#' : url}
+              tabIndex={-1}
+              className={
+                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
+              }
+            >
               <img src={src} className={classes.img} alt="" />
               <GridListTileBar
                 classes={
@@ -217,14 +220,13 @@ function BlogCard(props) {
       </GridList>
       <Box p={2}>
         <Grid container>
-          <Grid item xs={8}>
-            <Link to={url} className={classNames(classes.noDecoration, classes.showFocus)}>
-              <Typography variant="body2">
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  還款方式： {repaymentType}
-                </span>
-                {/*console.log('aaa', IFendDate)*/}
-              </Typography>
+          <Grid item xs={6}>
+            <Link
+              to={IFfullPercent || IFendDate ? '#' : url}
+              className={
+                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
+              }
+            >
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
                   貸款總額 $ {thousands_separators(totalAmount)} 萬
@@ -232,8 +234,13 @@ function BlogCard(props) {
               </Typography>
             </Link>
           </Grid>
-          <Grid item xs={4}>
-            <Link to={url} className={classNames(classes.noDecoration)}>
+          <Grid item xs={6}>
+            <Link
+              to={IFfullPercent || IFendDate ? '#' : url}
+              className={
+                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
+              }
+            >
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>年化報酬率：</span>
                 <span style={{ color: '#FF0000' }}>{countIRR.toFixed(1) + '%'}</span>
@@ -243,26 +250,48 @@ function BlogCard(props) {
         </Grid>
         <Grid container spacing={1} justify="space-between">
           <Grid item xs={12}>
-            <Link to={url} className={classNames(classes.noDecoration)}>
-              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>認購進度：</span>
-                <span style={{ color: '#FF0000' }}>{completed.toFixed(2) + '%'}</span>
-              </Typography>
+            <Link
+              to={IFfullPercent || IFendDate ? '#' : url}
+              className={
+                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
+              }
+            >
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                    <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
+                      已投金額 $ {thousands_separators(totalAmount * (completed / 100))} 萬
+                    </span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                    <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
+                      認購進度：
+                    </span>
+                    <span style={{ color: '#FF0000' }}>{completed.toFixed(2) + '%'}</span>
+                  </Typography>
+                </Grid>
+              </Grid>
+              <BorderLinearProgress className={classes.progress} variant="determinate" value={completed} />
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  已投金額 $ {thousands_separators(countAmount)} 萬
+                  起始時間：{startDate}
                 </span>
               </Typography>
-              <BorderLinearProgress className={classes.progress} variant="determinate" value={completed} />
+              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>結束時間：</span>
+                <span style={{ color: '#FF0000' }}>{endDate}</span>
+              </Typography>
+              <Typography variant="body2">
+                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
+                  還款方式： {repaymentType}
+                </span>
+                {/*console.log('aaa', IFendDate)*/}
+              </Typography>
             </Link>
           </Grid>
         </Grid>
-        {/* <Typography variant="body1" color="textSecondary">
-          {snippet}
-          <Link to={url} className={classes.noDecoration} tabIndex={-1}>
-            <span className={classes.link}> read more...</span>
-          </Link>
-        </Typography> */}
       </Box>
     </Card>
   )

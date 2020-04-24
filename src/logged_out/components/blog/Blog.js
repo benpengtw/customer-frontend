@@ -84,7 +84,7 @@ function Blog(props) {
 
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.blogContentWrapper}>
-          <Grid container spacing={3}>
+          <Grid container spacing={5}>
             {getVerticalBlogPosts(width, blogPosts)}
           </Grid>
         </div>
