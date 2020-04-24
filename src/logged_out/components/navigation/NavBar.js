@@ -8,7 +8,7 @@ import HowToRegIcon from '@material-ui/icons/HowToReg'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
 import BookIcon from '@material-ui/icons/Book'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
-import logo from '../../../assets/logo.svg'
+import logo from '../../../assets/logoRed.png'
 
 const styles = (theme) => ({
   appBar: {

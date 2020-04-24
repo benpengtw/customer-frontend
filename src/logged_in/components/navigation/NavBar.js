@@ -31,7 +31,7 @@ import SideDrawer from './SideDrawer'
 import Balance from './Balance'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import profilePicture from '../../dummy_data/images/profilePicture.jpg'
-import logo from '../../../assets/logo.svg'
+import logo from '../../../assets/logoRed.png'
 
 const styles = (theme) => ({
   appBar: {

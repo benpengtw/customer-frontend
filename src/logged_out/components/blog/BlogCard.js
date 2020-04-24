@@ -28,11 +28,11 @@ const styles = (theme) => ({
   },
   card: {
     boxShadow: theme.shadows[6],
-    height: '450px',
+    height: '500px',
   },
   cardDisable: {
     boxShadow: theme.shadows[6],
-    height: '450px',
+    height: '500px',
     background: 'rgba(0, 0, 0, 0.30)',
   },
   noDecoration: {
