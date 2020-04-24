@@ -187,13 +187,7 @@ function BlogCard(props) {
       <GridList cellHeight={'auto'}>
         {src && (
           <GridListTile key={src} style={{ height: 'auto', padding: '0px', width: '100%' }}>
-            <Link
-              to={IFfullPercent || IFendDate ? '#' : url}
-              tabIndex={-1}
-              className={
-                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
-              }
-            >
+            <Link to={url} tabIndex={-1} className={classNames(classes.noDecoration)}>
               <img src={src} className={classes.img} alt="" />
               <GridListTileBar
                 classes={
@@ -221,12 +215,7 @@ function BlogCard(props) {
       <Box p={2}>
         <Grid container>
           <Grid item xs={6}>
-            <Link
-              to={IFfullPercent || IFendDate ? '#' : url}
-              className={
-                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
-              }
-            >
+            <Link to={url} className={classNames(classes.noDecoration)}>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
                   貸款總額 $ {thousands_separators(totalAmount)} 萬
@@ -235,12 +224,7 @@ function BlogCard(props) {
             </Link>
           </Grid>
           <Grid item xs={6}>
-            <Link
-              to={IFfullPercent || IFendDate ? '#' : url}
-              className={
-                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
-              }
-            >
+            <Link to={url} className={classNames(classes.noDecoration)}>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>年化報酬率：</span>
                 <span style={{ color: '#FF0000' }}>{countIRR.toFixed(1) + '%'}</span>
@@ -250,12 +234,7 @@ function BlogCard(props) {
         </Grid>
         <Grid container spacing={1} justify="space-between">
           <Grid item xs={12}>
-            <Link
-              to={IFfullPercent || IFendDate ? '#' : url}
-              className={
-                IFfullPercent || IFendDate ? classNames(classes.noDecorationClick) : classNames(classes.noDecoration)
-              }
-            >
+            <Link to={url} className={classNames(classes.noDecoration)}>
               <Grid container>
                 <Grid item xs={6}>
                   <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
