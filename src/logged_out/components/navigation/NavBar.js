@@ -20,8 +20,10 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
   },
   menuButtonText: {
-    fontSize: theme.typography.body1.fontSize,
-    fontWeight: theme.typography.h6.fontWeight,
+    // fontSize: theme.typography.body1.fontSize,
+    // fontWeight: theme.typography.h6.fontWeight,
+    fontSize: '1.1rem',
+    fontWeight: 600,
   },
   brandText: {
     fontFamily: "'Baloo Bhaijaan', cursive",
