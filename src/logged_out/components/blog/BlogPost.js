@@ -32,10 +32,10 @@ const styles = (theme) => ({
 })
 
 function BlogPost(props) {
-  const { classes, date, title, src, content, otherArticles } = props
+  const { classes, date, title, src, content, otherArticles, titleText } = props
 
   useEffect(() => {
-    document.title = `customer-frontend - ${title}`
+    document.title = `customer-frontend - ${titleText}`
     smoothScrollTop()
   }, [title])
 
@@ -47,7 +47,7 @@ function BlogPost(props) {
             <Card className={classes.card}>
               <Box pt={3} pr={3} pl={3} pb={2}>
                 <Typography variant="h4">
-                  <b>{title}</b>
+                  <b>{titleText}</b>
                 </Typography>
                 <Typography variant="body1" color="textSecondary">
                   {format(new Date(date * 1000), 'PPP', {
@@ -87,7 +87,7 @@ function BlogPost(props) {
             {otherArticles.map((blogPost) => (
               <Box key={blogPost.id} mb={3}>
                 <BlogCardOld
-                  title={blogPost.title}
+                  title={blogPost.titleText}
                   snippet={blogPost.snippet}
                   date={blogPost.date}
                   url={`${blogPost.url}${blogPost.params}`}
@@ -104,6 +104,7 @@ function BlogPost(props) {
 BlogPost.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
+  titleText: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
   src: PropTypes.string.isRequired,
   content: PropTypes.node.isRequired,

@@ -50,7 +50,7 @@ function BlogHeadSection(props) {
       <div className={classNames('lg-p-top', classes.wrapper)}>
         <div className={classNames('container-fluid', classes.container)}>
           <Typography variant={isWidthUp('lg', width) ? 'h5' : 'h6'} className={classes.typographySub}>
-            透過資產抵押的方式，可以讓小額投資人可以利用區塊鏈找到心儀的投資項目。
+            透過資產抵押的方式，可以讓小額投資人利用區塊鏈找到心儀的投資項目。
           </Typography>
         </div>
       </div>

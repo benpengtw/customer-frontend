@@ -69,7 +69,9 @@ function NavBar(props) {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <div>
-            <img src={logo} width="120px" alt="" />
+            <Link to="/" className={classes.noDecoration}>
+              <img src={logo} width="120px" alt="" />
+            </Link>
           </div>
           <div>
             <Hidden mdUp>

@@ -48,6 +48,7 @@ function getVerticalBlogPosts(width, blogPosts) {
             <BlogCard
               src={blogPost.imageSrc}
               title={blogPost.title}
+              titleText={blogPost.titleText}
               snippet={blogPost.snippet}
               date={blogPost.date}
               startDate={blogPost.startDate}
@@ -55,6 +56,8 @@ function getVerticalBlogPosts(width, blogPosts) {
               irr={blogPost.irr}
               url={blogPost.url}
               totalAmount={blogPost.totalAmount}
+              percent={blogPost.percent}
+              repaymentType={blogPost.repaymentType}
             />
           </LazyLoad>
         </Box>
