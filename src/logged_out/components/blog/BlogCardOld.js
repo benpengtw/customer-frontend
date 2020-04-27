@@ -8,7 +8,7 @@ import { Typography, Card, Box, withStyles } from '@material-ui/core'
 const styles = (theme) => ({
   img: {
     width: '100%',
-    height: 'auto',
+    height: '160px',
     marginBottom: 8,
   },
   card: {
@@ -69,12 +69,12 @@ function BlogCardOld(props) {
             <span className={classes.title}>{title}</span>
           </Typography>
         </Link>
-        <Typography variant="body1" color="textSecondary">
+        {/* <Typography variant="body1" color="textSecondary">
           {snippet}
           <Link to={url} className={classes.noDecoration} tabIndex={-1}>
             <span className={classes.link}> read more...</span>
           </Link>
-        </Typography>
+        </Typography> */}
       </Box>
     </Card>
   )
