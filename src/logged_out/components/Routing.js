@@ -8,6 +8,7 @@ import BlogPost from './blog/BlogPost'
 
 function Routing(props) {
   const { blogPosts, selectBlog, selectHome } = props
+  console.log(blogPosts)
   return (
     <Switch>
       {blogPosts.map((post) => (
@@ -17,9 +18,13 @@ function Routing(props) {
           component={BlogPost}
           title={post.title}
           titleText={post.titleText}
-          key={post.title}
+          key={post.id}
           src={post.imageSrc}
           date={post.date}
+          startDate={post.startDate}
+          endDate={post.endDate}
+          totalAmount={post.totalAmount}
+          irr={post.irr}
           content={post.content}
           otherArticles={blogPosts.filter((blogPost) => blogPost.id !== post.id)}
         />

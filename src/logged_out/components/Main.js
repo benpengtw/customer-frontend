@@ -87,17 +87,17 @@ class Main extends PureComponent {
     /**
      * You would fetch this from the server, however we gonna use the example values from state here
      */
-    this.blogPostsMaxUnix = dummyBlogPosts[dummyBlogPosts.length - 1].date
+    //this.blogPostsMaxUnix = dummyBlogPosts[dummyBlogPosts.length - 1].date
     const blogPosts = dummyBlogPosts.map((blogPost) => {
-      let title = blogPost.title
-      title = title.toLowerCase()
-      /* Remove unwanted characters, only accept alphanumeric and space */
-      title = title.replace(/[^A-Za-z0-9 ]/g, '')
-      /* Replace multi spaces with a single space */
-      title = title.replace(/\s{2,}/g, ' ')
-      /* Replace space with a '-' symbol */
-      title = title.replace(/\s/g, '-')
-      blogPost.url = `/blog/post/${title}`
+      // let title = blogPost.title
+      // title = title.toLowerCase()
+      // /* Remove unwanted characters, only accept alphanumeric and space */
+      // title = title.replace(/[^A-Za-z0-9 ]/g, '')
+      // /* Replace multi spaces with a single space */
+      // title = title.replace(/\s{2,}/g, ' ')
+      // /* Replace space with a '-' symbol */
+      // title = title.replace(/\s/g, '-')
+      blogPost.url = `/blog/post/${blogPost.id}`
       blogPost.params = `?id=${blogPost.id}`
       return blogPost
     })
