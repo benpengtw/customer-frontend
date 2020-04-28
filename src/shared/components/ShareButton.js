@@ -1,18 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { SvgIcon } from "@material-ui/core";
-import ColoredButton from "./ColoredButton";
-
+import React from 'react'
+import PropTypes from 'prop-types'
+import { SvgIcon } from '@material-ui/core'
+import ColoredButton from './ColoredButton'
 /**
  * Losely based on: https://sharingbuttons.io/
  */
 function ShareButton(props) {
-  let { type, title, description, ...rest } = props;
-  const site = window.location.href;
-  title = encodeURIComponent(title);
-  description = encodeURIComponent(description);
+  let { type, title, description, ...rest } = props
+  const site = window.location.href
+  title = encodeURIComponent(title)
+  description = encodeURIComponent(description)
   switch (type) {
-    case "Facebook":
+    case 'Facebook':
       return (
         <ColoredButton
           color="#3b5998"
@@ -26,8 +25,8 @@ function ShareButton(props) {
         >
           Share on Facebook
         </ColoredButton>
-      );
-    case "Twitter": {
+      )
+    case 'Twitter': {
       return (
         <ColoredButton
           color="#55acee"
@@ -41,9 +40,9 @@ function ShareButton(props) {
         >
           Share on Twitter
         </ColoredButton>
-      );
+      )
     }
-    case "Tumblr": {
+    case 'Tumblr': {
       return (
         <ColoredButton
           color="#35465c"
@@ -57,9 +56,9 @@ function ShareButton(props) {
         >
           Share on Tumblr
         </ColoredButton>
-      );
+      )
     }
-    case "E-Mail": {
+    case 'E-Mail': {
       return (
         <ColoredButton
           color="#777"
@@ -73,9 +72,9 @@ function ShareButton(props) {
         >
           Share by E-Mail
         </ColoredButton>
-      );
+      )
     }
-    case "Pinterest": {
+    case 'Pinterest': {
       return (
         <ColoredButton
           color="#bd081c"
@@ -89,9 +88,9 @@ function ShareButton(props) {
         >
           Share on Pinterest
         </ColoredButton>
-      );
+      )
     }
-    case "LinkedIn": {
+    case 'LinkedIn': {
       return (
         <ColoredButton
           color="#0077b5"
@@ -105,9 +104,9 @@ function ShareButton(props) {
         >
           Share on LinkedIn
         </ColoredButton>
-      );
+      )
     }
-    case "Reddit": {
+    case 'Reddit': {
       return (
         <ColoredButton
           color="#5f99cf"
@@ -121,9 +120,9 @@ function ShareButton(props) {
         >
           Share on Reddit
         </ColoredButton>
-      );
+      )
     }
-    case "XING": {
+    case 'XING': {
       return (
         <ColoredButton
           color="#1a7576"
@@ -137,9 +136,9 @@ function ShareButton(props) {
         >
           Share on XING
         </ColoredButton>
-      );
+      )
     }
-    case "WhatsApp": {
+    case 'WhatsApp': {
       return (
         <ColoredButton
           color="#25d366"
@@ -153,9 +152,9 @@ function ShareButton(props) {
         >
           Share on WhatsApp
         </ColoredButton>
-      );
+      )
     }
-    case "Hacker News": {
+    case 'Hacker News': {
       return (
         <ColoredButton
           color="#ff6600"
@@ -172,9 +171,9 @@ function ShareButton(props) {
         >
           Share on Hacker News
         </ColoredButton>
-      );
+      )
     }
-    case "VK": {
+    case 'VK': {
       return (
         <ColoredButton
           color="#507299"
@@ -188,28 +187,29 @@ function ShareButton(props) {
         >
           Share on VK
         </ColoredButton>
-      );
+      )
     }
-    case "Telegram": {
+    case 'Line': {
       return (
         <ColoredButton
-          color="#54A9EB"
-          href={`https://telegram.me/share/url?text=${description}&amp;&url=${site}`}
+          color="#00c300"
+          href={`https://social-plugins.line.me/lineit/share?text=${description}&amp;&url=${site}`}
           startIcon={
-            <SvgIcon>
-              <path d="M.707 8.475C.275 8.64 0 9.508 0 9.508s.284.867.718 1.03l5.09 1.897 1.986 6.38a1.102 1.102 0 0 0 1.75.527l2.96-2.41a.405.405 0 0 1 .494-.013l5.34 3.87a1.1 1.1 0 0 0 1.046.135 1.1 1.1 0 0 0 .682-.803l3.91-18.795A1.102 1.102 0 0 0 22.5.075L.706 8.475z" />
+            <SvgIcon viewBox="0 0 48 48">
+              <path
+                fill="#fff"
+                d="M37.113,22.417c0-5.865-5.88-10.637-13.107-10.637s-13.108,4.772-13.108,10.637c0,5.258,4.663,9.662,10.962,10.495c0.427,0.092,1.008,0.282,1.155,0.646c0.132,0.331,0.086,0.85,0.042,1.185c0,0-0.153,0.925-0.187,1.122c-0.057,0.331-0.263,1.296,1.135,0.707c1.399-0.589,7.548-4.445,10.298-7.611h-0.001C36.203,26.879,37.113,24.764,37.113,22.417z M18.875,25.907h-2.604c-0.379,0-0.687-0.308-0.687-0.688V20.01c0-0.379,0.308-0.687,0.687-0.687c0.379,0,0.687,0.308,0.687,0.687v4.521h1.917c0.379,0,0.687,0.308,0.687,0.687C19.562,25.598,19.254,25.907,18.875,25.907z M21.568,25.219c0,0.379-0.308,0.688-0.687,0.688s-0.687-0.308-0.687-0.688V20.01c0-0.379,0.308-0.687,0.687-0.687s0.687,0.308,0.687,0.687V25.219z M27.838,25.219c0,0.297-0.188,0.559-0.47,0.652c-0.071,0.024-0.145,0.036-0.218,0.036c-0.215,0-0.42-0.103-0.549-0.275l-2.669-3.635v3.222c0,0.379-0.308,0.688-0.688,0.688c-0.379,0-0.688-0.308-0.688-0.688V20.01c0-0.296,0.189-0.558,0.47-0.652c0.071-0.024,0.144-0.035,0.218-0.035c0.214,0,0.42,0.103,0.549,0.275l2.67,3.635V20.01c0-0.379,0.309-0.687,0.688-0.687c0.379,0,0.687,0.308,0.687,0.687V25.219z M32.052,21.927c0.379,0,0.688,0.308,0.688,0.688c0,0.379-0.308,0.687-0.688,0.687h-1.917v1.23h1.917c0.379,0,0.688,0.308,0.688,0.687c0,0.379-0.309,0.688-0.688,0.688h-2.604c-0.378,0-0.687-0.308-0.687-0.688v-2.603c0-0.001,0-0.001,0-0.001c0,0,0-0.001,0-0.001v-2.601c0-0.001,0-0.001,0-0.002c0-0.379,0.308-0.687,0.687-0.687h2.604c0.379,0,0.688,0.308,0.688,0.687s-0.308,0.687-0.688,0.687h-1.917v1.23H32.052z"
+              ></path>
             </SvgIcon>
           }
           {...rest}
         >
-          Share on Telegram
+          Share on LINE
         </ColoredButton>
-      );
+      )
     }
     default: {
-      throw new Error(
-        `No branch taken in switch-statement: ${type} is not a valid type.`
-      );
+      throw new Error(`No branch taken in switch-statement: ${type} is not a valid type.`)
     }
   }
 }
@@ -217,7 +217,7 @@ function ShareButton(props) {
 ShareButton.propTypes = {
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
-};
+  description: PropTypes.string.isRequired,
+}
 
-export default ShareButton;
+export default ShareButton

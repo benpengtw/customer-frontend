@@ -96,16 +96,25 @@ function BlogPost(props) {
                     <Typography className={classes.title} gutterBottom>
                       投資內容
                     </Typography>
-                    <Typography className={classes.timerIcon} gutterBottom>
-                      投資起始日
-                      <TimerIcon />
-                      {startDate}
-                    </Typography>
-                    <Typography className={classes.timerOffIcon} gutterBottom>
-                      投資到期日
+                    <Grid container spacing={0}>
+                      <Grid item xs={2}>
+                        <Box className={classes.timerIcon}>
+                          <TimerIcon style={{ fontSize: 35 }} />
+                        </Box>
+                      </Grid>
+                      <Grid item xs={10}>
+                        <Box color="#3c5a99">
+                          投資起始日
+                          <br />
+                          {startDate}
+                        </Box>
+                      </Grid>
+                    </Grid>
+                    <Box color="#fa6900">
                       <TimerOffIcon />
+                      投資到期日
                       {endDate}
-                    </Typography>
+                    </Box>
                   </CardContent>
                 </Card>
               </Grid>
@@ -114,12 +123,12 @@ function BlogPost(props) {
               {content}
               <Box pt={2}>
                 <Grid spacing={1} container>
-                  {['Facebook', 'Twitter', 'Reddit', 'Tumblr'].map((type, index) => (
+                  {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
                     <Grid item key={index}>
                       <ShareButton
                         type={type}
                         title="React SaaS Template"
-                        description="I found an awesome template for an webapp using React!"
+                        description={titleText}
                         disableElevation
                         variant="contained"
                         className="text-white"
