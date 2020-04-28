@@ -11,17 +11,21 @@ import {
   CardActions,
   CardContent,
   Divider,
-  Paper,
+  Button,
   lighten,
   LinearProgress,
+  TextField,
+  InputAdornment,
+  Input,
 } from '@material-ui/core'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 import TimerIcon from '@material-ui/icons/Timer'
+import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import BlogCardOld from './BlogCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
-//import ZoomImage from '../../../shared/components/ZoomImage'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { MobXProviderContext, useObserver } from 'mobx-react'
 const styles = (theme) => ({
@@ -43,14 +47,15 @@ const styles = (theme) => ({
     height: 'auto',
   },
   card: {
-    boxShadow: theme.shadows[4],
+    boxShadow: theme.shadows[3],
+    height: '100%',
   },
   timerIcon: {
-    color: '#3c5a99',
+    color: '#00468b',
     // textAlign: 'right',
   },
   timerOffIcon: {
-    color: '#fa6900',
+    color: theme.palette.secondary.main,
     // textAlign: 'right',
   },
 })
@@ -79,11 +84,11 @@ const images = [
 const BorderLinearProgress = withStyles({
   root: {
     height: 10,
-    backgroundColor: lighten('#ff6c5c', 0.5),
+    backgroundColor: lighten('#8b0000', 0.5),
   },
   bar: {
     borderRadius: 30,
-    backgroundColor: '#ff6c5c',
+    backgroundColor: '#8b0000',
   },
 })(LinearProgress)
 
@@ -91,11 +96,39 @@ function useStores() {
   return React.useContext(MobXProviderContext)
 }
 
+const thousands_separators = (num) => {
+  let num_parts = num
+    .toFixed(2)
+    .toString()
+    .split('.')
+  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return num_parts.join('.')
+}
+
 function BlogPost(props) {
   let store = useStores()
   const { articlesStore } = store
-  const { classes, date, title, src, content, otherArticles, titleText, startDate, endDate, percent } = props
+  const {
+    classes,
+    date,
+    title,
+    src,
+    content,
+    otherArticles,
+    titleText,
+    startDate,
+    endDate,
+    percent,
+    totalAmount,
+  } = props
   const [completed, setCompleted] = React.useState(0)
+  const [values, setValues] = React.useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  })
   const progress = React.useRef(() => {})
   useEffect(() => {
     document.title = `customer-frontend - ${titleText}`
@@ -128,6 +161,10 @@ function BlogPost(props) {
     }
   }, [])
 
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value })
+  }
+
   return useObserver(() => (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       <div className={classes.blogContentWrapper}>
@@ -150,10 +187,10 @@ function BlogPost(props) {
                 <ImageGallery items={images} useBrowserFullscreen={false} showPlayButton={false} showBullets={true} />
               </Grid>
               <Grid item md={4} xs={12}>
-                <Card className={classes.root} variant="outlined">
+                <Card className={classes.card} variant="outlined">
                   <CardContent>
-                    <Typography className={classes.title} gutterBottom>
-                      投資內容
+                    <Typography variant="h5" gutterBottom={true}>
+                      <b>投資內容</b>
                     </Typography>
                     <Grid container spacing={1}>
                       <Grid container item spacing={1} item xs={6}>
@@ -163,21 +200,21 @@ function BlogPost(props) {
                           </Box>
                         </Grid>
                         <Grid item md={10} xs={8}>
-                          <Box color="#3c5a99">
+                          <Box color="#00468b">
                             投資起始日
                             <br />
                             {startDate}
                           </Box>
                         </Grid>
                       </Grid>
-                      <Grid container item spacing={0} item xs={6}>
+                      <Grid container item spacing={1} item xs={6}>
                         <Grid item md={2} xs={4}>
                           <Box className={classes.timerOffIcon}>
                             <TimerOffIcon style={{ fontSize: 35 }} />
                           </Box>
                         </Grid>
                         <Grid item md={10} xs={8}>
-                          <Box color="#fa6900">
+                          <Box color="#8b0000 ">
                             投資到期日
                             <br />
                             {endDate}
@@ -186,64 +223,122 @@ function BlogPost(props) {
                       </Grid>
                     </Grid>
                     {/* money */}
-
+                    <br />
+                    <span>認購進度：{completed.toFixed(2) + '%'}</span>
                     <BorderLinearProgress variant="determinate" value={completed} />
-
+                    <br />
                     <Grid container spacing={1}>
                       <Grid container item spacing={1} item xs={6}>
-                        <Grid item md={2} xs={4}>
-                          <Box className={classes.timerIcon}>
-                            <TimerIcon style={{ fontSize: 35 }} />
-                          </Box>
-                        </Grid>
-                        <Grid item md={10} xs={8}>
-                          <Box color="#3c5a99">
-                            投資起始日
-                            <br />
-                            {startDate}
-                          </Box>
-                        </Grid>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span style={{ color: '#8b0000 ' }}>已投金額 </span>/
+                          <span style={{ color: '#00468b' }}> 貸款總額</span>
+                        </Typography>
                       </Grid>
-                      <Grid container item spacing={0} item xs={6}>
-                        <Grid item md={2} xs={4}>
-                          <Box className={classes.timerOffIcon}>
-                            <TimerOffIcon style={{ fontSize: 35 }} />
-                          </Box>
-                        </Grid>
-                        <Grid item md={10} xs={8}>
-                          <Box color="#fa6900">
-                            投資到期日
-                            <br />
-                            {endDate}
-                          </Box>
-                        </Grid>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span style={{ color: '#8b0000' }}>
+                            $ {thousands_separators(totalAmount * (completed / 100))} 萬{' '}
+                          </span>{' '}
+                          /<span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount)} 萬</span>
+                        </Typography>
                       </Grid>
+                    </Grid>
+                    <br />
+                    <Grid container spacing={1}>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span>建物坪數: {articlesStore.fakeHouse.column2}坪</span>
+                        </Typography>
+                      </Grid>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span>土地持分坪數: {articlesStore.fakeHouse.column3}坪</span>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                    <Grid container spacing={1}>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span>車位: {articlesStore.fakeHouse.column4}</span>
+                        </Typography>
+                      </Grid>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span>類型: {articlesStore.fakeHouse.column6}</span>
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                    <Grid container spacing={1}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>市價: {articlesStore.fakeHouse.column5}</span>
+                      </Typography>
+                    </Grid>
+                    <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                    <Grid container spacing={1}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>地址: {articlesStore.fakeHouse.column1}</span>
+                      </Typography>
+                    </Grid>
+                    <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                    <Grid container spacing={1}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>簡介: {articlesStore.fakeHouse.column7}</span>
+                      </Typography>
+                    </Grid>
+                    <br />
+                    <Grid container spacing={1}>
+                      <Grid container item spacing={1} item xs={6} justify="flex-end">
+                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                          我要投資：
+                        </Typography>
+                      </Grid>
+                      <Grid container item spacing={1} item xs={4}>
+                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <Input
+                            id="standard-adornment-weight"
+                            value={values.weight}
+                            onChange={handleChange('weight')}
+                            type="number"
+                            endAdornment={<InputAdornment position="end">萬元</InputAdornment>}
+                          />
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <br />
+                    <Grid container spacing={1} justify="center" alignItems="flex-end">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        startIcon={<TrendingUpIcon />}
+                      >
+                        我要投資
+                      </Button>
                     </Grid>
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
             <Box p={3}>
-              {articlesStore.fakeHouse.column7}
-              <Box pt={2}>
-                <Grid spacing={1} container>
-                  {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
-                    <Grid item key={index}>
-                      <ShareButton
-                        type={type}
-                        title={titleText}
-                        description={titleText}
-                        disableElevation
-                        variant="contained"
-                        className="text-white"
-                        classes={{
-                          label: 'text-white',
-                        }}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Box>
+              <Grid spacing={1} container justify="center" alignItems="center">
+                {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
+                  <Grid item key={index}>
+                    <ShareButton
+                      type={type}
+                      title={titleText}
+                      description={titleText}
+                      disableElevation
+                      variant="contained"
+                      className="text-white"
+                      classes={{
+                        label: 'text-white',
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </Box>
             {/* </Card> */}
           </Grid>
