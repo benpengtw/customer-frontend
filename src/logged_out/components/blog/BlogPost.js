@@ -23,6 +23,7 @@ import ShareButton from '../../../shared/components/ShareButton'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
 import 'react-image-gallery/styles/css/image-gallery.css'
+import { MobXProviderContext, useObserver } from 'mobx-react'
 const styles = (theme) => ({
   blogContentWrapper: {
     marginLeft: theme.spacing(1),
@@ -86,14 +87,22 @@ const BorderLinearProgress = withStyles({
   },
 })(LinearProgress)
 
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
+
 function BlogPost(props) {
+  let store = useStores()
+  const { articlesStore } = store
   const { classes, date, title, src, content, otherArticles, titleText, startDate, endDate, percent } = props
-  console.log('aaa', props)
   const [completed, setCompleted] = React.useState(0)
   const progress = React.useRef(() => {})
   useEffect(() => {
     document.title = `customer-frontend - ${titleText}`
     smoothScrollTop()
+    articlesStore.loadfakeHouse()
+    console.log('ssss', articlesStore.fakeHouse)
+    console.log('aaa', props)
   }, [title])
 
   useEffect(() => {
@@ -119,12 +128,12 @@ function BlogPost(props) {
     }
   }, [])
 
-  return (
+  return useObserver(() => (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       <div className={classes.blogContentWrapper}>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            {/* <Card className={classes.card}> */}
+            {/*console.log('ssss', articlesStore.totalPagesCount)*/}
             <Box pt={3} pr={3} pl={3} pb={2}>
               <Typography variant="h4">
                 <b>{titleText}</b>
@@ -215,7 +224,7 @@ function BlogPost(props) {
               </Grid>
             </Grid>
             <Box p={3}>
-              {content}
+              {articlesStore.fakeHouse.column7}
               <Box pt={2}>
                 <Grid spacing={1} container>
                   {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
@@ -258,7 +267,7 @@ function BlogPost(props) {
         </Grid>
       </div>
     </Box>
-  )
+  ))
 }
 
 BlogPost.propTypes = {

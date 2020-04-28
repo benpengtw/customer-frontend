@@ -61,7 +61,7 @@ class DialogSelector extends PureComponent {
 
   render() {
     const { dialogOpen, articlesStore } = this.props
-    console.log('ssss', articlesStore.totalPagesCount)
+    //console.log('ssss', articlesStore.totalPagesCount)
     return (
       <Fragment>
         {dialogOpen && <ModalBackdrop open />}
