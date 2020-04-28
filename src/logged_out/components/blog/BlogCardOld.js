@@ -50,7 +50,7 @@ const styles = (theme) => ({
 })
 
 function BlogCardOld(props) {
-  const { classes, url, src, date, title, snippet } = props
+  const { classes, url, src, date, title } = props
   return (
     <Card className={classes.card}>
       {src && (
@@ -69,12 +69,6 @@ function BlogCardOld(props) {
             <span className={classes.title}>{title}</span>
           </Typography>
         </Link>
-        {/* <Typography variant="body1" color="textSecondary">
-          {snippet}
-          <Link to={url} className={classes.noDecoration} tabIndex={-1}>
-            <span className={classes.link}> read more...</span>
-          </Link>
-        </Typography> */}
       </Box>
     </Card>
   )
@@ -85,7 +79,6 @@ BlogCardOld.propTypes = {
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
-  snippet: PropTypes.string.isRequired,
   src: PropTypes.string,
 }
 

@@ -134,7 +134,6 @@ function BlogCard(props) {
     date,
     title,
     titleText,
-    snippet,
     startDate,
     endDate,
     irr,
@@ -252,7 +251,7 @@ function BlogCard(props) {
                   </Typography>
                 </Grid>
               </Grid>
-              <BorderLinearProgress className={classes.progress} variant="determinate" value={completed} />
+              <BorderLinearProgress variant="determinate" value={completed} />
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
                   起始時間：{startDate}
@@ -278,17 +277,17 @@ function BlogCard(props) {
 
 BlogCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
+  src: PropTypes.string,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   irr: PropTypes.number.isRequired,
-  snippet: PropTypes.string.isRequired,
-  src: PropTypes.string,
   totalAmount: PropTypes.number.isRequired,
+  content: PropTypes.node.isRequired,
   percent: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
   repaymentType: PropTypes.string.isRequired,
 }
 

@@ -18,14 +18,16 @@ function Routing(props) {
           component={BlogPost}
           title={post.title}
           titleText={post.titleText}
-          key={post.id}
-          src={post.imageSrc}
           date={post.date}
+          src={post.imageSrc}
           startDate={post.startDate}
           endDate={post.endDate}
-          totalAmount={post.totalAmount}
           irr={post.irr}
+          totalAmount={post.totalAmount}
           content={post.content}
+          percent={post.percent}
+          totalAmount={post.totalAmount}
+          key={post.id}
           otherArticles={blogPosts.filter((blogPost) => blogPost.id !== post.id)}
         />
       ))}

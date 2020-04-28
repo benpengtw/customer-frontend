@@ -2,7 +2,19 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import format from 'date-fns/format'
-import { Grid, Typography, Card, Box, withStyles, CardActions, CardContent, Divider, Paper } from '@material-ui/core'
+import {
+  Grid,
+  Typography,
+  Card,
+  Box,
+  withStyles,
+  CardActions,
+  CardContent,
+  Divider,
+  Paper,
+  lighten,
+  LinearProgress,
+} from '@material-ui/core'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 import TimerIcon from '@material-ui/icons/Timer'
 import BlogCardOld from './BlogCardOld'
@@ -19,7 +31,7 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(4),
       marginRight: theme.spacing(4),
     },
-    maxWidth: 1280,
+    maxWidth: 1600,
     width: '100%',
   },
   wrapper: {
@@ -34,9 +46,11 @@ const styles = (theme) => ({
   },
   timerIcon: {
     color: '#3c5a99',
+    // textAlign: 'right',
   },
   timerOffIcon: {
     color: '#fa6900',
+    // textAlign: 'right',
   },
 })
 
@@ -61,13 +75,49 @@ const images = [
   },
 ]
 
+const BorderLinearProgress = withStyles({
+  root: {
+    height: 10,
+    backgroundColor: lighten('#ff6c5c', 0.5),
+  },
+  bar: {
+    borderRadius: 30,
+    backgroundColor: '#ff6c5c',
+  },
+})(LinearProgress)
+
 function BlogPost(props) {
-  const { classes, date, title, src, content, otherArticles, titleText, startDate, endDate } = props
-  console.log(props)
+  const { classes, date, title, src, content, otherArticles, titleText, startDate, endDate, percent } = props
+  console.log('aaa', props)
+  const [completed, setCompleted] = React.useState(0)
+  const progress = React.useRef(() => {})
   useEffect(() => {
     document.title = `customer-frontend - ${titleText}`
     smoothScrollTop()
   }, [title])
+
+  useEffect(() => {
+    progress.current = () => {
+      if (completed >= percent) {
+        setCompleted(percent)
+        return
+      } else {
+        const diff = Math.random() * 10
+        setCompleted(completed + diff)
+      }
+    }
+  })
+
+  useEffect(() => {
+    function tick() {
+      progress.current()
+    }
+    const timer = setInterval(tick, 150)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
 
   return (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
@@ -86,35 +136,80 @@ function BlogPost(props) {
               </Typography>
             </Box>
             {/* <ZoomImage className={classes.img} src={src} alt="" /> */}
-            <Grid container spacing={5}>
+            <Grid container spacing={2}>
               <Grid item md={8}>
                 <ImageGallery items={images} useBrowserFullscreen={false} showPlayButton={false} showBullets={true} />
               </Grid>
-              <Grid item md={4}>
+              <Grid item md={4} xs={12}>
                 <Card className={classes.root} variant="outlined">
                   <CardContent>
                     <Typography className={classes.title} gutterBottom>
                       投資內容
                     </Typography>
-                    <Grid container spacing={0}>
-                      <Grid item xs={2}>
-                        <Box className={classes.timerIcon}>
-                          <TimerIcon style={{ fontSize: 35 }} />
-                        </Box>
+                    <Grid container spacing={1}>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Grid item md={2} xs={4}>
+                          <Box className={classes.timerIcon}>
+                            <TimerIcon style={{ fontSize: 35 }} />
+                          </Box>
+                        </Grid>
+                        <Grid item md={10} xs={8}>
+                          <Box color="#3c5a99">
+                            投資起始日
+                            <br />
+                            {startDate}
+                          </Box>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={10}>
-                        <Box color="#3c5a99">
-                          投資起始日
-                          <br />
-                          {startDate}
-                        </Box>
+                      <Grid container item spacing={0} item xs={6}>
+                        <Grid item md={2} xs={4}>
+                          <Box className={classes.timerOffIcon}>
+                            <TimerOffIcon style={{ fontSize: 35 }} />
+                          </Box>
+                        </Grid>
+                        <Grid item md={10} xs={8}>
+                          <Box color="#fa6900">
+                            投資到期日
+                            <br />
+                            {endDate}
+                          </Box>
+                        </Grid>
                       </Grid>
                     </Grid>
-                    <Box color="#fa6900">
-                      <TimerOffIcon />
-                      投資到期日
-                      {endDate}
-                    </Box>
+                    {/* money */}
+
+                    <BorderLinearProgress variant="determinate" value={completed} />
+
+                    <Grid container spacing={1}>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Grid item md={2} xs={4}>
+                          <Box className={classes.timerIcon}>
+                            <TimerIcon style={{ fontSize: 35 }} />
+                          </Box>
+                        </Grid>
+                        <Grid item md={10} xs={8}>
+                          <Box color="#3c5a99">
+                            投資起始日
+                            <br />
+                            {startDate}
+                          </Box>
+                        </Grid>
+                      </Grid>
+                      <Grid container item spacing={0} item xs={6}>
+                        <Grid item md={2} xs={4}>
+                          <Box className={classes.timerOffIcon}>
+                            <TimerOffIcon style={{ fontSize: 35 }} />
+                          </Box>
+                        </Grid>
+                        <Grid item md={10} xs={8}>
+                          <Box color="#fa6900">
+                            投資到期日
+                            <br />
+                            {endDate}
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
@@ -127,7 +222,7 @@ function BlogPost(props) {
                     <Grid item key={index}>
                       <ShareButton
                         type={type}
-                        title="React SaaS Template"
+                        title={titleText}
                         description={titleText}
                         disableElevation
                         variant="contained"
@@ -153,7 +248,6 @@ function BlogPost(props) {
               <Box mb={3}>
                 <BlogCardOld
                   title={blogPost.titleText}
-                  snippet={blogPost.snippet}
                   date={blogPost.date}
                   src={blogPost.imageSrc}
                   url={`${blogPost.url}${blogPost.params}`}
@@ -178,6 +272,7 @@ BlogPost.propTypes = {
   irr: PropTypes.number.isRequired,
   totalAmount: PropTypes.number.isRequired,
   content: PropTypes.node.isRequired,
+  percent: PropTypes.number.isRequired,
   otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 

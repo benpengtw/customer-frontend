@@ -49,13 +49,13 @@ function getVerticalBlogPosts(width, blogPosts) {
               src={blogPost.imageSrc}
               title={blogPost.title}
               titleText={blogPost.titleText}
-              snippet={blogPost.snippet}
               date={blogPost.date}
               startDate={blogPost.startDate}
               endDate={blogPost.endDate}
               irr={blogPost.irr}
               url={blogPost.url}
               totalAmount={blogPost.totalAmount}
+              content={blogPost.content}
               percent={blogPost.percent}
               repaymentType={blogPost.repaymentType}
             />
