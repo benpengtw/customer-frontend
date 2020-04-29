@@ -148,11 +148,9 @@ function BlogCard(props) {
   const progress = React.useRef(() => {})
   React.useEffect(() => {
     if (moment().isAfter(moment(endDate, 'YYYY-MM-DD'))) {
-      console.log('sss', endDate)
       setIFendDate(true)
     }
     if (percent == 100) {
-      console.log('sss', endDate)
       setIFfullPercent(true)
     }
     console.log('dddddd', moment(endDate, 'YYYY-MM-DD').isValid())

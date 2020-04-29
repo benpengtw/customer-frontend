@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import format from 'date-fns/format'
@@ -25,7 +25,7 @@ import BlogCardOld from './BlogCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
-import FormHelperText from '@material-ui/core/FormHelperText'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { MobXProviderContext, useObserver } from 'mobx-react'
 const styles = (theme) => ({
@@ -81,6 +81,95 @@ const images = [
   },
 ]
 
+const fakeContent = (
+  <Fragment>
+    <Grid item xs={12}>
+      <Grid container justify="flex-start" spacing={1}>
+        <Grid item>
+          <Box
+            style={{
+              checkCircleIcon: {
+                color: '#40c440',
+              },
+            }}
+            justifyContent="right"
+          >
+            <CheckCircleIcon style={{ color: '#40c440' }} />
+          </Box>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" gutterBottom>
+            步行4分鐘到大里火車站、公車站
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid item xs={12}>
+      <Grid container justify="flex-start" spacing={1}>
+        <Grid item>
+          <Box
+            style={{
+              checkCircleIcon: {
+                color: '#40c440',
+              },
+            }}
+            justifyContent="right"
+          >
+            <CheckCircleIcon style={{ color: '#40c440' }} />
+          </Box>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" gutterBottom>
+            大里海邊、草嶺古道，依山傍水
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid item xs={12}>
+      <Grid container justify="flex-start" spacing={1}>
+        <Grid item>
+          <Box
+            style={{
+              checkCircleIcon: {
+                color: '#40c440',
+              },
+            }}
+            justifyContent="right"
+          >
+            <CheckCircleIcon style={{ color: '#40c440' }} />
+          </Box>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" gutterBottom>
+            緊鄰學區大里國民小學
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+    <Grid item xs={12}>
+      <Grid container justify="flex-start" spacing={1}>
+        <Grid item>
+          <Box
+            style={{
+              checkCircleIcon: {
+                color: '#40c440',
+              },
+            }}
+            justifyContent="right"
+          >
+            <CheckCircleIcon style={{ color: '#40c440' }} />
+          </Box>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" gutterBottom>
+            第一順位
+          </Typography>
+        </Grid>
+      </Grid>
+    </Grid>
+  </Fragment>
+)
+
 const BorderLinearProgress = withStyles({
   root: {
     height: 10,
@@ -133,10 +222,12 @@ function BlogPost(props) {
   useEffect(() => {
     document.title = `customer-frontend - ${titleText}`
     smoothScrollTop()
-    articlesStore.loadfakeHouse()
-    console.log('ssss', articlesStore.fakeHouse)
-    console.log('aaa', props)
   }, [title])
+
+  useEffect(() => {
+    articlesStore.loadfakeHouse()
+    console.log('aaa', props)
+  }, [])
 
   useEffect(() => {
     progress.current = () => {
@@ -149,6 +240,7 @@ function BlogPost(props) {
       }
     }
   })
+  console.log('ssss', articlesStore.fakeHouse)
 
   useEffect(() => {
     function tick() {
@@ -282,11 +374,7 @@ function BlogPost(props) {
                       </Typography>
                     </Grid>
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                    <Grid container spacing={1}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>簡介: {articlesStore.fakeHouse.column7}</span>
-                      </Typography>
-                    </Grid>
+                    {fakeContent}
                     <br />
                     <Grid container spacing={1}>
                       <Grid container item spacing={1} item xs={6} justify="flex-end">
