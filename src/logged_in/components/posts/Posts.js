@@ -13,17 +13,7 @@ class Posts extends PureComponent {
     selectPosts()
   }
 
-  openAddPostModal = () => {
-    this.setState({ addPostPaperOpen: true })
-  }
-
-  closeAddPostModal = () => {
-    this.setState({ addPostPaperOpen: false })
-  }
-
   render() {
-    const { addPostPaperOpen, addPostModalOpen } = this.state
-    const { EmojiTextArea, ImageCropper, Dropzone, DateTimePicker, pushMessageToSnackbar, posts } = this.props
     return (
       <Fragment>
         <Typography variant="h6" gutterBottom>
@@ -84,16 +74,6 @@ class Posts extends PureComponent {
       </Fragment>
     )
   }
-}
-
-Posts.propTypes = {
-  EmojiTextArea: PropTypes.elementType,
-  ImageCropper: PropTypes.elementType,
-  Dropzone: PropTypes.elementType,
-  DateTimePicker: PropTypes.elementType,
-  posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  pushMessageToSnackbar: PropTypes.func,
-  selectPosts: PropTypes.func.isRequired,
 }
 
 export default Posts

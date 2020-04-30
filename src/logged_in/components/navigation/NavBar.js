@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useCallback, useState } from 'react'
+import React, { Fragment, useRef, useCallback, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -21,17 +21,21 @@ import {
   withWidth,
 } from '@material-ui/core'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-import ImageIcon from '@material-ui/icons/Image'
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import MenuIcon from '@material-ui/icons/Menu'
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import MessagePopperButton from './MessagePopperButton'
 import SideDrawer from './SideDrawer'
-import Balance from './Balance'
+// import Balance from './Balance'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
-import profilePicture from '../../dummy_data/images/profilePicture.jpg'
+import profilePicture from '../../dummy_data/images/profilePicture.png'
 import logo from '../../../assets/logoRed.png'
+import { MobXProviderContext, useObserver } from 'mobx-react'
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
 
 const styles = (theme) => ({
   appBar: {
@@ -138,6 +142,12 @@ function NavBar(props) {
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
+  let store = useStores()
+  const { userStore } = store
+  useEffect(() => {
+    userStore.getMe()
+    console.log('currentUser', userStore.currentUser)
+  }, [])
 
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
@@ -176,9 +186,12 @@ function NavBar(props) {
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
-          <ImageIcon className={selectedTab === 'Posts' ? classes.textRedTheme : 'text-white'} fontSize="small" />
+          <AccountBalanceWalletIcon
+            className={selectedTab === 'Posts' ? classes.textRedTheme : 'text-white'}
+            fontSize="small"
+          />
         ),
-        mobile: <ImageIcon className="text-white" />,
+        mobile: <AccountBalanceWalletIcon className="text-white" />,
       },
     },
     {
@@ -223,18 +236,18 @@ function NavBar(props) {
             </Hidden>
           </Box>
           <Box display="flex" justifyContent="flex-end" alignItems="center" width="100%">
-            {isWidthUp('sm', width) && (
+            {/*isWidthUp('sm', width) && (
               <Box mr={3}>
                 <Balance balance={2573} openAddBalanceDialog={openAddBalanceDialog} />
               </Box>
-            )}
-            <MessagePopperButton messages={messages} />
+            )*/}
+            {/* <MessagePopperButton messages={messages} /> */}
             <ListItem disableGutters className={classNames(classes.iconListItem, classes.smBordered)}>
               <Avatar alt="profile picture" src={profilePicture} className={classNames(classes.accountAvatar)} />
               {isWidthUp('sm', width) && (
                 <ListItemText
                   className={classes.username}
-                  primary={<Typography color="textPrimary">Username</Typography>}
+                  primary={<Typography color="textPrimary">{userStore.currentUser.name}</Typography>}
                 />
               )}
             </ListItem>

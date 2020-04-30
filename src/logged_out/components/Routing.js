@@ -8,7 +8,6 @@ import BlogPost from './blog/BlogPost'
 
 function Routing(props) {
   const { blogPosts, selectBlog, selectHome } = props
-  console.log(blogPosts)
   return (
     <Switch>
       {blogPosts.map((post) => (
