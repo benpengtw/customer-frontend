@@ -142,9 +142,11 @@ function NavBar(props) {
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
-  const [isClear, setIsClear] = useState(false)
   let store = useStores()
   const { userStore } = store
+  // useEffect(() => {
+  //   userStore.getMe()
+  // }, [])
   console.log('NavBar', userStore.currentUser.name)
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
@@ -162,9 +164,12 @@ function NavBar(props) {
     setIsSideDrawerOpen(false)
   }, [setIsSideDrawerOpen])
 
-  const clearLoginData = useCallback(() => {
+  const clearLoginData = () => {
+    console.log('userStore', userStore.currentUser.name)
     userStore.forgetUser()
-  }, [setIsClear])
+    window.localStorage.removeItem('token')
+    window.location.reload(true)
+  }
 
   const menuItems = [
     {

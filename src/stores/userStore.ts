@@ -2,7 +2,11 @@ import { observable, action } from 'mobx'
 import agent from '../agent'
 import { customerMe } from './userService'
 class UserStore {
-  @observable currentUser = {}
+  @observable isLoading = false
+  @observable currentUser = {
+    email: '',
+    name: '',
+  }
   @observable loadingUser
   @observable updatingUser
   @observable updatingUserErrors
@@ -38,17 +42,15 @@ class UserStore {
   }
 
   @action forgetUser() {
-    console.log('ss1', window.history)
-    window.location.reload(true)
-    window.localStorage.removeItem('token')
-    console.log('userStore', this.currentUser)
-    //this.currentUser = {}
+    this.currentUser.name = ''
+    this.currentUser.email = ''
   }
 
   @action async getMe() {
     const response = await customerMe()
     if (response.status === 'success') {
-      this.currentUser = response.data
+      this.currentUser.email = response.data.email
+      this.currentUser.name = response.data.name
     }
     return
   }
