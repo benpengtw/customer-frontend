@@ -26,7 +26,7 @@ request.interceptors.request.use(
         .find((d) => d == true)
     ) {
       alert('You need login')
-      //window.location.href = '/'
+      window.location.href = '/'
       return config
     }
 

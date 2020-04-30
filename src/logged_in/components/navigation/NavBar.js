@@ -137,17 +137,14 @@ const styles = (theme) => ({
 })
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, width, openAddBalanceDialog } = props
+  const { selectedTab, messages, classes, width, openAddBalanceDialog, history } = props
   // Will be use to make website more accessible by screen readers
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
+  const [isClear, setIsClear] = useState(false)
   let store = useStores()
   const { userStore } = store
-  useEffect(() => {
-    userStore.getMe()
-    console.log('currentUser', userStore.currentUser)
-  }, [])
 
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
@@ -164,6 +161,10 @@ function NavBar(props) {
   const closeDrawer = useCallback(() => {
     setIsSideDrawerOpen(false)
   }, [setIsSideDrawerOpen])
+
+  const clearLoginData = useCallback(() => {
+    userStore.forgetUser()
+  }, [setIsClear])
 
   const menuItems = [
     {
@@ -211,6 +212,7 @@ function NavBar(props) {
     {
       link: '/',
       name: 'Logout',
+      onClick: clearLoginData,
       icon: {
         desktop: <PowerSettingsNewIcon className="text-white" fontSize="small" />,
         mobile: <PowerSettingsNewIcon className="text-white" />,
@@ -252,10 +254,10 @@ function NavBar(props) {
               )}
             </ListItem>
           </Box>
-          <IconButton onClick={openDrawer} color="primary" aria-label="Open Sidedrawer">
+          {/* <IconButton onClick={openDrawer} color="primary" aria-label="Open Sidedrawer">
             <SupervisorAccountIcon />
           </IconButton>
-          <SideDrawer open={isSideDrawerOpen} onClose={closeDrawer} />
+          <SideDrawer open={isSideDrawerOpen} onClose={closeDrawer} /> */}
         </Toolbar>
       </AppBar>
       <Hidden xsDown>

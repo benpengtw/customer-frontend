@@ -8,7 +8,7 @@ import ConsecutiveSnackbarMessages from '../../shared/components/ConsecutiveSnac
 import smoothScrollTop from '../../shared/functions/smoothScrollTop'
 import persons from '../dummy_data/persons'
 import LazyLoadAddBalanceDialog from './subscription/LazyLoadAddBalanceDialog'
-
+import { observer, inject } from 'mobx-react'
 const styles = (theme) => ({
   main: {
     marginLeft: theme.spacing(9),
@@ -28,7 +28,8 @@ function shuffle(array) {
     ;[array[i], array[j]] = [array[j], array[i]]
   }
 }
-
+@inject('userStore')
+@observer
 class Main extends PureComponent {
   state = {
     selectedTab: null,
@@ -47,6 +48,7 @@ class Main extends PureComponent {
   }
 
   componentDidMount() {
+    this.props.userStore.getMe()
     this.fetchRandomTargets()
     this.fetchRandomStatistics()
     this.fetchRandomTransactions()

@@ -37,7 +37,13 @@ class UserStore {
       )
   }
 
-  @action forgetUser() {}
+  @action forgetUser() {
+    console.log('ss1', window.history)
+    this.currentUser = {}
+    window.location.reload(true)
+    window.localStorage.removeItem('token')
+    this.currentUser = {}
+  }
 
   @action async getMe() {
     const response = await customerMe()
