@@ -39,10 +39,10 @@ class UserStore {
 
   @action forgetUser() {
     console.log('ss1', window.history)
-    this.currentUser = {}
     window.location.reload(true)
     window.localStorage.removeItem('token')
-    this.currentUser = {}
+    console.log('userStore', this.currentUser)
+    //this.currentUser = {}
   }
 
   @action async getMe() {

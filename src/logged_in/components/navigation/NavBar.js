@@ -145,7 +145,7 @@ function NavBar(props) {
   const [isClear, setIsClear] = useState(false)
   let store = useStores()
   const { userStore } = store
-
+  console.log('NavBar', userStore.currentUser.name)
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
   }, [setIsMobileOpen])

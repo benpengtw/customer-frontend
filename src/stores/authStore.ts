@@ -29,10 +29,9 @@ class AuthStore {
   @action async login({ payload, history }) {
     this.inProgress = true
     this.errors = undefined
-    console.log('payload', payload)
-    console.log('history', history)
+    // console.log('payload', payload)
+    // console.log('history', history)
     const response = await AccountLogin(payload)
-    console.log('rq', response)
     if (response.status === 'success') {
       this.values.isLogged = true
       setTimeout(() => {
