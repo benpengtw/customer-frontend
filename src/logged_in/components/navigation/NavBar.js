@@ -83,7 +83,8 @@ const styles = (theme) => ({
     overflowX: 'hidden',
     marginTop: theme.spacing(8),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+      //width: theme.spacing(9),
+      width: '200px',
     },
     backgroundColor: theme.palette.common.black,
   },
@@ -106,6 +107,9 @@ const styles = (theme) => ({
   },
   textPrimary: {
     color: theme.palette.primary.main,
+  },
+  textRedTheme: {
+    color: '#8a1818',
   },
   mobileItemSelected: {
     backgroundColor: `${theme.palette.primary.main} !important`,
@@ -159,7 +163,7 @@ function NavBar(props) {
       icon: {
         desktop: (
           <DashboardIcon
-            className={selectedTab === 'Dashboard' ? classes.textPrimary : 'text-white'}
+            className={selectedTab === 'Dashboard' ? classes.textRedTheme : 'text-white'}
             fontSize="small"
           />
         ),
@@ -168,23 +172,23 @@ function NavBar(props) {
     },
     {
       link: '/c/posts',
-      name: 'Posts',
+      name: '錢包設定',
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
-          <ImageIcon className={selectedTab === 'Posts' ? classes.textPrimary : 'text-white'} fontSize="small" />
+          <ImageIcon className={selectedTab === 'Posts' ? classes.textRedTheme : 'text-white'} fontSize="small" />
         ),
         mobile: <ImageIcon className="text-white" />,
       },
     },
     {
       link: '/c/subscription',
-      name: 'Subscription',
+      name: '已投資項目',
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
           <AccountBalanceIcon
-            className={selectedTab === 'Subscription' ? classes.textPrimary : 'text-white'}
+            className={selectedTab === 'Subscription' ? classes.textRedTheme : 'text-white'}
             fontSize="small"
           />
         ),
@@ -213,7 +217,9 @@ function NavBar(props) {
               </Box>
             </Hidden>
             <Hidden xsDown>
-              <img src={logo} width="120px" alt="" />
+              <Link to="/" className={classes.noDecoration}>
+                <img src={logo} width="120px" alt="" />
+              </Link>
             </Hidden>
           </Box>
           <Box display="flex" justifyContent="flex-end" alignItems="center" width="100%">
@@ -270,6 +276,13 @@ function NavBar(props) {
                     aria-label={element.name === 'Logout' ? 'Logout' : `Go to ${element.name}`}
                   >
                     <ListItemIcon className={classes.justifyCenter}>{element.icon.desktop}</ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Typography variant="subtitle1" className="text-white">
+                          {element.name}
+                        </Typography>
+                      }
+                    />
                   </ListItem>
                 </Tooltip>
               </Link>
