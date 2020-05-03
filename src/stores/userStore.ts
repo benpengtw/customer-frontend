@@ -1,12 +1,14 @@
 import { observable, action } from 'mobx'
+import request from '../shared/request'
 import agent from '../agent'
-import { customerMe } from './userService'
+//import { customerMe } from './userService'
 class UserStore {
   @observable isLoading = false
   @observable currentUser = {
-    email: '',
+    email:'' ,
     name: '',
   }
+  @observable currentUserName
   @observable loadingUser
   @observable updatingUser
   @observable updatingUserErrors
@@ -43,16 +45,31 @@ class UserStore {
 
   @action forgetUser() {
     this.currentUser.name = ''
-    this.currentUser.email = ''
+    this.currentUser.email = '' 
   }
 
-  @action async getMe() {
-    const response = await customerMe()
-    if (response.status === 'success') {
-      this.currentUser.email = response.data.email
-      this.currentUser.name = response.data.name
-    }
-    return
+  @action getMe() {
+    // const response = await customerMe()
+    // if (response.status === 'success') {
+    //   this.currentUser.email = response.data.email
+    //   this.currentUser.name = response.data.name
+    // }
+    // return
+    return request('/customer/me').then(
+      action((response) => {
+        const status:any=response.status
+        if (status === 'success') {
+            this.currentUser.email = response.data.email
+            this.currentUser.name = response.data.name
+            this.currentUserName=response.data.name
+        }
+      })
+    ).catch((error) => {
+      // do something with request error
+      const { response } = error
+      console.log('err', response)
+      return Promise.resolve(error)
+    })
   }
 }
 

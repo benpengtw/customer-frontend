@@ -46,7 +46,7 @@ export class ArticlesStore {
     return this.$req()
       .then(
         action(({ articles, articlesCount }) => {
-          console.log('sssasasss', articlesCount)
+          //console.log('sssasasss', articlesCount)
           this.articlesRegistry.clear()
           articles.forEach((article) => this.articlesRegistry.set(article.slug, article))
           this.totalPagesCount = Math.ceil(articlesCount / LIMIT)

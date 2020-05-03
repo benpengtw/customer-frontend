@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useCallback, useState, useEffect } from 'react'
+import React, { Fragment, useRef, useCallback, useState, useEffect, useReducer } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -32,7 +32,8 @@ import SideDrawer from './SideDrawer'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import profilePicture from '../../dummy_data/images/profilePicture.png'
 import logo from '../../../assets/logoRed.png'
-import { MobXProviderContext, useObserver } from 'mobx-react'
+import { MobXProviderContext, useObserver,Observer } from 'mobx-react'
+import { autorun,computed  } from 'mobx'
 function useStores() {
   return React.useContext(MobXProviderContext)
 }
@@ -142,11 +143,16 @@ function NavBar(props) {
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
   let store = useStores()
   const { userStore } = store
-  // useEffect(() => {
-  //   userStore.getMe()
-  // }, [])
+  useEffect(() => {
+    if(userStore.currentUser.name==''){
+      console.log('Fuck')
+
+    }}, [])
+  
+  console.log('NaQvBar', userStore.currentUserName)
   console.log('NavBar', userStore.currentUser.name)
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
@@ -168,7 +174,7 @@ function NavBar(props) {
     console.log('userStore', userStore.currentUser.name)
     userStore.forgetUser()
     window.localStorage.removeItem('token')
-    window.location.reload(true)
+    //window.location.reload(true)
   }
 
   const menuItems = [
