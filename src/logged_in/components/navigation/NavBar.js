@@ -25,6 +25,7 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import MenuIcon from '@material-ui/icons/Menu'
+import ReplyIcon from '@material-ui/icons/Reply'
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import MessagePopperButton from './MessagePopperButton'
 import SideDrawer from './SideDrawer'
@@ -142,7 +143,6 @@ function NavBar(props) {
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
-  const [, forceUpdate] = useReducer((x) => x + 1, 0)
   let store = useStores()
   const { userStore } = store
 
@@ -171,6 +171,15 @@ function NavBar(props) {
   }
 
   const menuItems = [
+    {
+      link: '/',
+      name: '返回前台',
+      onClick: closeMobileDrawer,
+      icon: {
+        desktop: <ReplyIcon className="text-white" fontSize="small" />,
+        mobile: <ReplyIcon className="text-white" />,
+      },
+    },
     {
       link: '/c/dashboard',
       name: 'Dashboard',

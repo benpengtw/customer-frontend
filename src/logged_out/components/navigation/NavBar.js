@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography, Button, Hidden, IconButton, withStyles, Box, Avatar } from '@material-ui/core'
@@ -142,8 +142,8 @@ function NavBar(props) {
                 }
                 if (currentUserName) {
                   return (
-                    <>
-                      <Link key={'admin'} to={'/c/dashboard'} className={classes.noDecoration}>
+                    <Fragment key="logged">
+                      <Link to={'/c/dashboard'} className={classes.noDecoration}>
                         <Button color="secondary" size="large" classes={{ text: classes.menuButtonText }}>
                           {'會員管理'}
                         </Button>
@@ -153,7 +153,6 @@ function NavBar(props) {
                         size="large"
                         onClick={clearLoginData}
                         classes={{ root: classes.button, text: classes.menuButtonText }}
-                        key="Logout"
                       >
                         {'Logout'}
                       </Button>
@@ -170,7 +169,7 @@ function NavBar(props) {
                         />
                         {currentUserName}
                       </Button>
-                    </>
+                    </Fragment>
                   )
                 } else {
                   return (

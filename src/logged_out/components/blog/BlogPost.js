@@ -27,7 +27,10 @@ import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import 'react-image-gallery/styles/css/image-gallery.css'
-import { MobXProviderContext, useObserver } from 'mobx-react'
+import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
 const styles = (theme) => ({
   blogContentWrapper: {
     marginLeft: theme.spacing(1),
@@ -181,10 +184,6 @@ const BorderLinearProgress = withStyles({
   },
 })(LinearProgress)
 
-function useStores() {
-  return React.useContext(MobXProviderContext)
-}
-
 const thousands_separators = (num) => {
   let num_parts = num
     .toFixed(2)
@@ -196,7 +195,7 @@ const thousands_separators = (num) => {
 
 function BlogPost(props) {
   let store = useStores()
-  const { articlesStore } = store
+  const { articlesStore, userStore } = store
   const {
     classes,
     date,
@@ -262,7 +261,7 @@ function BlogPost(props) {
       <div className={classes.blogContentWrapper}>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            {/*console.log('ssss', articlesStore.totalPagesCount)*/}
+            {console.log('BlogPost', userStore.currentUser.email)}
             <Box pt={3} pr={3} pl={3} pb={2}>
               <Typography variant="h4">
                 <b>{titleText}</b>
