@@ -32,8 +32,8 @@ import SideDrawer from './SideDrawer'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import profilePicture from '../../dummy_data/images/profilePicture.png'
 import logo from '../../../assets/logoRed.png'
-import { MobXProviderContext, useObserver,Observer } from 'mobx-react'
-import { autorun,computed  } from 'mobx'
+import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
+import { autorun, computed } from 'mobx'
 function useStores() {
   return React.useContext(MobXProviderContext)
 }
@@ -143,16 +143,15 @@ function NavBar(props) {
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0)
   let store = useStores()
   const { userStore } = store
-  useEffect(() => {
-    if(userStore.currentUser.name==''){
-      console.log('Fuck')
+  // useEffect(() => {
+  //   if(userStore.currentUser.name==''){
+  //     console.log('Fuck')
 
-    }}, [])
-  
-  console.log('NaQvBar', userStore.currentUserName)
+  //   }}, [])
+
   console.log('NavBar', userStore.currentUser.name)
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)

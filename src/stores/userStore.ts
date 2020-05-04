@@ -5,10 +5,9 @@ import agent from '../agent'
 class UserStore {
   @observable isLoading = false
   @observable currentUser = {
-    email:'' ,
+    email: '',
     name: '',
   }
-  @observable currentUserName
   @observable loadingUser
   @observable updatingUser
   @observable updatingUserErrors
@@ -45,7 +44,7 @@ class UserStore {
 
   @action forgetUser() {
     this.currentUser.name = ''
-    this.currentUser.email = '' 
+    this.currentUser.email = ''
   }
 
   @action getMe() {
@@ -55,21 +54,22 @@ class UserStore {
     //   this.currentUser.name = response.data.name
     // }
     // return
-    return request('/customer/me').then(
-      action((response) => {
-        const status:any=response.status
-        if (status === 'success') {
+    return request('/customer/me')
+      .then(
+        action((response) => {
+          const status: any = response.status
+          if (status === 'success') {
             this.currentUser.email = response.data.email
             this.currentUser.name = response.data.name
-            this.currentUserName=response.data.name
-        }
+          }
+        })
+      )
+      .catch((error) => {
+        // do something with request error
+        const { response } = error
+        console.log('err', response)
+        return Promise.resolve(error)
       })
-    ).catch((error) => {
-      // do something with request error
-      const { response } = error
-      console.log('err', response)
-      return Promise.resolve(error)
-    })
   }
 }
 

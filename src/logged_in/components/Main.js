@@ -8,7 +8,7 @@ import ConsecutiveSnackbarMessages from '../../shared/components/ConsecutiveSnac
 import smoothScrollTop from '../../shared/functions/smoothScrollTop'
 import persons from '../dummy_data/persons'
 import LazyLoadAddBalanceDialog from './subscription/LazyLoadAddBalanceDialog'
-import { observer, inject, } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 const styles = (theme) => ({
   main: {
     marginLeft: theme.spacing(9),
@@ -30,7 +30,6 @@ function shuffle(array) {
 }
 @inject('userStore')
 @observer
-
 class Main extends PureComponent {
   state = {
     selectedTab: null,
@@ -50,9 +49,6 @@ class Main extends PureComponent {
 
   componentDidMount() {
     this.props.userStore.getMe()
-    if(this.props.userStore.currentUser.name==''){
-      console.log('Fucddddk',this.props.userStore.currentUser)
-    }
     this.fetchRandomTargets()
     this.fetchRandomStatistics()
     this.fetchRandomTransactions()
@@ -295,7 +291,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const { classes,userStore } = this.props
+    const { classes, userStore } = this.props
     const {
       selectedTab,
       ImageCropper,
@@ -318,7 +314,7 @@ class Main extends PureComponent {
           onClose={this.closeAddBalanceDialog}
           onSuccess={this.onPaymentSuccess}
         />
-        {console.log('dddddd',userStore.currentUser.name)}
+        {console.log('dddddd', userStore.currentUser.name)}
         <NavBar selectedTab={selectedTab} messages={messages} openAddBalanceDialog={this.openAddBalanceDialog} />
         <ConsecutiveSnackbarMessages getPushMessageFromChild={this.getPushMessageFromChild} />
         <main className={classNames(classes.main)}>
