@@ -314,8 +314,12 @@ class Main extends PureComponent {
           onClose={this.closeAddBalanceDialog}
           onSuccess={this.onPaymentSuccess}
         />
-        {console.log('dddddd', userStore.currentUser.name)}
-        <NavBar selectedTab={selectedTab} messages={messages} openAddBalanceDialog={this.openAddBalanceDialog} />
+        <NavBar
+          selectedTab={selectedTab}
+          messages={messages}
+          openAddBalanceDialog={this.openAddBalanceDialog}
+          currentUserName={userStore.currentUser.name}
+        />
         <ConsecutiveSnackbarMessages getPushMessageFromChild={this.getPushMessageFromChild} />
         <main className={classNames(classes.main)}>
           <Routing

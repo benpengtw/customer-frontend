@@ -30,10 +30,9 @@ import MessagePopperButton from './MessagePopperButton'
 import SideDrawer from './SideDrawer'
 // import Balance from './Balance'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
-import profilePicture from '../../dummy_data/images/profilePicture.png'
+import profilePicture from '../../../assets/profilePicture.jpg'
 import logo from '../../../assets/logoRed.png'
 import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
-import { autorun, computed } from 'mobx'
 function useStores() {
   return React.useContext(MobXProviderContext)
 }
@@ -138,7 +137,7 @@ const styles = (theme) => ({
 })
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, width, openAddBalanceDialog, history } = props
+  const { selectedTab, messages, classes, width, openAddBalanceDialog, history, currentUserName } = props
   // Will be use to make website more accessible by screen readers
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -146,13 +145,8 @@ function NavBar(props) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0)
   let store = useStores()
   const { userStore } = store
-  // useEffect(() => {
-  //   if(userStore.currentUser.name==''){
-  //     console.log('Fuck')
 
-  //   }}, [])
-
-  console.log('NavBar', userStore.currentUser.name)
+  //console.log('NavBar', userStore.currentUser.name)
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
   }, [setIsMobileOpen])
@@ -170,7 +164,7 @@ function NavBar(props) {
   }, [setIsSideDrawerOpen])
 
   const clearLoginData = () => {
-    console.log('userStore', userStore.currentUser.name)
+    //console.log('userStore', userStore.currentUser.name)
     userStore.forgetUser()
     window.localStorage.removeItem('token')
     //window.location.reload(true)
@@ -259,7 +253,7 @@ function NavBar(props) {
               {isWidthUp('sm', width) && (
                 <ListItemText
                   className={classes.username}
-                  primary={<Typography color="textPrimary">{userStore.currentUser.name}</Typography>}
+                  primary={<Typography color="textPrimary">{currentUserName}</Typography>}
                 />
               )}
             </ListItem>
@@ -334,6 +328,7 @@ function NavBar(props) {
 NavBar.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedTab: PropTypes.string.isRequired,
+  currentUserName: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   openAddBalanceDialog: PropTypes.func.isRequired,

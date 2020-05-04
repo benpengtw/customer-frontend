@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Typography, Button, Hidden, IconButton, withStyles } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, Button, Hidden, IconButton, withStyles, Box, Avatar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import HomeIcon from '@material-ui/icons/Home'
 import HowToRegIcon from '@material-ui/icons/HowToReg'
@@ -9,6 +9,12 @@ import LockOpenIcon from '@material-ui/icons/LockOpen'
 import BookIcon from '@material-ui/icons/Book'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import logo from '../../../assets/logoRed.png'
+import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
+import profilePicture from '../../../assets/profilePicture.jpg'
+import classNames from 'classnames'
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
 
 const styles = (theme) => ({
   appBar: {
@@ -32,6 +38,24 @@ const styles = (theme) => ({
   noDecoration: {
     textDecoration: 'none !important',
   },
+  button: {
+    '&$disabled': {
+      color: '#000000de',
+    },
+    textTransform: 'none',
+  },
+  disabled: {},
+  accountAvatar: {
+    backgroundColor: theme.palette.secondary.main,
+    height: 24,
+    width: 24,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: theme.spacing(1.5),
+      marginRight: theme.spacing(1.5),
+    },
+  },
 })
 
 function NavBar(props) {
@@ -43,7 +67,17 @@ function NavBar(props) {
     handleMobileDrawerClose,
     mobileDrawerOpen,
     selectedTab,
+    currentUserName,
   } = props
+  let store = useStores()
+  const { userStore } = store
+  const clearLoginData = () => {
+    //console.log('userStore', userStore.currentUser.name)
+    userStore.forgetUser()
+    window.localStorage.removeItem('token')
+    //window.location.reload(true)
+  }
+
   const menuItems = [
     {
       link: '/',
@@ -55,16 +89,21 @@ function NavBar(props) {
       name: '投資標的',
       icon: <BookIcon className="text-white" />,
     },
+    // {
+    //   name: 'Register',
+    //   onClick: openRegisterDialog,
+    //   icon: <HowToRegIcon className="text-white" />,
+    // },
     {
-      name: 'Register',
-      onClick: openRegisterDialog,
-      icon: <HowToRegIcon className="text-white" />,
-    },
-    {
-      name: 'Login',
-      onClick: openLoginDialog,
+      name: '',
+      onClick: '',
       icon: <LockOpenIcon className="text-white" />,
     },
+    // {
+    //   name: 'Logout',
+    //   onClick: clearLoginData,
+    //   icon: <LockOpenIcon className="text-white" />,
+    // },
   ]
   return (
     <div className={classes.root}>
@@ -91,23 +130,61 @@ function NavBar(props) {
                       className={classes.noDecoration}
                       onClick={handleMobileDrawerClose}
                     >
-                      <Button color="secondary" size="large" classes={{ text: classes.menuButtonText }}>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        classes={{ root: classes.button, text: classes.menuButtonText }}
+                      >
                         {element.name}
                       </Button>
                     </Link>
                   )
                 }
-                return (
-                  <Button
-                    color="secondary"
-                    size="large"
-                    onClick={element.onClick}
-                    classes={{ text: classes.menuButtonText }}
-                    key={element.name}
-                  >
-                    {element.name}
-                  </Button>
-                )
+                if (currentUserName) {
+                  return (
+                    <>
+                      <Link key={'admin'} to={'/c/dashboard'} className={classes.noDecoration}>
+                        <Button color="secondary" size="large" classes={{ text: classes.menuButtonText }}>
+                          {'會員管理'}
+                        </Button>
+                      </Link>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        onClick={clearLoginData}
+                        classes={{ root: classes.button, text: classes.menuButtonText }}
+                        key="Logout"
+                      >
+                        {'Logout'}
+                      </Button>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        classes={{ root: classes.button, disabled: classes.disabled }}
+                        disabled
+                      >
+                        <Avatar
+                          alt="profile picture"
+                          src={profilePicture}
+                          className={classNames(classes.accountAvatar)}
+                        />
+                        {currentUserName}
+                      </Button>
+                    </>
+                  )
+                } else {
+                  return (
+                    <Button
+                      color="secondary"
+                      size="large"
+                      onClick={openLoginDialog}
+                      classes={{ text: classes.menuButtonText }}
+                      key="Login"
+                    >
+                      {'Login'}
+                    </Button>
+                  )
+                }
               })}
             </Hidden>
           </div>
@@ -128,6 +205,7 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
   handleMobileDrawerOpen: PropTypes.func,
   handleMobileDrawerClose: PropTypes.func,
+  currentUserName: PropTypes.string.isRequired,
   mobileDrawerOpen: PropTypes.bool,
   selectedTab: PropTypes.string,
   openRegisterDialog: PropTypes.func.isRequired,

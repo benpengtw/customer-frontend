@@ -11,7 +11,7 @@ import dummyBlogPosts from '../dummy_data/blogPosts'
 import DialogSelector from './register_login/DialogSelector'
 import Routing from './Routing'
 import smoothScrollTop from '../../shared/functions/smoothScrollTop'
-
+import { observer, inject } from 'mobx-react'
 AOS.init({ once: true })
 
 const styles = (theme) => ({
@@ -20,7 +20,8 @@ const styles = (theme) => ({
     overflowX: 'hidden',
   },
 })
-
+@inject('userStore')
+@observer
 class Main extends PureComponent {
   state = {
     selectedTab: null,
@@ -33,6 +34,9 @@ class Main extends PureComponent {
   blogPostsMaxUnix = Math.round(new Date().getTime() / 1000)
 
   componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.userStore.getMe()
+    }
     this.fetchBlogPosts()
   }
 
@@ -115,7 +119,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, userStore } = this.props
     const { selectedTab, mobileDrawerOpen, blogPosts, dialogOpen, cookieRulesDialogOpen } = this.state
     return (
       <div className={classes.wrapper}>
@@ -137,6 +141,7 @@ class Main extends PureComponent {
           mobileDrawerOpen={mobileDrawerOpen}
           handleMobileDrawerOpen={this.handleMobileDrawerOpen}
           handleMobileDrawerClose={this.handleMobileDrawerClose}
+          currentUserName={userStore.currentUser.name}
         />
         <Routing blogPosts={blogPosts} selectHome={this.selectHome} selectBlog={this.selectBlog} />
         <Footer />
