@@ -89,10 +89,6 @@ class UserStore {
               this.snackBarOpen = true
             }
           }, 3000)
-          // if (status === 'success') {
-          //   this.isLoadingAddress = false
-          //   this.snackBarOpen = true
-          // }
         })
       )
       .catch((error) => {

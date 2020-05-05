@@ -30,9 +30,9 @@ const styles = {
 class Posts extends PureComponent {
   state = {
     addPostPaperOpen: false,
-    loading: false,
     address: '',
     snackBarOpen: false,
+    validStatus: null,
   }
 
   componentDidMount() {
@@ -40,9 +40,12 @@ class Posts extends PureComponent {
     selectPosts()
   }
 
+  setValidStatus = (validStatus) => {
+    this.setState({ validStatus })
+  }
+
   handleSubmit = () => {
-    const { setStatus, history } = this.props
-    //setStatus(null)
+    this.setValidStatus(null)
     let result = /^(0x)\w{40}$/.test(this.addressData.value)
     if (result) {
       this.props.userStore.addWallet({
@@ -55,20 +58,9 @@ class Posts extends PureComponent {
         snackBarOpen: this.props.userStore.snackBarOpen,
       })
     } else {
-      //setStatus('invalidAddress')
+      this.setValidStatus('invalidAddress')
       console.log('oh NOOO')
     }
-    // console.log('ee', this.addressData.value)
-    // this.props.userStore.addWallet({
-    //   payload: {
-    //     address: this.addressData.value,
-    //   },
-    // })
-    // this.setState({
-    //   address: this.addressData.value,
-    //   loading: this.props.userStore.isLoadingAddress,
-    //   snackBarOpen: this.props.userStore.snackBarOpen,
-    // })
   }
 
   handleSnackbarClose = () => {
@@ -76,10 +68,9 @@ class Posts extends PureComponent {
   }
 
   render() {
-    const { loading, address, snackBarOpen, setStatus, status } = this.state
+    const { address, snackBarOpen, validStatus } = this.state
     const { classes, userStore } = this.props
-    // console.log('loading', loading)
-    console.log('isLoadingAddress', userStore.isLoadingAddress)
+    //console.log('isLoadingAddress', this.state)
     return (
       <Paper>
         <Snackbar
@@ -102,14 +93,19 @@ class Posts extends PureComponent {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <TextField
-                    error={status === 'invalidAddress'}
+                    error={validStatus === 'invalidAddress'}
                     inputRef={(node) => {
                       this.addressData = node
                     }}
                     id="my-input"
+                    onChange={() => {
+                      if (validStatus === 'invalidAddress') {
+                        this.setValidStatus(null)
+                      }
+                    }}
                     label="Wallet Address"
                     aria-describedby="my-helper-text"
-                    helperText={status === 'invalidAddress' && '此電子郵件地址未與帳戶關聯。'}
+                    helperText={validStatus === 'invalidAddress' && '錢包地址格式錯誤'}
                   />
                   {/* <FormHelperText id="my-helper-text">We'll never share your Wallet.</FormHelperText> */}
                 </FormControl>
@@ -127,8 +123,6 @@ class Posts extends PureComponent {
   }
 }
 
-Posts.propTypes = {
-  setStatus: PropTypes.func.isRequired,
-}
+Posts.propTypes = {}
 
 export default Posts
