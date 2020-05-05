@@ -18,6 +18,7 @@ import {
   TextField,
   Snackbar,
 } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
 import ActionPaper from '../../../shared/components/ActionPaper'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
 import { observer, inject } from 'mobx-react'
@@ -25,14 +26,17 @@ const styles = {
   dBlock: { display: 'block' },
   dNone: { display: 'none' },
 }
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 @inject('userStore')
 @observer
 class Posts extends PureComponent {
   state = {
     addPostPaperOpen: false,
     address: '',
-    snackBarOpen: false,
     validStatus: null,
+    open: true,
   }
 
   componentDidMount() {
@@ -46,39 +50,78 @@ class Posts extends PureComponent {
 
   handleSubmit = () => {
     this.setValidStatus(null)
+    const { userStore } = this.props
     let result = /^(0x)\w{40}$/.test(this.addressData.value)
     if (result) {
-      this.props.userStore.addWallet({
+      userStore.addWallet({
         payload: {
           address: this.addressData.value,
         },
       })
-      this.setState({
-        address: this.addressData.value,
-        snackBarOpen: this.props.userStore.snackBarOpen,
-      })
     } else {
       this.setValidStatus('invalidAddress')
-      console.log('oh NOOO')
     }
   }
 
-  handleSnackbarClose = () => {
-    this.setState({ snackBarOpen: false })
+  printSnackbar = () => {
+    const { userStore } = this.props
+    const { open } = this.state
+    switch (userStore.snackSuccess) {
+      case 'success':
+        return (
+          <Snackbar
+            disableWindowBlurListener
+            key="disableWindowBlurListener"
+            open={open}
+            autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            onClose={this.handleClose}
+          >
+            <Alert onClose={this.handleClose} severity="success">
+              This is a success message!
+            </Alert>
+          </Snackbar>
+        )
+        break
+      case 'failed':
+        return (
+          <Snackbar
+            disableWindowBlurListener
+            key="disableWindowBlurListener"
+            open={open}
+            autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            onClose={this.handleClose}
+          >
+            <Alert severity="error">This is an error message!</Alert>
+          </Snackbar>
+        )
+        break
+      default:
+        return null
+    }
+  }
+
+  handleClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    this.setState({ open: false })
   }
 
   render() {
-    const { address, snackBarOpen, validStatus } = this.state
-    const { classes, userStore } = this.props
-    //console.log('isLoadingAddress', this.state)
+    const { address, validStatus, open } = this.state
+    const { classes, userStore, pushMessageToSnackbar } = this.props
+    console.log('isLoadingAddress', userStore)
     return (
       <Paper>
-        <Snackbar
-          open={snackBarOpen}
-          onClose={this.handleSnackbarClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          message="I love snacks"
-        />
+        {this.printSnackbar()}
         <Toolbar style={{ justifyContent: 'space-between' }}>
           <Typography variant="h6">付款錢包設定</Typography>
         </Toolbar>
@@ -123,6 +166,6 @@ class Posts extends PureComponent {
   }
 }
 
-Posts.propTypes = {}
+Posts.propTypes = { pushMessageToSnackbar: PropTypes.func }
 
 export default Posts

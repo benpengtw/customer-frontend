@@ -5,7 +5,7 @@ import agent from '../agent'
 class UserStore {
   @observable isLoading = false
   @observable isLoadingAddress = false
-  @observable snackBarOpen = false
+  @observable snackSuccess = ''
   @observable currentUser = {
     email: '',
     name: '',
@@ -86,17 +86,22 @@ class UserStore {
           setTimeout(() => {
             if (status === 'success') {
               this.isLoadingAddress = false
-              this.snackBarOpen = true
+              this.snackSuccess = 'success'
             }
           }, 3000)
         })
       )
-      .catch((error) => {
-        // do something with request error
-        const { response } = error
-        console.log('err', response)
-        return Promise.resolve(error)
-      })
+      .catch(
+        action((error) => {
+          setTimeout(() => {
+            this.isLoadingAddress = false
+            this.snackSuccess = 'failed'
+            const { response } = error
+            console.log('err', response)
+            return Promise.resolve(error)
+          }, 3000)
+        })
+      )
   }
 }
 
