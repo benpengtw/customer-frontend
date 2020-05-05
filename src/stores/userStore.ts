@@ -4,6 +4,8 @@ import agent from '../agent'
 //import { customerMe } from './userService'
 class UserStore {
   @observable isLoading = false
+  @observable isLoadingAddress = false
+  @observable snackBarOpen = false
   @observable currentUser = {
     email: '',
     name: '',
@@ -62,6 +64,35 @@ class UserStore {
             this.currentUser.email = response.data.email
             this.currentUser.name = response.data.name
           }
+        })
+      )
+      .catch((error) => {
+        // do something with request error
+        const { response } = error
+        console.log('err', response)
+        return Promise.resolve(error)
+      })
+  }
+
+  @action addWallet({ payload }) {
+    this.isLoadingAddress = true
+    return request('/customer/me/address', {
+      method: 'POST',
+      data: payload,
+    })
+      .then(
+        action((response) => {
+          const status: any = response.status
+          setTimeout(() => {
+            if (status === 'success') {
+              this.isLoadingAddress = false
+              this.snackBarOpen = true
+            }
+          }, 3000)
+          // if (status === 'success') {
+          //   this.isLoadingAddress = false
+          //   this.snackBarOpen = true
+          // }
         })
       )
       .catch((error) => {

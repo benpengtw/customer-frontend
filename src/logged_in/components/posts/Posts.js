@@ -2,10 +2,37 @@ import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import PostContent from './PostContent'
 import AddPost from './AddPost'
-import { Typography, TextField, Grid, FormControlLabel, Checkbox } from '@material-ui/core'
+import {
+  Typography,
+  Grid,
+  FormControlLabel,
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+  Checkbox,
+  Button,
+  Box,
+  Paper,
+  Toolbar,
+  TextField,
+  Snackbar,
+} from '@material-ui/core'
+import ActionPaper from '../../../shared/components/ActionPaper'
+import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
+import { observer, inject } from 'mobx-react'
+const styles = {
+  dBlock: { display: 'block' },
+  dNone: { display: 'none' },
+}
+@inject('userStore')
+@observer
 class Posts extends PureComponent {
   state = {
     addPostPaperOpen: false,
+    loading: false,
+    address: '',
+    snackBarOpen: false,
   }
 
   componentDidMount() {
@@ -13,67 +40,95 @@ class Posts extends PureComponent {
     selectPosts()
   }
 
+  handleSubmit = () => {
+    const { setStatus, history } = this.props
+    //setStatus(null)
+    let result = /^(0x)\w{40}$/.test(this.addressData.value)
+    if (result) {
+      this.props.userStore.addWallet({
+        payload: {
+          address: this.addressData.value,
+        },
+      })
+      this.setState({
+        address: this.addressData.value,
+        snackBarOpen: this.props.userStore.snackBarOpen,
+      })
+    } else {
+      //setStatus('invalidAddress')
+      console.log('oh NOOO')
+    }
+    // console.log('ee', this.addressData.value)
+    // this.props.userStore.addWallet({
+    //   payload: {
+    //     address: this.addressData.value,
+    //   },
+    // })
+    // this.setState({
+    //   address: this.addressData.value,
+    //   loading: this.props.userStore.isLoadingAddress,
+    //   snackBarOpen: this.props.userStore.snackBarOpen,
+    // })
+  }
+
+  handleSnackbarClose = () => {
+    this.setState({ snackBarOpen: false })
+  }
+
   render() {
+    const { loading, address, snackBarOpen, setStatus, status } = this.state
+    const { classes, userStore } = this.props
+    // console.log('loading', loading)
+    console.log('isLoadingAddress', userStore.isLoadingAddress)
     return (
-      <Fragment>
-        <Typography variant="h6" gutterBottom>
-          Shipping address
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <TextField required id="firstName" name="firstName" label="First name" fullWidth autoComplete="fname" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField required id="lastName" name="lastName" label="Last name" fullWidth autoComplete="lname" />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              required
-              id="address1"
-              name="address1"
-              label="Address line 1"
-              fullWidth
-              autoComplete="billing address-line1"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="address2"
-              name="address2"
-              label="Address line 2"
-              fullWidth
-              autoComplete="billing address-line2"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField required id="city" name="city" label="City" fullWidth autoComplete="billing address-level2" />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="zip"
-              name="zip"
-              label="Zip / Postal code"
-              fullWidth
-              autoComplete="billing postal-code"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField required id="country" name="country" label="Country" fullWidth autoComplete="billing country" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-              label="Use this address for payment details"
-            />
-          </Grid>
-        </Grid>
-      </Fragment>
+      <Paper>
+        <Snackbar
+          open={snackBarOpen}
+          onClose={this.handleSnackbarClose}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          message="I love snacks"
+        />
+        <Toolbar style={{ justifyContent: 'space-between' }}>
+          <Typography variant="h6">付款錢包設定</Typography>
+        </Toolbar>
+        <Box p={4}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              this.handleSubmit(e)
+            }}
+          >
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <TextField
+                    error={status === 'invalidAddress'}
+                    inputRef={(node) => {
+                      this.addressData = node
+                    }}
+                    id="my-input"
+                    label="Wallet Address"
+                    aria-describedby="my-helper-text"
+                    helperText={status === 'invalidAddress' && '此電子郵件地址未與帳戶關聯。'}
+                  />
+                  {/* <FormHelperText id="my-helper-text">We'll never share your Wallet.</FormHelperText> */}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="secondary">
+                  設定錢包 {userStore.isLoadingAddress && <ButtonCircularProgress />}
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </Box>
+      </Paper>
     )
   }
+}
+
+Posts.propTypes = {
+  setStatus: PropTypes.func.isRequired,
 }
 
 export default Posts
