@@ -41,6 +41,7 @@ function getVerticalBlogPosts(width, blogPosts) {
     xs = 12
   }
   blogPosts.forEach((blogPost, index) => {
+    //console.log('blogPostsForEach', index)
     gridRows[index % rows].push(
       <Grid key={blogPost.id} item xs={12}>
         <Box mb={3}>

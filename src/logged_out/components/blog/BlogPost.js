@@ -261,7 +261,7 @@ function BlogPost(props) {
       <div className={classes.blogContentWrapper}>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            {console.log('BlogPost', userStore.currentUser.email)}
+            {console.log('BlogPost', userStore.currentUser.address)}
             <Box pt={3} pr={3} pl={3} pb={2}>
               <Typography variant="h4">
                 <b>{titleText}</b>

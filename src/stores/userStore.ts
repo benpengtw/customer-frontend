@@ -9,6 +9,7 @@ class UserStore {
   @observable currentUser = {
     email: '',
     name: '',
+    address: '',
   }
   @observable loadingUser
   @observable updatingUser
@@ -63,6 +64,7 @@ class UserStore {
           if (status === 'success') {
             this.currentUser.email = response.data.email
             this.currentUser.name = response.data.name
+            this.currentUser.address = response.data.customerProjectServices[0].address
           }
         })
       )
