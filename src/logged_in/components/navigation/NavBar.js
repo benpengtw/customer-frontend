@@ -29,7 +29,7 @@ import ReplyIcon from '@material-ui/icons/Reply'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import profilePicture from '../../../assets/profilePicture.jpg'
 import logo from '../../../assets/logoRed.png'
-import { MobXProviderContext } from 'mobx-react'
+import { MobXProviderContext, useObserver } from 'mobx-react'
 function useStores() {
   return React.useContext(MobXProviderContext)
 }
@@ -154,7 +154,7 @@ function NavBar(props) {
     //console.log('userStore', userStore.currentUser.name)
     userStore.forgetUser()
     window.localStorage.removeItem('token')
-    //window.location.reload(true)
+    window.location.reload(true)
   }
 
   const menuItems = [
@@ -219,7 +219,7 @@ function NavBar(props) {
       },
     },
   ]
-  return (
+  return useObserver(() => (
     <Fragment>
       <AppBar position="sticky" className={classes.appBar}>
         <Toolbar className={classes.appBarToolbar}>
@@ -308,7 +308,7 @@ function NavBar(props) {
         onClose={closeMobileDrawer}
       />
     </Fragment>
-  )
+  ))
 }
 
 NavBar.propTypes = {

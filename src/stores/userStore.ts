@@ -5,6 +5,7 @@ import agent from '../agent'
 class UserStore {
   @observable isLoading = false
   @observable isLoadingAddress = false
+  @observable isLoadingInvest = false
   @observable snackSuccess = ''
   @observable currentUser = {
     email: '',
@@ -123,6 +124,45 @@ class UserStore {
             console.log('err', response)
             return Promise.resolve(error)
           }, 3000)
+        })
+      )
+  }
+
+  @action invest({ payload }) {
+    this.isLoadingInvest = true
+    return request('/project/' + payload.projectId + '/invest', {
+      method: 'POST',
+      data: payload,
+    })
+      .then(
+        action((res) => {
+          const status: any = res.status
+          setTimeout(() => {
+            if (status === 'success') {
+              this.isLoadingInvest = false
+              this.snackSuccess = 'success'
+              window.location.href =
+                'http://54.64.193.122:81/?address=' +
+                res.data.projectAddress +
+                '&amount=' +
+                res.data.cryptoAmount +
+                '&humanAmount=' +
+                res.data.amount +
+                '&currency=' +
+                res.data.currency +
+                '&tokenAddress=' +
+                res.data.tokenAddress
+            }
+          }, 3000)
+        })
+      )
+      .catch(
+        action((error) => {
+          this.isLoadingInvest = false
+          this.snackSuccess = 'failed'
+          const { response } = error
+          console.log('err', response)
+          return Promise.resolve(error)
         })
       )
   }

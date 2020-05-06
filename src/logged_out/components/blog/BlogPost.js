@@ -17,7 +17,14 @@ import {
   TextField,
   InputAdornment,
   Input,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Snackbar,
 } from '@material-ui/core'
+import MuiAlert from '@material-ui/lab/Alert'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 import TimerIcon from '@material-ui/icons/Timer'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
@@ -26,10 +33,14 @@ import ShareButton from '../../../shared/components/ShareButton'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
 function useStores() {
   return React.useContext(MobXProviderContext)
+}
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 const styles = (theme) => ({
   blogContentWrapper: {
@@ -208,15 +219,12 @@ function BlogPost(props) {
     endDate,
     percent,
     totalAmount,
+    id,
   } = props
   const [completed, setCompleted] = React.useState(0)
-  const [values, setValues] = React.useState({
-    amount: '',
-    password: '',
-    weight: '',
-    weightRange: '',
-    showPassword: false,
-  })
+  const [rvalue, setrValue] = React.useState('female')
+  const [amount, setAmount] = React.useState(0)
+  const [open, setOpen] = React.useState(true)
   const progress = React.useRef(() => {})
   useEffect(() => {
     document.title = `customer-frontend - ${titleText}`
@@ -239,7 +247,6 @@ function BlogPost(props) {
       }
     }
   })
-  console.log('ssss', articlesStore.fakeHouse)
 
   useEffect(() => {
     function tick() {
@@ -252,16 +259,80 @@ function BlogPost(props) {
     }
   }, [])
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value })
+  const handleChange = (event) => {
+    setAmount(event.target.value)
+  }
+
+  const handleRadioChange = (event) => {
+    setrValue(event.target.value)
+  }
+
+  const onSubmit = () => {
+    userStore.invest({
+      payload: {
+        paymentType: 'CRYPTOCURRENCY',
+        address: userStore.currentUser.address,
+        amount: parseInt(amount),
+        currency: 'USDT',
+        projectId: id,
+      },
+    })
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const printSnackbar = () => {
+    switch (userStore.snackSuccess) {
+      case 'success':
+        return (
+          <Snackbar
+            disableWindowBlurListener
+            key="disableWindowBlurListener"
+            open={open}
+            autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity="success">
+              This is a success message!
+            </Alert>
+          </Snackbar>
+        )
+      case 'failed':
+        return (
+          <Snackbar
+            disableWindowBlurListener
+            key="disableWindowBlurListener"
+            open={open}
+            autoHideDuration={3000}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            onClose={handleClose}
+          >
+            <Alert severity="error" onClose={handleClose}>
+              This is an error message!
+            </Alert>
+          </Snackbar>
+        )
+      default:
+        return null
+    }
   }
 
   return useObserver(() => (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
+      {printSnackbar()}
       <div className={classes.blogContentWrapper}>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            {console.log('BlogPost', userStore.currentUser.address)}
+            {/*console.log('BlogPost', userStore.currentUser.address)*/}
             <Box pt={3} pr={3} pl={3} pb={2}>
               <Typography variant="h4">
                 <b>{titleText}</b>
@@ -375,35 +446,52 @@ function BlogPost(props) {
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                     {fakeContent}
                     <br />
-                    <Grid container spacing={1}>
-                      <Grid container item spacing={1} item xs={6} justify="flex-end">
-                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
-                          我要投資：
-                        </Typography>
-                      </Grid>
-                      <Grid container item spacing={1} item xs={4}>
-                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
-                          <Input
-                            id="standard-adornment-weight"
-                            value={values.weight}
-                            onChange={handleChange('weight')}
-                            type="number"
-                            endAdornment={<InputAdornment position="end">萬元</InputAdornment>}
-                          />
-                        </Typography>
-                      </Grid>
-                    </Grid>
-                    <br />
-                    <Grid container spacing={1} justify="center" alignItems="flex-end">
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        startIcon={<TrendingUpIcon />}
-                      >
-                        我要投資
-                      </Button>
-                    </Grid>
+                    {userStore.currentUser.name && (
+                      <Fragment>
+                        <Grid container spacing={1}>
+                          <FormControl component="fieldset">
+                            <FormLabel component="legend">請選擇投資方式</FormLabel>
+                            <RadioGroup aria-label="gender" name="gender1" value={rvalue} onChange={handleRadioChange}>
+                              <FormControlLabel value="female" control={<Radio />} label="加密貨幣" />
+                              <FormControlLabel value="male" control={<Radio />} label="信用卡" />
+                              <FormControlLabel value="other" control={<Radio />} label="虛擬帳戶轉帳" />
+                              <FormControlLabel value="disabled" disabled control={<Radio />} label="Line Pay" />
+                            </RadioGroup>
+                          </FormControl>
+                        </Grid>
+                        <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                        <Grid container spacing={1}>
+                          <Grid container item spacing={1} item xs={6} justify="flex-end">
+                            <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                              我要投資：
+                            </Typography>
+                          </Grid>
+                          <Grid container item spacing={1} item xs={4}>
+                            <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                              <Input
+                                id="standard-adornment-weight"
+                                value={amount}
+                                onChange={handleChange}
+                                type="number"
+                                endAdornment={<InputAdornment position="end">萬元</InputAdornment>}
+                              />
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <br />
+                        <Grid container spacing={1} justify="center" alignItems="flex-end">
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={onSubmit}
+                            className={classes.button}
+                            startIcon={<TrendingUpIcon />}
+                          >
+                            我要投資{userStore.isLoadingInvest && <ButtonCircularProgress />}
+                          </Button>
+                        </Grid>
+                      </Fragment>
+                    )}
                   </CardContent>
                 </Card>
               </Grid>
@@ -465,6 +553,7 @@ BlogPost.propTypes = {
   content: PropTypes.node.isRequired,
   percent: PropTypes.number.isRequired,
   otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  id: PropTypes.number.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(BlogPost)

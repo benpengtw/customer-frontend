@@ -29,6 +29,7 @@ function Routing(props) {
               percent={post.percent}
               totalAmount={post.totalAmount}
               key={post.id}
+              id={post.id}
               otherArticles={blogPosts.filter((blogPost) => blogPost.id !== post.id)}
             />
           )
@@ -50,6 +51,7 @@ function Routing(props) {
               percent={oneInvestAmount / 1.369}
               totalAmount={post.totalAmount}
               key={post.id}
+              id={post.id}
               otherArticles={blogPosts.filter((blogPost) => blogPost.id !== post.id)}
             />
           )

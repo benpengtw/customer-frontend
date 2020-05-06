@@ -14,7 +14,7 @@ request.interceptors.request.use(
     let tokenLocalStorage: string | null = localStorage.getItem('token')
     const limitUrl = {
       login: '/customer/account/login',
-      register: '/api/account/register',
+      projectList: '/project',
       forget: '/api/merchant/me/forget_password',
       reset_password: '/api/merchant/me/reset_password',
     }
@@ -25,7 +25,7 @@ request.interceptors.request.use(
         .map((key) => limitUrl[key] === url)
         .find((d) => d == true)
     ) {
-      alert('You need login')
+      //alert('You need login')
       window.location.href = '/'
       return config
     }

@@ -73,7 +73,7 @@ function NavBar(props) {
     //console.log('userStore', userStore.currentUser.name)
     userStore.forgetUser()
     window.localStorage.removeItem('token')
-    //window.location.reload(true)
+    window.location.reload(true)
   }
 
   const menuItems = [
@@ -103,7 +103,7 @@ function NavBar(props) {
     //   icon: <LockOpenIcon className="text-white" />,
     // },
   ]
-  return (
+  return useObserver(() => (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
@@ -195,7 +195,7 @@ function NavBar(props) {
         onClose={handleMobileDrawerClose}
       />
     </div>
-  )
+  ))
 }
 
 NavBar.propTypes = {
