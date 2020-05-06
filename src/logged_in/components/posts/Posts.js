@@ -1,25 +1,7 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import PostContent from './PostContent'
-import AddPost from './AddPost'
-import {
-  Typography,
-  Grid,
-  FormControlLabel,
-  FormControl,
-  FormHelperText,
-  Input,
-  InputLabel,
-  Checkbox,
-  Button,
-  Box,
-  Paper,
-  Toolbar,
-  TextField,
-  Snackbar,
-} from '@material-ui/core'
+import { Typography, Grid, FormControl, Button, Box, Paper, Toolbar, TextField, Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
-import ActionPaper from '../../../shared/components/ActionPaper'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
 import { observer, inject } from 'mobx-react'
 const styles = {
@@ -85,7 +67,6 @@ class Posts extends PureComponent {
             </Alert>
           </Snackbar>
         )
-        break
       case 'failed':
         return (
           <Snackbar
@@ -102,7 +83,6 @@ class Posts extends PureComponent {
             <Alert severity="error">This is an error message!</Alert>
           </Snackbar>
         )
-        break
       default:
         return null
     }

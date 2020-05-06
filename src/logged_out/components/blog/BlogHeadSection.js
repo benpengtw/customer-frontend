@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { Grid, Typography, Card, Button, Hidden, Box, withStyles, withWidth, isWidthUp } from '@material-ui/core'
+import { Typography, withStyles, withWidth, isWidthUp } from '@material-ui/core'
 import WaveBorder from '../../../shared/components/WaveBorder'
 
 const styles = (theme) => ({

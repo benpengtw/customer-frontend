@@ -153,7 +153,7 @@ function BlogCard(props) {
     if (percent == 100) {
       setIFfullPercent(true)
     }
-    console.log('dddddd', moment(endDate, 'YYYY-MM-DD').isValid())
+    //console.log('dddddd', moment(endDate, 'YYYY-MM-DD').isValid())
   }, [])
   React.useEffect(() => {
     progress.current = () => {

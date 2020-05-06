@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useCallback, useState, useEffect, useReducer } from 'react'
+import React, { Fragment, useRef, useCallback, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -26,14 +26,10 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import MenuIcon from '@material-ui/icons/Menu'
 import ReplyIcon from '@material-ui/icons/Reply'
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
-import MessagePopperButton from './MessagePopperButton'
-import SideDrawer from './SideDrawer'
-// import Balance from './Balance'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import profilePicture from '../../../assets/profilePicture.jpg'
 import logo from '../../../assets/logoRed.png'
-import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
+import { MobXProviderContext } from 'mobx-react'
 function useStores() {
   return React.useContext(MobXProviderContext)
 }
@@ -138,11 +134,10 @@ const styles = (theme) => ({
 })
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, width, openAddBalanceDialog, history, currentUserName } = props
+  const { selectedTab, classes, width, currentUserName } = props
   // Will be use to make website more accessible by screen readers
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
   let store = useStores()
   const { userStore } = store
 
@@ -154,14 +149,6 @@ function NavBar(props) {
   const closeMobileDrawer = useCallback(() => {
     setIsMobileOpen(false)
   }, [setIsMobileOpen])
-
-  const openDrawer = useCallback(() => {
-    setIsSideDrawerOpen(true)
-  }, [setIsSideDrawerOpen])
-
-  const closeDrawer = useCallback(() => {
-    setIsSideDrawerOpen(false)
-  }, [setIsSideDrawerOpen])
 
   const clearLoginData = () => {
     //console.log('userStore', userStore.currentUser.name)
@@ -251,12 +238,6 @@ function NavBar(props) {
             </Hidden>
           </Box>
           <Box display="flex" justifyContent="flex-end" alignItems="center" width="100%">
-            {/*isWidthUp('sm', width) && (
-              <Box mr={3}>
-                <Balance balance={2573} openAddBalanceDialog={openAddBalanceDialog} />
-              </Box>
-            )*/}
-            {/* <MessagePopperButton messages={messages} /> */}
             <ListItem disableGutters className={classNames(classes.iconListItem, classes.smBordered)}>
               <Avatar alt="profile picture" src={profilePicture} className={classNames(classes.accountAvatar)} />
               {isWidthUp('sm', width) && (
@@ -267,10 +248,6 @@ function NavBar(props) {
               )}
             </ListItem>
           </Box>
-          {/* <IconButton onClick={openDrawer} color="primary" aria-label="Open Sidedrawer">
-            <SupervisorAccountIcon />
-          </IconButton>
-          <SideDrawer open={isSideDrawerOpen} onClose={closeDrawer} /> */}
         </Toolbar>
       </AppBar>
       <Hidden xsDown>
