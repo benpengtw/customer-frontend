@@ -12,6 +12,7 @@ class UserStore {
     address: '',
   }
   @observable loadingUser
+  @observable oneInvestAmount = 0
   @observable updatingUser
   @observable updatingUserErrors
 
@@ -69,9 +70,29 @@ class UserStore {
         })
       )
       .catch((error) => {
-        // do something with request error
         const { response } = error
-        console.log('err', response)
+        if (response) {
+          console.log('err', response)
+        }
+        return Promise.resolve(error)
+      })
+  }
+
+  @action getProject() {
+    return request('/project')
+      .then(
+        action((response) => {
+          const status: any = response.status
+          if (status === 'success') {
+            this.oneInvestAmount = response.data[0].ProjectsInvestingListingTotalAmount
+          }
+        })
+      )
+      .catch((error) => {
+        const { response } = error
+        if (response) {
+          console.log('err', response)
+        }
         return Promise.resolve(error)
       })
   }

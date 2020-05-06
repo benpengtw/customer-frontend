@@ -34,6 +34,7 @@ class Main extends PureComponent {
   blogPostsMaxUnix = Math.round(new Date().getTime() / 1000)
 
   componentDidMount() {
+    this.props.userStore.getProject()
     if (localStorage.getItem('token')) {
       this.props.userStore.getMe()
     }
@@ -143,7 +144,12 @@ class Main extends PureComponent {
           handleMobileDrawerClose={this.handleMobileDrawerClose}
           currentUserName={userStore.currentUser.name}
         />
-        <Routing blogPosts={blogPosts} selectHome={this.selectHome} selectBlog={this.selectBlog} />
+        <Routing
+          blogPosts={blogPosts}
+          selectHome={this.selectHome}
+          selectBlog={this.selectBlog}
+          oneInvestAmount={userStore.oneInvestAmount}
+        />
         <Footer />
       </div>
     )
