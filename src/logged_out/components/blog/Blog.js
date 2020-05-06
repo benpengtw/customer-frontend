@@ -26,7 +26,7 @@ const styles = (theme) => ({
   },
 })
 
-function getVerticalBlogPosts(width, blogPosts) {
+function getVerticalBlogPosts(width, blogPosts, oneInvestAmount) {
   const gridRows = [[], [], []]
   let rows
   let xs
@@ -41,29 +41,53 @@ function getVerticalBlogPosts(width, blogPosts) {
     xs = 12
   }
   blogPosts.forEach((blogPost, index) => {
-    //console.log('blogPostsForEach', index)
-    gridRows[index % rows].push(
-      <Grid key={blogPost.id} item xs={12}>
-        <Box mb={3}>
-          <LazyLoad height={900} offset={100}>
-            <BlogCard
-              src={blogPost.imageSrc}
-              title={blogPost.title}
-              titleText={blogPost.titleText}
-              date={blogPost.date}
-              startDate={blogPost.startDate}
-              endDate={blogPost.endDate}
-              irr={blogPost.irr}
-              url={blogPost.url}
-              totalAmount={blogPost.totalAmount}
-              content={blogPost.content}
-              percent={blogPost.percent}
-              repaymentType={blogPost.repaymentType}
-            />
-          </LazyLoad>
-        </Box>
-      </Grid>
-    )
+    if (index != 0) {
+      gridRows[index % rows].push(
+        <Grid key={blogPost.id} item xs={12}>
+          <Box mb={3}>
+            <LazyLoad height={900} offset={100}>
+              <BlogCard
+                src={blogPost.imageSrc}
+                title={blogPost.title}
+                titleText={blogPost.titleText}
+                date={blogPost.date}
+                startDate={blogPost.startDate}
+                endDate={blogPost.endDate}
+                irr={blogPost.irr}
+                url={blogPost.url}
+                totalAmount={blogPost.totalAmount}
+                content={blogPost.content}
+                percent={blogPost.percent}
+                repaymentType={blogPost.repaymentType}
+              />
+            </LazyLoad>
+          </Box>
+        </Grid>
+      )
+    } else {
+      gridRows[index % rows].push(
+        <Grid key={blogPost.id} item xs={12}>
+          <Box mb={3}>
+            <LazyLoad height={900} offset={100}>
+              <BlogCard
+                src={blogPost.imageSrc}
+                title={blogPost.title}
+                titleText={blogPost.titleText}
+                date={blogPost.date}
+                startDate={blogPost.startDate}
+                endDate={blogPost.endDate}
+                irr={blogPost.irr}
+                url={blogPost.url}
+                totalAmount={blogPost.totalAmount}
+                content={blogPost.content}
+                percent={oneInvestAmount / 1.369}
+                repaymentType={blogPost.repaymentType}
+              />
+            </LazyLoad>
+          </Box>
+        </Grid>
+      )
+    }
   })
   return gridRows.map((element, index) => (
     <Grid key={index} item xs={xs}>
@@ -73,7 +97,7 @@ function getVerticalBlogPosts(width, blogPosts) {
 }
 
 function Blog(props) {
-  const { classes, width, blogPosts, selectBlog } = props
+  const { classes, width, blogPosts, selectBlog, oneInvestAmount } = props
 
   useEffect(() => {
     selectBlog()
@@ -86,7 +110,7 @@ function Blog(props) {
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.blogContentWrapper}>
           <Grid container spacing={5}>
-            {getVerticalBlogPosts(width, blogPosts)}
+            {getVerticalBlogPosts(width, blogPosts, oneInvestAmount)}
           </Grid>
         </div>
       </Box>
@@ -98,6 +122,7 @@ Blog.propTypes = {
   selectBlog: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired,
+  oneInvestAmount: PropTypes.number,
   blogposts: PropTypes.arrayOf(PropTypes.object),
 }
 
