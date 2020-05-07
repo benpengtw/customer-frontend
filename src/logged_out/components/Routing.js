@@ -48,7 +48,7 @@ function Routing(props) {
               irr={post.irr}
               totalAmount={post.totalAmount}
               content={post.content}
-              percent={oneInvestAmount / 1.369}
+              percent={(oneInvestAmount * 30) / 136900}
               totalAmount={post.totalAmount}
               key={post.id}
               id={post.id}

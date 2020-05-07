@@ -80,7 +80,7 @@ function getVerticalBlogPosts(width, blogPosts, oneInvestAmount) {
                 url={blogPost.url}
                 totalAmount={blogPost.totalAmount}
                 content={blogPost.content}
-                percent={oneInvestAmount / 1.369}
+                percent={(oneInvestAmount * 30) / 136900}
                 repaymentType={blogPost.repaymentType}
               />
             </LazyLoad>
