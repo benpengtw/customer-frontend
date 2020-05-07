@@ -317,7 +317,6 @@ NavBar.propTypes = {
   currentUserName: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
 }
 
 export default withWidth()(withStyles(styles, { withTheme: true })(NavBar))

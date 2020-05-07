@@ -233,7 +233,7 @@ function BlogPost(props) {
 
   useEffect(() => {
     articlesStore.loadfakeHouse()
-    console.log('aaa', props)
+    //console.log('aaa', props)
   }, [])
 
   useEffect(() => {

@@ -7,7 +7,6 @@ import NavBar from './navigation/NavBar'
 import ConsecutiveSnackbarMessages from '../../shared/components/ConsecutiveSnackbarMessages'
 import smoothScrollTop from '../../shared/functions/smoothScrollTop'
 import persons from '../dummy_data/persons'
-import LazyLoadAddBalanceDialog from './subscription/LazyLoadAddBalanceDialog'
 import { observer, inject } from 'mobx-react'
 const styles = (theme) => ({
   main: {
@@ -44,7 +43,6 @@ class Main extends PureComponent {
     targets: [],
     messages: [],
     isAccountActivated: false,
-    addBalanceDialogOpen: false,
   }
 
   componentDidMount() {
@@ -73,23 +71,6 @@ class Main extends PureComponent {
       targets.push(target)
     }
     this.setState({ targets })
-  }
-
-  openAddBalanceDialog = () => {
-    this.setState({ addBalanceDialogOpen: true })
-  }
-
-  closeAddBalanceDialog = () => {
-    this.setState({ addBalanceDialogOpen: false })
-  }
-
-  onPaymentSuccess = () => {
-    if (this.pushMessageToSnackbar) {
-      this.pushMessageToSnackbar({
-        text: 'Your balance has been updated.',
-      })
-    }
-    this.setState({ addBalanceDialogOpen: false })
   }
 
   fetchRandomStatistics = () => {
@@ -305,21 +286,10 @@ class Main extends PureComponent {
       targets,
       isAccountActivated,
       messages,
-      addBalanceDialogOpen,
     } = this.state
     return (
       <Fragment>
-        <LazyLoadAddBalanceDialog
-          open={addBalanceDialogOpen}
-          onClose={this.closeAddBalanceDialog}
-          onSuccess={this.onPaymentSuccess}
-        />
-        <NavBar
-          selectedTab={selectedTab}
-          messages={messages}
-          openAddBalanceDialog={this.openAddBalanceDialog}
-          currentUserName={userStore.currentUser.name}
-        />
+        <NavBar selectedTab={selectedTab} messages={messages} currentUserName={userStore.currentUser.name} />
         <ConsecutiveSnackbarMessages getPushMessageFromChild={this.getPushMessageFromChild} />
         <main className={classNames(classes.main)}>
           <Routing
@@ -341,7 +311,6 @@ class Main extends PureComponent {
             selectDashboard={this.selectDashboard}
             selectPosts={this.selectPosts}
             selectSubscription={this.selectSubscription}
-            openAddBalanceDialog={this.openAddBalanceDialog}
           />
         </main>
       </Fragment>
