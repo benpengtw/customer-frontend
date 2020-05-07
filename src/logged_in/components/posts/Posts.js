@@ -127,6 +127,7 @@ class Posts extends PureComponent {
                       }
                     }}
                     label="Wallet Address"
+                    defaultValue={userStore.currentUser.address}
                     aria-describedby="my-helper-text"
                     helperText={validStatus === 'invalidAddress' && '錢包地址格式錯誤'}
                   />

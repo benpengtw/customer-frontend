@@ -16,6 +16,32 @@ class UserStore {
   @observable oneInvestAmount = 0
   @observable updatingUser
   @observable updatingUserErrors
+  @observable projectOrderList = []
+
+  @action getMyProjectOrderList({ payload }) {
+    return request('/customer/me/projectOrder/list', {
+      params: {
+        sort: payload.sort,
+      },
+    })
+      .then(
+        action((response) => {
+          this.projectOrderList = response.data.map((project) => ({
+            totalAmount: project.project.totalAmount,
+            title: project.project.title,
+            endDate: project.project.endDate,
+            amount: project.amount,
+          }))
+        })
+      )
+      .catch((error) => {
+        const { response } = error
+        if (response) {
+          console.log('err', response)
+        }
+        return Promise.resolve(error)
+      })
+  }
 
   @action pullUser() {
     this.loadingUser = true
@@ -151,7 +177,9 @@ class UserStore {
                 '&currency=' +
                 res.data.currency +
                 '&tokenAddress=' +
-                res.data.tokenAddress
+                res.data.tokenAddress +
+                '&userAddress=' +
+                this.currentUser.address
             }
           }, 3000)
         })

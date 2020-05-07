@@ -9,15 +9,16 @@ const styles = {
 }
 
 function SubscriptionInfo(props) {
-  const { classes } = props
+  const { classes, testTitle } = props
   return (
     <Toolbar className={classes.toolbar}>
-      <ListItemText primary="Status" secondary="Premium Account" />
+      <ListItemText primary={testTitle} secondary="Premium Account" />
     </Toolbar>
   )
 }
 
 SubscriptionInfo.propTypes = {
+  testTitle: PropTypes.string,
   classes: PropTypes.object.isRequired,
 }
 

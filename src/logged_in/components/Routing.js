@@ -51,7 +51,6 @@ function Routing(props) {
     DateTimePicker,
     pushMessageToSnackbar,
     posts,
-    transactions,
     handleNumberChange,
     handleSwitchToggle,
     handleSelectChange,
@@ -81,7 +80,6 @@ function Routing(props) {
         <PropsRoute
           path="/c/subscription"
           component={Subscription}
-          transactions={transactions}
           pushMessageToSnackbar={pushMessageToSnackbar}
           selectSubscription={selectSubscription}
         />
@@ -112,7 +110,6 @@ Routing.propTypes = {
   DateTimePicker: PropTypes.elementType,
   pushMessageToSnackbar: PropTypes.func,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleNumberChange: PropTypes.func,
   handleSwitchToggle: PropTypes.func,
   handleSelectChange: PropTypes.func,

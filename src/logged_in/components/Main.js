@@ -37,7 +37,6 @@ class Main extends PureComponent {
     ImageCropper: null,
     Dropzone: null,
     DateTimePicker: null,
-    transactions: [],
     statistics: { views: [], profit: [] },
     posts: [],
     targets: [],
@@ -49,7 +48,6 @@ class Main extends PureComponent {
     this.props.userStore.getMe()
     this.fetchRandomTargets()
     this.fetchRandomStatistics()
-    this.fetchRandomTransactions()
     this.fetchRandomMessages()
     this.fetchRandomPosts()
   }
@@ -94,59 +92,6 @@ class Main extends PureComponent {
       })
     }
     this.setState({ statistics })
-  }
-
-  fetchRandomTransactions = () => {
-    const transactions = []
-    const iterations = 32
-    const oneMonthSeconds = Math.round(60 * 60 * 24 * 30.5)
-    const transactionTemplates = [
-      {
-        description: 'Starter subscription',
-        isSubscription: true,
-        balanceChange: -1499,
-      },
-      {
-        description: 'Premium subscription',
-        isSubscription: true,
-        balanceChange: -2999,
-      },
-      {
-        description: 'Business subscription',
-        isSubscription: true,
-        balanceChange: -4999,
-      },
-      {
-        description: 'Tycoon subscription',
-        isSubscription: true,
-        balanceChange: -9999,
-      },
-      {
-        description: 'Added funds',
-        isSubscription: false,
-        balanceChange: 2000,
-      },
-      {
-        description: 'Added funds',
-        isSubscription: false,
-        balanceChange: 5000,
-      },
-    ]
-    let curUnix = Math.round(new Date().getTime() / 1000 - iterations * oneMonthSeconds)
-    for (let i = 0; i < iterations; i += 1) {
-      const randomTransactionTemplate = transactionTemplates[Math.floor(Math.random() * transactionTemplates.length)]
-      const transaction = {
-        id: i,
-        description: randomTransactionTemplate.description,
-        balanceChange: randomTransactionTemplate.balanceChange,
-        paidUntil: curUnix + oneMonthSeconds,
-        timestamp: curUnix,
-      }
-      curUnix += oneMonthSeconds
-      transactions.push(transaction)
-    }
-    transactions.reverse()
-    this.setState({ transactions })
   }
 
   fetchRandomMessages = () => {
@@ -280,7 +225,6 @@ class Main extends PureComponent {
       CardChart,
       Dropzone,
       DateTimePicker,
-      transactions,
       statistics,
       posts,
       targets,
@@ -304,7 +248,6 @@ class Main extends PureComponent {
             handleSelectChange={this.handleSelectChange}
             toggleAccountActivation={this.toggleAccountActivation}
             pushMessageToSnackbar={this.pushMessageToSnackbar}
-            transactions={transactions}
             statistics={statistics}
             posts={posts}
             targets={targets}
