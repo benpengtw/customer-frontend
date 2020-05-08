@@ -25,9 +25,10 @@ const styles = (theme) => ({
     },
   },
   card: {
+    //backgroundImage: `url(${headerImage})`,
     boxShadow: theme.shadows[4],
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     [theme.breakpoints.up('xs')]: {
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
@@ -41,8 +42,8 @@ const styles = (theme) => ({
     [theme.breakpoints.up('md')]: {
       paddingTop: theme.spacing(5.5),
       paddingBottom: theme.spacing(5.5),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     [theme.breakpoints.up('lg')]: {
       paddingTop: theme.spacing(6),
@@ -51,12 +52,14 @@ const styles = (theme) => ({
       paddingRight: theme.spacing(6),
     },
     [theme.breakpoints.down('lg')]: {
-      width: 'auto',
+      //width: 'auto',
+      width: '80vw',
     },
   },
   wrapper: {
     position: 'relative',
-    backgroundColor: theme.palette.secondary.main,
+    //backgroundColor: '#0054A0',
+    backgroundImage: 'linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(32,188,255,1) 0%, rgba(0,84,160,1) 99%)',
     paddingBottom: theme.spacing(2),
   },
   image: {
@@ -83,66 +86,71 @@ const styles = (theme) => ({
     [theme.breakpoints.up('md')]: {
       maxWidth: 'none !important',
     },
+    //backgroundImage: `url(${headerImage})`,
   },
   waveBorder: {
     paddingTop: theme.spacing(4),
   },
 })
 
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: '#FFFFFF',
+    backgroundColor: '#37B8AF',
+    '&:hover': {
+      backgroundColor: '#31a59d',
+    },
+  },
+}))(Button)
+
 function HeadSection(props) {
   const { classes, theme, width } = props
   return (
     <Fragment>
       <div className={classNames('lg-p-top', classes.wrapper)}>
-        <div className={classNames('container-fluid', classes.container)}>
-          <Box display="flex" justifyContent="center" className="row">
+        <div className={classNames('container-fluid')}>
+          <Box display="flex" justifyContent="center">
             <Card className={classes.card} data-aos-delay="200" data-aos="zoom-in">
               <div className={classNames(classes.containerFix, 'container')}>
                 <Box justifyContent="space-between" className="row">
-                  <Grid item xs={12} md={5}>
-                    <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
-                      <Box mb={4}>
-                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>
-                          賺錢那麼容易，只需掃ＱＲＣＯＤＥ，立即獲得高於25 %
-                          回饋機會，透由xx可以讓小額投資人可以利用區塊鏈找到心儀的投資項目
-                        </Typography>
-                      </Box>
-                      <div>
-                        <Box mb={2}>
-                          <Typography variant={isWidthUp('lg', width) ? 'h6' : 'body1'} color="textSecondary">
-                            投資一定有風險，基金投資有賺有賠，申購前應詳閱公開說明書
-                          </Typography>
-                        </Box>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          fullWidth
-                          className={classes.extraLargeButton}
-                          classes={{ label: classes.extraLargeButtonLabel }}
-                          href="https://github.com/dunky11/react-saas-template"
-                        >
-                          立即申請
-                        </Button>
-                      </div>
-                    </Box>
-                  </Grid>
                   <Hidden smDown>
                     <Grid item md={6}>
                       <img src={headerImage} className={classes.image} alt="header example" />
                     </Grid>
                   </Hidden>
+                  <Grid item xs={12} md={6}>
+                    <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
+                      <Box mb={4}>
+                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>
+                          防疫期間 您我共同攜手度過難關
+                        </Typography>
+                      </Box>
+                      <div>
+                        <Box mb={2}>
+                          <Typography variant={isWidthUp('lg', width) ? 'h6' : 'body1'} color="textSecondary">
+                            運用您的閒置資金，獲得優於傳統金融的報酬率
+                          </Typography>
+                        </Box>
+                        <ColorButton
+                          variant="contained"
+                          color="secondary"
+                          fullWidth
+                          className={classes.extraLargeButton}
+                          classes={{ label: classes.extraLargeButtonLabel }}
+                          href="http://54.64.193.122:83/"
+                        >
+                          立即申請
+                        </ColorButton>
+                      </div>
+                    </Box>
+                  </Grid>
                 </Box>
               </div>
             </Card>
           </Box>
         </div>
       </div>
-      <WaveBorder
-        upperColor={theme.palette.secondary.main}
-        lowerColor="#FFFFFF"
-        className={classes.waveBorder}
-        animationNegativeDelay={2}
-      />
+      <WaveBorder upperColor="#0054A0" lowerColor="#FFFFFF" className={classes.waveBorder} animationNegativeDelay={2} />
     </Fragment>
   )
 }

@@ -7,7 +7,7 @@ import WaveBorder from '../../../shared/components/WaveBorder'
 const styles = (theme) => ({
   wrapper: {
     position: 'relative',
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#0054A0',
     paddingBottom: theme.spacing(2),
   },
   image: {
@@ -54,12 +54,7 @@ function BlogHeadSection(props) {
           </Typography>
         </div>
       </div>
-      <WaveBorder
-        upperColor={theme.palette.secondary.main}
-        lowerColor="#FFFFFF"
-        className={classes.waveBorder}
-        animationNegativeDelay={2}
-      />
+      <WaveBorder upperColor="#0054A0" lowerColor="#FFFFFF" className={classes.waveBorder} animationNegativeDelay={2} />
     </Fragment>
   )
 }
