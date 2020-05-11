@@ -10,6 +10,7 @@ import { faHandHoldingUsd } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import { faSlideshare } from '@fortawesome/free-brands-svg-icons'
+import { faUserShield } from '@fortawesome/free-solid-svg-icons'
 
 const styles = (theme) => ({
   containerFix: {
@@ -89,7 +90,7 @@ function PricingSection(props) {
                     fontSize: '2rem',
                   }}
                 >
-                  <FontAwesomeIcon icon={faUsers} size="lg" />
+                  <FontAwesomeIcon icon={faUsers} size="lg" color="#3d40a2" />
                 </Grid>
                 <Grid
                   item
@@ -135,7 +136,7 @@ function PricingSection(props) {
                     fontSize: '2rem',
                   }}
                 >
-                  <FontAwesomeIcon icon={faSlideshare} size="lg" />
+                  <FontAwesomeIcon icon={faSlideshare} size="lg" color="#fa8072" />
                 </Grid>
                 <Grid
                   item
@@ -156,7 +157,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    借貸、理財齊合作，共創三方共贏新局面。
+                    透過金融科技與專業審查，降低投資方及借貸方風險，，共創三方共贏新局面。
                   </Typography>
                 </Grid>
               </Grid>
@@ -181,7 +182,7 @@ function PricingSection(props) {
                     fontSize: '2rem',
                   }}
                 >
-                  <FontAwesomeIcon icon={faChartLine} size="lg" />
+                  <FontAwesomeIcon icon={faUserShield} size="lg" color="#4bb393" />
                 </Grid>
                 <Grid
                   item
@@ -202,7 +203,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    媒合過程符合法令規，WGpay擁有最優質的服務。
+                    媒合過程符合台灣法令規定，WGpay擁有最優質的服務。
                   </Typography>
                 </Grid>
               </Grid>
@@ -227,7 +228,7 @@ function PricingSection(props) {
                     fontSize: '2rem',
                   }}
                 >
-                  <FontAwesomeIcon icon={faSearch} size="lg" />
+                  <FontAwesomeIcon icon={faSearch} size="lg" color="#ff9a00" />
                 </Grid>
                 <Grid
                   item
@@ -273,7 +274,7 @@ function PricingSection(props) {
                     fontSize: '2rem',
                   }}
                 >
-                  <FontAwesomeIcon icon={faHandHoldingUsd} size="lg" />
+                  <FontAwesomeIcon icon={faHandHoldingUsd} size="lg" color="#49b6bb" />
                 </Grid>
                 <Grid
                   item
@@ -294,7 +295,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    分散投資、低門檻，輕鬆擁抱不動產市場債權收益。
+                    分散投資、低門檻，人人都可輕鬆擁抱不動產市場債權收益。
                   </Typography>
                 </Grid>
               </Grid>
@@ -319,7 +320,7 @@ function PricingSection(props) {
                     fontSize: '2rem',
                   }}
                 >
-                  <FontAwesomeIcon icon={faChartLine} size="lg" />
+                  <FontAwesomeIcon icon={faChartLine} size="lg" color="#e24978" />
                 </Grid>
                 <Grid
                   item

@@ -59,7 +59,7 @@ const styles = (theme) => ({
   wrapper: {
     position: 'relative',
     //backgroundColor: '#0054A0',
-    backgroundImage: 'linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(32,188,255,1) 0%, rgba(0,84,160,1) 99%)',
+    backgroundImage: 'linear-gradient(180deg, rgba(32,188,255,1) 0%, rgba(0,84,160,1) 79%)',
     paddingBottom: theme.spacing(2),
   },
   image: {
@@ -136,7 +136,7 @@ function HeadSection(props) {
                           color="secondary"
                           fullWidth
                           className={classes.extraLargeButton}
-                          classes={{ label: classes.extraLargeButtonLabel }}
+                          //classes={{ label: classes.extraLargeButtonLabel }}
                           href="http://54.64.193.122:83/"
                         >
                           立即申請

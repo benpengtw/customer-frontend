@@ -19,7 +19,7 @@ import ColoredButton from '../../../shared/components/ColoredButton'
 
 const styles = (theme) => ({
   footerInner: {
-    backgroundColor: theme.palette.common.darkBlack,
+    backgroundImage: 'linear-gradient(0deg, rgba(161,2,0,1) 21%, rgba(203,47,95,1) 99%)',
     paddingTop: theme.spacing(8),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
@@ -133,7 +133,7 @@ function Footer(props) {
   const { classes, theme, width } = props
   return (
     <footer className="lg-p-top">
-      <WaveBorder upperColor="#FFFFFF" lowerColor={theme.palette.common.darkBlack} animationNegativeDelay={4} />
+      <WaveBorder upperColor="#FFFFFF" lowerColor="#cb2f5f" animationNegativeDelay={4} />
       <div className={classes.footerInner}>
         <Grid container spacing={isWidthUp('md', width) ? 10 : 5}>
           <Grid item xs={12} md={6} lg={4}>
@@ -185,7 +185,7 @@ function Footer(props) {
             <Typography variant="h6" paragraph className="text-white">
               About the Company
             </Typography>
-            <Typography style={{ color: '#8f9296' }} paragraph>
+            <Typography className="text-white" paragraph>
               WGpay遊戲平台是唯數娛樂科技股份有限公司旗下之服務平台，致力於為玩家提供最貼心的服務，玩家除了可以盡情暢遊各種好玩的遊戲、使用便利的線上儲值功能，還可參與平台任務獲取紅利點數，兌換豐富多樣的遊戲虛寶及商品。
             </Typography>
             <Box display="flex">
