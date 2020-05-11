@@ -225,6 +225,7 @@ function BlogPost(props) {
   const [rvalue, setrValue] = React.useState('female')
   const [amount, setAmount] = React.useState(0)
   const [open, setOpen] = React.useState(true)
+  const [clickbtn, setClickbtn] = React.useState(false)
   const progress = React.useRef(() => {})
   useEffect(() => {
     document.title = `customer-frontend - ${titleText}`
@@ -260,6 +261,14 @@ function BlogPost(props) {
   }, [])
 
   const handleChange = (event) => {
+    if (event.target.value < 0) {
+      setAmount(0)
+      setClickbtn(true)
+    }
+    if (event.target.value > 0) {
+      setAmount(event.target.value)
+      setClickbtn(false)
+    }
     setAmount(event.target.value)
   }
 
@@ -468,12 +477,17 @@ function BlogPost(props) {
                           </Grid>
                           <Grid container item spacing={1} item xs={4}>
                             <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
-                              <Input
+                              <TextField
                                 id="standard-adornment-weight"
                                 value={amount}
+                                error={amount < 0}
                                 onChange={handleChange}
                                 type="number"
-                                endAdornment={<InputAdornment position="end">萬元</InputAdornment>}
+                                helperText={amount < 0 && '投資金額不正確，請修改至正確數值'}
+                                FormHelperTextProps={{ error: true }}
+                                InputProps={{
+                                  endAdornment: <InputAdornment position="end">萬元</InputAdornment>,
+                                }}
                               />
                             </Typography>
                           </Grid>
@@ -486,6 +500,7 @@ function BlogPost(props) {
                             onClick={onSubmit}
                             className={classes.button}
                             startIcon={<TrendingUpIcon />}
+                            disabled={clickbtn}
                           >
                             我要投資{userStore.isLoadingInvest && <ButtonCircularProgress />}
                           </Button>
