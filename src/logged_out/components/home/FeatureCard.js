@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Typography, withStyles, Card } from '@material-ui/core'
+import { Typography, withStyles, Card, Grid } from '@material-ui/core'
 
 const styles = (theme) => ({
   iconWrapper: {
@@ -50,23 +50,49 @@ function FeatureCard(props) {
   const { classes, Icon, color, headline, text } = props
   return (
     <div className={classes.card}>
-      <div
-        // We will set color and fill here, due to some prios complications
-        className={classes.iconWrapper}
-        style={{
-          color: color,
-          //backgroundColor: shadeColor(color, 0.5),
-          fill: color,
-        }}
-      >
-        {Icon}
-      </div>
-      <Typography variant="h5" paragraph>
-        {headline}
-      </Typography>
-      <Typography variant="body1" color="textSecondary">
-        {text}
-      </Typography>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          <div
+            // We will set color and fill here, due to some prios complications
+            className={classes.iconWrapper}
+            style={{
+              color: color,
+              //backgroundColor: shadeColor(color, 0.5),
+              fill: color,
+            }}
+          >
+            {Icon}
+          </div>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" paragraph>
+            {headline}
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="body1" color="textSecondary">
+            {text}
+          </Typography>
+        </Grid>
+      </Grid>
     </div>
   )
 }
