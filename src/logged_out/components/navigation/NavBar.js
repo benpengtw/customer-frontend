@@ -5,7 +5,10 @@ import { AppBar, Toolbar, Button, Hidden, IconButton, withStyles, Avatar } from 
 import MenuIcon from '@material-ui/icons/Menu'
 import HomeIcon from '@material-ui/icons/Home'
 import LockOpenIcon from '@material-ui/icons/LockOpen'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import BookIcon from '@material-ui/icons/Book'
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
+import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
 import logo from '../../../assets/logoRed.png'
 import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
@@ -93,9 +96,9 @@ function NavBar(props) {
     //   icon: <HowToRegIcon className="text-white" />,
     // },
     {
-      name: '',
-      onClick: '',
-      icon: <LockOpenIcon className="text-white" />,
+      name: 'Login',
+      onClick: openLoginDialog,
+      icon: <ExitToAppIcon className="text-white" />,
     },
     // {
     //   name: 'Logout',
@@ -103,6 +106,32 @@ function NavBar(props) {
     //   icon: <LockOpenIcon className="text-white" />,
     // },
   ]
+
+  let menuItemsReal = ''
+
+  const menuItemsLogged = [
+    {
+      link: '/blog',
+      name: '投資標的',
+      icon: <BookIcon className="text-white" />,
+    },
+    {
+      name: '會員管理',
+      link: '/c/dashboard',
+      icon: <SettingsInputComponentIcon className="text-white" />,
+    },
+    {
+      name: 'Logout',
+      onClick: clearLoginData,
+      icon: <PowerSettingsNewIcon className="text-white" />,
+    },
+  ]
+  if (userStore.currentUser.name) {
+    menuItemsReal = menuItemsLogged
+  } else {
+    menuItemsReal = menuItems
+  }
+
   return useObserver(() => (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
@@ -188,7 +217,7 @@ function NavBar(props) {
         </Toolbar>
       </AppBar>
       <NavigationDrawer
-        menuItems={menuItems}
+        menuItems={menuItemsReal}
         anchor="right"
         open={mobileDrawerOpen}
         selectedItem={selectedTab}
