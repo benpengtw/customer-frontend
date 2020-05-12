@@ -137,7 +137,7 @@ function HeadSection(props) {
                           fullWidth
                           className={classes.extraLargeButton}
                           //classes={{ label: classes.extraLargeButtonLabel }}
-                          href="http://54.64.193.122:83/"
+                          href="http://54.64.193.122:83/blog"
                         >
                           立即申請
                         </ColorButton>

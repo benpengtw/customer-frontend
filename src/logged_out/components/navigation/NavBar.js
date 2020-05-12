@@ -82,7 +82,7 @@ function NavBar(props) {
   const menuItems = [
     {
       link: '/',
-      name: 'Home',
+      name: '首頁',
       icon: <HomeIcon className="text-white" />,
     },
     {
@@ -96,7 +96,7 @@ function NavBar(props) {
     //   icon: <HowToRegIcon className="text-white" />,
     // },
     {
-      name: 'Login',
+      name: '登入',
       onClick: openLoginDialog,
       icon: <ExitToAppIcon className="text-white" />,
     },
@@ -121,7 +121,7 @@ function NavBar(props) {
       icon: <SettingsInputComponentIcon className="text-white" />,
     },
     {
-      name: 'Logout',
+      name: '登出',
       onClick: clearLoginData,
       icon: <PowerSettingsNewIcon className="text-white" />,
     },
@@ -181,7 +181,7 @@ function NavBar(props) {
                         onClick={clearLoginData}
                         classes={{ root: classes.button, text: classes.menuButtonText }}
                       >
-                        {'Logout'}
+                        {'登出'}
                       </Button>
                       <Button
                         color="secondary"
@@ -207,7 +207,7 @@ function NavBar(props) {
                       classes={{ text: classes.menuButtonText }}
                       key="Login"
                     >
-                      {'Login'}
+                      {'登入'}
                     </Button>
                   )
                 }

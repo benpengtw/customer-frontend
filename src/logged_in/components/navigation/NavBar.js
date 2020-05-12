@@ -211,7 +211,7 @@ function NavBar(props) {
     },
     {
       link: '/',
-      name: 'Logout',
+      name: '登出',
       onClick: clearLoginData,
       icon: {
         desktop: <PowerSettingsNewIcon className="text-white" fontSize="small" />,
