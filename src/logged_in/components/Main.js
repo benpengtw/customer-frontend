@@ -164,7 +164,7 @@ class Main extends PureComponent {
 
   selectDashboard = () => {
     smoothScrollTop()
-    document.title = 'customer-frontend - Dashboard'
+    document.title = 'WG金融平台 - Dashboard'
     this.setState({
       selectedTab: 'Dashboard',
     })
@@ -178,7 +178,7 @@ class Main extends PureComponent {
 
   selectPosts = () => {
     smoothScrollTop()
-    document.title = 'customer-frontend - Posts'
+    document.title = 'WG金融平台 - Posts'
     this.setState({
       selectedTab: 'Posts',
     })
@@ -210,7 +210,7 @@ class Main extends PureComponent {
 
   selectSubscription = () => {
     smoothScrollTop()
-    document.title = 'customer-frontend - Subscription'
+    document.title = 'WG金融平台 - Subscription'
     this.setState({
       selectedTab: 'Subscription',
     })

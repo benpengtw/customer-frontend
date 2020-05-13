@@ -228,7 +228,7 @@ function BlogPost(props) {
   const [clickbtn, setClickbtn] = React.useState(false)
   const progress = React.useRef(() => {})
   useEffect(() => {
-    document.title = `customer-frontend - ${titleText}`
+    document.title = `WG金融平台 - ${titleText}`
     smoothScrollTop()
   }, [title])
 
