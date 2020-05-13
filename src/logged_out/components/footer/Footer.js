@@ -16,6 +16,9 @@ import MailIcon from '@material-ui/icons/Mail'
 import WaveBorder from '../../../shared/components/WaveBorder'
 import transitions from '@material-ui/core/styles/transitions'
 import ColoredButton from '../../../shared/components/ColoredButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHandshake } from '@fortawesome/free-solid-svg-icons'
+import { faComments } from '@fortawesome/free-solid-svg-icons'
 
 const styles = (theme) => ({
   footerInner: {
@@ -77,12 +80,12 @@ const styles = (theme) => ({
 
 const infos = [
   {
-    icon: <PhoneIcon />,
-    description: '+1 555 123456',
+    icon: <FontAwesomeIcon icon={faHandshake} />,
+    description: '商務合作 ⁄ bd@wegames.com.tw',
   },
   {
-    icon: <MailIcon />,
-    description: 'wgpay@wegames.com.tw',
+    icon: <FontAwesomeIcon icon={faComments} />,
+    description: '公關聯繫 ⁄ pr@wegames.com.tw',
   },
 ]
 

@@ -81,7 +81,7 @@ function PricingSection(props) {
         <Grid container spacing={calculateSpacing(width)} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} lg={4} className={classes.cardWrapper} data-aos="zoom-in-up">
             <div className={classes.card}>
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                 <Grid
                   item
                   xs={12}
@@ -127,7 +127,7 @@ function PricingSection(props) {
             data-aos-delay="200"
           >
             <div className={classes.card}>
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                 <Grid
                   item
                   xs={12}
@@ -173,7 +173,7 @@ function PricingSection(props) {
             data-aos-delay={isWidthUp('md', width) ? '400' : '0'}
           >
             <div className={classes.card}>
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                 <Grid
                   item
                   xs={12}
@@ -219,7 +219,7 @@ function PricingSection(props) {
             data-aos-delay={isWidthUp('md', width) ? '600' : '200'}
           >
             <div className={classes.card}>
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                 <Grid
                   item
                   xs={12}
@@ -265,7 +265,7 @@ function PricingSection(props) {
             data-aos-delay={isWidthUp('md', width) ? '800' : '200'}
           >
             <div className={classes.card}>
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                 <Grid
                   item
                   xs={12}
@@ -311,7 +311,7 @@ function PricingSection(props) {
             data-aos-delay={isWidthUp('md', width) ? '1000' : '200'}
           >
             <div className={classes.card}>
-              <Grid container direction="row" justify="center" alignItems="center">
+              <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                 <Grid
                   item
                   xs={12}
