@@ -168,7 +168,8 @@ class UserStore {
               this.isLoadingInvest = false
               this.snackSuccess = 'success'
               window.location.href =
-                'http://54.64.193.122:81/?address=' +
+                process.env.REACT_APP_URL +
+                ':81/?address=' +
                 res.data.projectAddress +
                 '&amount=' +
                 res.data.cryptoAmount +

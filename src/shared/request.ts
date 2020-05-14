@@ -1,6 +1,6 @@
 import axios from 'axios'
 const request = axios.create({
-  baseURL: 'http://18.180.172.86:7002/customer_api/v1',
+  baseURL: process.env.REACT_APP_URL + ':7002/customer_api/v1',
   timeout: 6000, // request timeout
 })
 
@@ -11,6 +11,7 @@ request.interceptors.request.use(
     const url = config.url
 
     console.log('request', config)
+    console.log('aasasas', process.env.NODE_ENV)
     let tokenLocalStorage: string | null = localStorage.getItem('token')
     const limitUrl = {
       login: '/customer/account/login',

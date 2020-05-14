@@ -54,8 +54,10 @@
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start:dev": "env-cmd -f .env.development react-app-rewired start",
+    "start:prod": "env-cmd -f .env.production react-app-rewired start",
+    "build:dev": "env-cmd -f .env.development react-app-rewired start",
+    "build:prod": "env-cmd -f .env.production react-app-rewired start",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
