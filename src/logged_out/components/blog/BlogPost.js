@@ -455,7 +455,7 @@ function BlogPost(props) {
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                     {fakeContent}
                     <br />
-                    {userStore.currentUser.name && (
+                    {userStore.currentUser.name ? (
                       <Fragment>
                         <Grid container spacing={1}>
                           <FormControl component="fieldset">
@@ -505,6 +505,12 @@ function BlogPost(props) {
                             我要投資{userStore.isLoadingInvest && <ButtonCircularProgress />}
                           </Button>
                         </Grid>
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                          會員登入後才可進行投資
+                        </Typography>
                       </Fragment>
                     )}
                   </CardContent>
