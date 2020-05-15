@@ -86,7 +86,7 @@ function NavBar(props) {
       icon: <HomeIcon className="text-white" />,
     },
     {
-      link: '/blog',
+      link: '/project',
       name: '投資標的',
       icon: <BookIcon className="text-white" />,
     },
@@ -111,7 +111,7 @@ function NavBar(props) {
 
   const menuItemsLogged = [
     {
-      link: '/blog',
+      link: '/project',
       name: '投資標的',
       icon: <BookIcon className="text-white" />,
     },

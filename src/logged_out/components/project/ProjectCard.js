@@ -126,7 +126,7 @@ const thousands_separators = (num) => {
   return num_parts.join('.')
 }
 
-function BlogCard(props) {
+function ProjectCard(props) {
   const {
     classes,
     url,
@@ -273,7 +273,7 @@ function BlogCard(props) {
   )
 }
 
-BlogCard.propTypes = {
+ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
@@ -289,4 +289,4 @@ BlogCard.propTypes = {
   repaymentType: PropTypes.string.isRequired,
 }
 
-export default withStyles(styles, { withTheme: true })(BlogCard)
+export default withStyles(styles, { withTheme: true })(ProjectCard)

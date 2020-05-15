@@ -43,7 +43,7 @@ const styles = (theme) => ({
   },
 })
 
-function BlogHeadSection(props) {
+function ProjectHeadSection(props) {
   const { classes, theme, width } = props
   return (
     <Fragment>
@@ -59,10 +59,10 @@ function BlogHeadSection(props) {
   )
 }
 
-BlogHeadSection.propTypes = {
+ProjectHeadSection.propTypes = {
   classes: PropTypes.object,
   width: PropTypes.string,
   theme: PropTypes.object,
 }
 
-export default withWidth()(withStyles(styles, { withTheme: true })(BlogHeadSection))
+export default withWidth()(withStyles(styles, { withTheme: true })(ProjectHeadSection))

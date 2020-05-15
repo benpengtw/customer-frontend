@@ -49,7 +49,7 @@ const styles = (theme) => ({
   },
 })
 
-function BlogCardOld(props) {
+function ProjectCardOld(props) {
   const { classes, url, src, date, title } = props
   return (
     <Card className={classes.card}>
@@ -74,7 +74,7 @@ function BlogCardOld(props) {
   )
 }
 
-BlogCardOld.propTypes = {
+ProjectCardOld.propTypes = {
   classes: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -82,4 +82,4 @@ BlogCardOld.propTypes = {
   src: PropTypes.string,
 }
 
-export default withStyles(styles, { withTheme: true })(BlogCardOld)
+export default withStyles(styles, { withTheme: true })(ProjectCardOld)

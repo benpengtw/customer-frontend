@@ -8,7 +8,7 @@ const styles = {
   },
 }
 
-function SubscriptionInfo(props) {
+function ProjectOrderListInfo(props) {
   const { classes, testTitle } = props
   return (
     <Toolbar className={classes.toolbar}>
@@ -17,9 +17,9 @@ function SubscriptionInfo(props) {
   )
 }
 
-SubscriptionInfo.propTypes = {
+ProjectOrderListInfo.propTypes = {
   testTitle: PropTypes.string,
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(SubscriptionInfo)
+export default withStyles(styles)(ProjectOrderListInfo)

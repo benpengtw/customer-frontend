@@ -196,13 +196,13 @@ function NavBar(props) {
       },
     },
     {
-      link: '/c/subscription',
+      link: '/c/projectOrderList',
       name: '已投資項目',
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
           <AccountBalanceIcon
-            className={selectedTab === 'Subscription' ? classes.textRedTheme : 'text-white'}
+            className={selectedTab === 'ProjectOrderList' ? classes.textRedTheme : 'text-white'}
             fontSize="small"
           />
         ),

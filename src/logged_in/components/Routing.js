@@ -4,7 +4,7 @@ import { Switch } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import Dashboard from './dashboard/Dashboard'
 import Posts from './posts/Posts'
-import Subscription from './subscription/Subscription'
+import ProjectOrderList from './projectOrderList/ProjectOrderList'
 import PropsRoute from '../../shared/components/PropsRoute'
 
 const styles = (theme) => ({
@@ -61,7 +61,7 @@ function Routing(props) {
     isAccountActivated,
     selectDashboard,
     selectPosts,
-    selectSubscription,
+    selectProjectOrderList,
   } = props
   return (
     <div className={classes.wrapper}>
@@ -78,10 +78,10 @@ function Routing(props) {
           selectPosts={selectPosts}
         />
         <PropsRoute
-          path="/c/subscription"
-          component={Subscription}
+          path="/c/projectOrderList"
+          component={ProjectOrderList}
           pushMessageToSnackbar={pushMessageToSnackbar}
-          selectSubscription={selectSubscription}
+          selectProjectOrderList={selectProjectOrderList}
         />
         <PropsRoute
           path=""
@@ -120,7 +120,7 @@ Routing.propTypes = {
   isAccountActivated: PropTypes.bool.isRequired,
   selectDashboard: PropTypes.func.isRequired,
   selectPosts: PropTypes.func.isRequired,
-  selectSubscription: PropTypes.func.isRequired,
+  selectProjectOrderList: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(memo(Routing))

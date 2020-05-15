@@ -28,7 +28,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 import TimerIcon from '@material-ui/icons/Timer'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
-import BlogCardOld from './BlogCardOld'
+import ProjectCardOld from './ProjectCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
@@ -43,7 +43,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 const styles = (theme) => ({
-  blogContentWrapper: {
+  projectContentWrapper: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     [theme.breakpoints.up('sm')]: {
@@ -208,7 +208,7 @@ const thousands_separators = (num) => {
   return num_parts.join('.')
 }
 
-function BlogPost(props) {
+function ProjectPost(props) {
   let store = useStores()
   const { articlesStore, userStore } = store
   const {
@@ -342,10 +342,10 @@ function BlogPost(props) {
   return useObserver(() => (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       {printSnackbar()}
-      <div className={classes.blogContentWrapper}>
+      <div className={classes.projectContentWrapper}>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            {/*console.log('BlogPost', userStore.currentUser.address)*/}
+            {/*console.log('ProjectPost', userStore.currentUser.address)*/}
             <Box pt={3} pr={3} pl={3} pb={2}>
               <Typography variant="h4">
                 <b>{titleText}</b>
@@ -566,14 +566,14 @@ function BlogPost(props) {
           其他投資計畫
         </Typography>
         <Grid container spacing={3}>
-          {otherArticles.slice(0, 4).map((blogPost) => (
-            <Grid key={blogPost.id} item md={3}>
+          {otherArticles.slice(0, 4).map((projectPost) => (
+            <Grid key={projectPost.id} item md={3}>
               <Box mb={3}>
-                <BlogCardOld
-                  title={blogPost.titleText}
-                  date={blogPost.date}
-                  src={blogPost.imageSrc}
-                  url={`${blogPost.url}${blogPost.params}`}
+                <ProjectCardOld
+                  title={projectPost.titleText}
+                  date={projectPost.date}
+                  src={projectPost.imageSrc}
+                  url={`${projectPost.url}${projectPost.params}`}
                 />
               </Box>
             </Grid>
@@ -584,7 +584,7 @@ function BlogPost(props) {
   ))
 }
 
-BlogPost.propTypes = {
+ProjectPost.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
@@ -600,4 +600,4 @@ BlogPost.propTypes = {
   id: PropTypes.number.isRequired,
 }
 
-export default withStyles(styles, { withTheme: true })(BlogPost)
+export default withStyles(styles, { withTheme: true })(ProjectPost)

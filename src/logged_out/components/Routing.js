@@ -3,20 +3,20 @@ import PropTypes from 'prop-types'
 import { Switch } from 'react-router-dom'
 import PropsRoute from '../../shared/components/PropsRoute'
 import Home from './home/Home'
-import Blog from './blog/Blog'
-import BlogPost from './blog/BlogPost'
+import Project from './project/Project'
+import ProjectPost from './project/ProjectPost'
 
 function Routing(props) {
-  const { blogPosts, selectBlog, selectHome, oneInvestAmount } = props
+  const { projectPosts, selectProject, selectHome, oneInvestAmount } = props
   return (
     <Switch>
-      {blogPosts.map((post, index) => {
+      {projectPosts.map((post, index) => {
         if (index != 0) {
           return (
             <PropsRoute
               /* We cannot use the url here as it contains the get params */
               path={post.url}
-              component={BlogPost}
+              component={ProjectPost}
               title={post.title}
               titleText={post.titleText}
               date={post.date}
@@ -30,7 +30,7 @@ function Routing(props) {
               totalAmount={post.totalAmount}
               key={post.id}
               id={post.id}
-              otherArticles={blogPosts.filter((blogPost) => blogPost.id !== post.id)}
+              otherArticles={projectPosts.filter((projectPost) => projectPost.id !== post.id)}
             />
           )
         } else {
@@ -38,7 +38,7 @@ function Routing(props) {
             <PropsRoute
               /* We cannot use the url here as it contains the get params */
               path={post.url}
-              component={BlogPost}
+              component={ProjectPost}
               title={post.title}
               titleText={post.titleText}
               date={post.date}
@@ -52,17 +52,17 @@ function Routing(props) {
               totalAmount={post.totalAmount}
               key={post.id}
               id={post.id}
-              otherArticles={blogPosts.filter((blogPost) => blogPost.id !== post.id)}
+              otherArticles={projectPosts.filter((projectPost) => projectPost.id !== post.id)}
             />
           )
         }
       })}
       <PropsRoute
         exact
-        path="/blog"
-        component={Blog}
-        selectBlog={selectBlog}
-        blogPosts={blogPosts}
+        path="/project"
+        component={Project}
+        selectProject={selectProject}
+        projectPosts={projectPosts}
         oneInvestAmount={oneInvestAmount}
       />
       )
@@ -72,9 +72,9 @@ function Routing(props) {
 }
 
 Routing.propTypes = {
-  blogposts: PropTypes.arrayOf(PropTypes.object),
+  projectposts: PropTypes.arrayOf(PropTypes.object),
   selectHome: PropTypes.func.isRequired,
-  selectBlog: PropTypes.func.isRequired,
+  selectProject: PropTypes.func.isRequired,
   oneInvestAmount: PropTypes.number,
 }
 

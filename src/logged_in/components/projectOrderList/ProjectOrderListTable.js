@@ -70,7 +70,7 @@ const thousands_separators = (num) => {
 }
 const rowsPerPage = 25
 
-function SubscriptionTable(props) {
+function ProjectOrderListTable(props) {
   const { theme, classes, projectOrderList } = props
   const [page, setPage] = useState(0)
 
@@ -138,10 +138,10 @@ function SubscriptionTable(props) {
   )
 }
 
-SubscriptionTable.propTypes = {
+ProjectOrderListTable.propTypes = {
   theme: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   projectOrderList: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
-export default withStyles(styles, { withTheme: true })(SubscriptionTable)
+export default withStyles(styles, { withTheme: true })(ProjectOrderListTable)

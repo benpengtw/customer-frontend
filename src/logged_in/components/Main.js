@@ -208,11 +208,11 @@ class Main extends PureComponent {
     }
   }
 
-  selectSubscription = () => {
+  selectProjectOrderList = () => {
     smoothScrollTop()
-    document.title = 'WG金融平台 - Subscription'
+    document.title = 'WG金融平台 - ProjectOrderList'
     this.setState({
-      selectedTab: 'Subscription',
+      selectedTab: 'ProjectOrderList',
     })
   }
 
@@ -253,7 +253,7 @@ class Main extends PureComponent {
             targets={targets}
             selectDashboard={this.selectDashboard}
             selectPosts={this.selectPosts}
-            selectSubscription={this.selectSubscription}
+            selectProjectOrderList={this.selectProjectOrderList}
           />
         </main>
       </Fragment>
