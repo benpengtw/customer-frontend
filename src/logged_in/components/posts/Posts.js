@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Typography, Grid, FormControl, Button, Box, Paper, Toolbar, TextField, Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
-import { observer, inject } from 'mobx-react'
+import { observer, inject, useObserver } from 'mobx-react'
 const styles = {
   dBlock: { display: 'block' },
   dNone: { display: 'none' },
@@ -99,7 +99,7 @@ class Posts extends PureComponent {
     const { address, validStatus, open } = this.state
     const { classes, userStore, pushMessageToSnackbar } = this.props
     console.log('isLoadingAddress', userStore)
-    return (
+    return useObserver(() => (
       <Paper>
         {this.printSnackbar()}
         <Toolbar style={{ justifyContent: 'space-between' }}>
@@ -143,7 +143,7 @@ class Posts extends PureComponent {
           </form>
         </Box>
       </Paper>
-    )
+    ))
   }
 }
 
