@@ -66,7 +66,7 @@ const styles = (theme) => ({
   },
   cardSticky: {
     boxShadow: theme.shadows[3],
-    height: '90vh',
+    height: '85%',
   },
   timerIcon: {
     color: '#00468b',
@@ -477,7 +477,7 @@ function ProjectPost(props) {
                             <RadioGroup aria-label="gender" name="gender1" value={rvalue} onChange={handleRadioChange}>
                               <FormControlLabel value="female" control={<Radio />} label="加密貨幣" />
                               <FormControlLabel value="male" control={<Radio />} label="信用卡" />
-                              <FormControlLabel value="other" control={<Radio />} label="虛擬帳戶轉帳" />
+                              <FormControlLabel value="disabled" disabled control={<Radio />} label="虛擬帳戶轉帳" />
                               <FormControlLabel value="disabled" disabled control={<Radio />} label="Line Pay" />
                             </RadioGroup>
                           </FormControl>

@@ -23,6 +23,7 @@ class Posts extends PureComponent {
 
   componentDidMount() {
     const { selectPosts } = this.props
+    this.props.userStore.getMe()
     selectPosts()
   }
 
@@ -99,7 +100,7 @@ class Posts extends PureComponent {
     const { address, validStatus, open } = this.state
     const { classes, userStore, pushMessageToSnackbar } = this.props
     console.log('isLoadingAddress', userStore)
-    return useObserver(() => (
+    return (
       <Paper>
         {this.printSnackbar()}
         <Toolbar style={{ justifyContent: 'space-between' }}>
@@ -127,7 +128,7 @@ class Posts extends PureComponent {
                       }
                     }}
                     label="Wallet Address"
-                    defaultValue={userStore.currentUser.address}
+                    defaultValue={window.localStorage.getItem('address')}
                     aria-describedby="my-helper-text"
                     helperText={validStatus === 'invalidAddress' && '錢包地址格式錯誤'}
                   />
@@ -143,7 +144,7 @@ class Posts extends PureComponent {
           </form>
         </Box>
       </Paper>
-    ))
+    )
   }
 }
 

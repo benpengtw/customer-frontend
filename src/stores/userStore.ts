@@ -90,6 +90,7 @@ class UserStore {
         action((response) => {
           const status: any = response.status
           if (status === 'success') {
+            window.localStorage.setItem('address', response.data.customerProjectServices[0].address)
             this.currentUser.email = response.data.email
             this.currentUser.name = response.data.name
             this.currentUser.address = response.data.customerProjectServices[0].address
