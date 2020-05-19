@@ -66,7 +66,7 @@ const styles = (theme) => ({
   },
   cardSticky: {
     boxShadow: theme.shadows[3],
-    height: '85%',
+    height: '95%',
   },
   timerIcon: {
     color: '#00468b',
@@ -356,7 +356,6 @@ function ProjectPost(props) {
                 })}
               </Typography>
             </Box>
-            {/* <ZoomImage className={classes.img} src={src} alt="" /> */}
             <Grid container spacing={2}>
               <Grid item md={8}>
                 <Card className={classes.card} variant="outlined">
@@ -367,6 +366,8 @@ function ProjectPost(props) {
                       showPlayButton={false}
                       showBullets={true}
                     />
+                    <Divider />
+                    <br />
                     <div dangerouslySetInnerHTML={{ __html: articlesStore.fakeHouse.column7 }} />
                   </CardContent>
                 </Card>
