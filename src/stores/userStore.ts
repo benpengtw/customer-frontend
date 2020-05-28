@@ -13,10 +13,24 @@ class UserStore {
     address: '',
   }
   @observable loadingUser
-  @observable oneInvestAmount = 0
   @observable updatingUser
   @observable updatingUserErrors
   @observable projectOrderList = []
+  @observable projectList = [
+    {
+      irr: Number,
+      investAmount: Number,
+      startDate: String,
+      endDate: String,
+      url: String,
+      imageSrc: Array,
+      percent: Number,
+      title: String,
+      repaymentType: String,
+      amount: Number,
+    },
+  ]
+  @observable projectListUse = observable.map()
 
   @action getMyProjectOrderList({ payload }) {
     return request('/customer/me/projectOrder/list', {
@@ -79,21 +93,15 @@ class UserStore {
   }
 
   @action getMe() {
-    // const response = await customerMe()
-    // if (response.status === 'success') {
-    //   this.currentUser.email = response.data.email
-    //   this.currentUser.name = response.data.name
-    // }
-    // return
     return request('/customer/me')
       .then(
         action((response) => {
           const status: any = response.status
           if (status === 'success') {
-            window.localStorage.setItem('address', response.data.customerProjectServices[0].address)
             this.currentUser.email = response.data.email
             this.currentUser.name = response.data.name
             this.currentUser.address = response.data.customerProjectServices[0].address
+            window.localStorage.setItem('address', response.data.customerProjectServices[0].address)
           }
         })
       )
@@ -107,12 +115,23 @@ class UserStore {
   }
 
   @action getProject() {
-    return request('/project')
+    return request('/project/?sort=DESC')
       .then(
         action((response) => {
           const status: any = response.status
           if (status === 'success') {
-            this.oneInvestAmount = response.data[0].ProjectsInvestingListingTotalAmount
+            //this.projectList = response.data
+            this.projectList = response.data.map((project) => ({
+              irr: project.IRR,
+              investAmount: project.ProjectsInvestingListingTotalAmount,
+              startDate: project.startDate,
+              endDate: project.endDate,
+              url: '/project/post/' + project.id,
+              imageSrc: project.projectMutiplePhotos[0],
+              percent: project.ProjectsInvestingListingTotalAmount / project.amount,
+              title: project.title,
+              amount: project.amount,
+            }))
           }
         })
       )

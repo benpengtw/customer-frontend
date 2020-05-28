@@ -26,7 +26,7 @@ const styles = (theme) => ({
   },
 })
 
-function getVerticalProjectPosts(width, projectPosts, oneInvestAmount) {
+function getVerticalProjectPosts(width, projectPosts) {
   const gridRows = [[], [], []]
   let rows
   let xs
@@ -41,53 +41,28 @@ function getVerticalProjectPosts(width, projectPosts, oneInvestAmount) {
     xs = 12
   }
   projectPosts.forEach((projectPost, index) => {
-    if (index != 0) {
-      gridRows[index % rows].push(
-        <Grid key={projectPost.id} item xs={12}>
-          <Box mb={3}>
-            <LazyLoad height={900} offset={100}>
-              <ProjectCard
-                src={projectPost.imageSrc}
-                title={projectPost.title}
-                titleText={projectPost.titleText}
-                date={projectPost.date}
-                startDate={projectPost.startDate}
-                endDate={projectPost.endDate}
-                irr={projectPost.irr}
-                url={projectPost.url}
-                totalAmount={projectPost.totalAmount}
-                content={projectPost.content}
-                percent={projectPost.percent}
-                repaymentType={projectPost.repaymentType}
-              />
-            </LazyLoad>
-          </Box>
-        </Grid>
-      )
-    } else {
-      gridRows[index % rows].push(
-        <Grid key={projectPost.id} item xs={12}>
-          <Box mb={3}>
-            <LazyLoad height={900} offset={100}>
-              <ProjectCard
-                src={projectPost.imageSrc}
-                title={projectPost.title}
-                titleText={projectPost.titleText}
-                date={projectPost.date}
-                startDate={projectPost.startDate}
-                endDate={projectPost.endDate}
-                irr={projectPost.irr}
-                url={projectPost.url}
-                totalAmount={projectPost.totalAmount}
-                content={projectPost.content}
-                percent={(oneInvestAmount * 30) / 136900}
-                repaymentType={projectPost.repaymentType}
-              />
-            </LazyLoad>
-          </Box>
-        </Grid>
-      )
-    }
+    gridRows[index % rows].push(
+      <Grid key={projectPost.id} item xs={12}>
+        <Box mb={3}>
+          <LazyLoad height={900} offset={100}>
+            <ProjectCard
+              src={projectPost.imageSrc}
+              title={projectPost.title}
+              titleText={projectPost.titleText}
+              date={projectPost.date}
+              startDate={projectPost.startDate}
+              endDate={projectPost.endDate}
+              irr={projectPost.irr}
+              url={projectPost.url}
+              totalAmount={projectPost.totalAmount}
+              content={projectPost.content}
+              percent={projectPost.percent}
+              repaymentType={projectPost.repaymentType}
+            />
+          </LazyLoad>
+        </Box>
+      </Grid>
+    )
   })
   return gridRows.map((element, index) => (
     <Grid key={index} item xs={xs}>
@@ -97,7 +72,7 @@ function getVerticalProjectPosts(width, projectPosts, oneInvestAmount) {
 }
 
 function Project(props) {
-  const { classes, width, projectPosts, selectProject, oneInvestAmount } = props
+  const { classes, width, projectPosts, selectProject } = props
 
   useEffect(() => {
     selectProject()
@@ -110,7 +85,7 @@ function Project(props) {
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
           <Grid container spacing={5}>
-            {getVerticalProjectPosts(width, projectPosts, oneInvestAmount)}
+            {getVerticalProjectPosts(width, projectPosts)}
           </Grid>
         </div>
       </Box>
@@ -122,7 +97,6 @@ Project.propTypes = {
   selectProject: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   width: PropTypes.string.isRequired,
-  oneInvestAmount: PropTypes.number,
   projectposts: PropTypes.arrayOf(PropTypes.object),
 }
 
