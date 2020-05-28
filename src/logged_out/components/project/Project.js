@@ -5,7 +5,11 @@ import { Grid, Box, isWidthUp, withWidth, withStyles } from '@material-ui/core'
 import ProjectCard from './ProjectCard'
 import LazyLoad from 'react-lazyload'
 import ProjectHeadSection from './ProjectHeadSection'
-
+import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
+import { toJS, computed, reaction } from 'mobx'
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
 const styles = (theme) => ({
   projectContentWrapper: {
     marginLeft: theme.spacing(1),
@@ -26,7 +30,7 @@ const styles = (theme) => ({
   },
 })
 
-function getVerticalProjectPosts(width, projectPosts) {
+function getVerticalProjectPosts(width, projectPosts, pplist) {
   const gridRows = [[], [], []]
   let rows
   let xs
@@ -40,7 +44,9 @@ function getVerticalProjectPosts(width, projectPosts) {
     rows = 1
     xs = 12
   }
-  projectPosts.forEach((projectPost, index) => {
+  const yyy = toJS(pplist)
+  console.log('getVerticalProjectPosts', pplist)
+  yyy.map((projectPost, index) => {
     gridRows[index % rows].push(
       <Grid key={projectPost.id} item xs={12}>
         <Box mb={3}>
@@ -65,19 +71,25 @@ function getVerticalProjectPosts(width, projectPosts) {
     )
   })
   return gridRows.map((element, index) => (
-    <Grid key={index} item xs={xs}>
-      {element}
-    </Grid>
+    <Observer>
+      {() => (
+        <Grid key={index} item xs={xs}>
+          {element}
+        </Grid>
+      )}
+    </Observer>
   ))
 }
 
 function Project(props) {
+  let store = useStores()
+  const { userStore } = store
   const { classes, width, projectPosts, selectProject } = props
 
   useEffect(() => {
     selectProject()
   }, [selectProject])
-
+  console.log('ooo', projectPosts)
   return (
     <Fragment>
       <ProjectHeadSection />
@@ -85,7 +97,7 @@ function Project(props) {
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
           <Grid container spacing={5}>
-            {getVerticalProjectPosts(width, projectPosts)}
+            {getVerticalProjectPosts(width, projectPosts, userStore.projectList)}
           </Grid>
         </div>
       </Box>

@@ -34,7 +34,7 @@ class Main extends PureComponent {
   projectPostsMaxUnix = Math.round(new Date().getTime() / 1000)
 
   componentDidMount() {
-    //this.props.userStore.getProject()
+    this.props.userStore.getProject()
     if (localStorage.getItem('token')) {
       this.props.userStore.getMe()
     }
@@ -122,7 +122,6 @@ class Main extends PureComponent {
   render() {
     const { classes, userStore } = this.props
     const { selectedTab, mobileDrawerOpen, projectPosts, dialogOpen, cookieRulesDialogOpen } = this.state
-    console.log('sss', userStore.currentUser.name)
     return (
       <div className={classes.wrapper}>
         {!cookieRulesDialogOpen && <CookieConsent handleCookieRulesDialogOpen={this.handleCookieRulesDialogOpen} />}
