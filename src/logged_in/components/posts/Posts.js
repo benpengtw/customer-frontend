@@ -128,7 +128,7 @@ class Posts extends PureComponent {
                       }
                     }}
                     label="Wallet Address"
-                    defaultValue={window.localStorage.getItem('address')}
+                    defaultValue={window.sessionStorage.getItem('address')}
                     aria-describedby="my-helper-text"
                     helperText={validStatus === 'invalidAddress' && '錢包地址格式錯誤'}
                   />

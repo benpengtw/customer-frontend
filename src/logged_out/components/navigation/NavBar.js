@@ -183,19 +183,21 @@ function NavBar(props) {
                       >
                         {'登出'}
                       </Button>
-                      <Button
-                        color="secondary"
-                        size="large"
-                        classes={{ root: classes.button, disabled: classes.disabled }}
-                        disabled
-                      >
-                        <Avatar
-                          alt="profile picture"
-                          src={profilePicture}
-                          className={classNames(classes.accountAvatar)}
-                        />
-                        {currentUserName}
-                      </Button>
+                      <Link to={'/c/dashboard'} className={classes.noDecoration}>
+                        <Button
+                          color="secondary"
+                          size="large"
+                          classes={{ root: classes.button, disabled: classes.disabled }}
+                          disabled
+                        >
+                          <Avatar
+                            alt="profile picture"
+                            src={profilePicture}
+                            className={classNames(classes.accountAvatar)}
+                          />
+                          {currentUserName}
+                        </Button>
+                      </Link>
                     </Fragment>
                   )
                 } else {

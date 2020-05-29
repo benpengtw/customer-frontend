@@ -32,6 +32,15 @@ class UserStore {
       id: 0,
     },
   ]
+  @observable projectDetail = {
+    column1: '',
+    column2: '',
+    column3: '',
+    column4: '',
+    column5: '',
+    column6: '',
+    column7: '',
+  }
 
   @action getMyProjectOrderList({ payload }) {
     return request('/customer/me/projectOrder/list', {
@@ -102,7 +111,7 @@ class UserStore {
             this.currentUser.email = response.data.email
             this.currentUser.name = response.data.name
             this.currentUser.address = response.data.customerProjectServices[0].address
-            window.localStorage.setItem('address', response.data.customerProjectServices[0].address)
+            window.sessionStorage.setItem('address', response.data.customerProjectServices[0].address)
           }
         })
       )
@@ -136,6 +145,28 @@ class UserStore {
               totalAmount: project.totalAmount,
             }))
           }
+        })
+      )
+      .catch((error) => {
+        const { response } = error
+        if (response) {
+          console.log('err', response)
+        }
+        return Promise.resolve(error)
+      })
+  }
+
+  @action getProjectDetail({ payload }) {
+    return request('/project/' + payload.id)
+      .then(
+        action((response) => {
+          this.projectDetail.column1 = response.data.projectInfo.column1
+          this.projectDetail.column2 = response.data.projectInfo.column2
+          this.projectDetail.column3 = response.data.projectInfo.column3
+          this.projectDetail.column4 = response.data.projectInfo.column4
+          this.projectDetail.column5 = response.data.projectInfo.column5
+          this.projectDetail.column6 = response.data.projectInfo.column6
+          this.projectDetail.column7 = response.data.projectInfo.column7
         })
       )
       .catch((error) => {
