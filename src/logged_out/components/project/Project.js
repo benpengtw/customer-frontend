@@ -30,7 +30,7 @@ const styles = (theme) => ({
   },
 })
 
-function getVerticalProjectPosts(width, projectPosts, pplist) {
+function getVerticalProjectPosts(width, projectPosts, projectList) {
   const gridRows = [[], [], []]
   let rows
   let xs
@@ -44,9 +44,10 @@ function getVerticalProjectPosts(width, projectPosts, pplist) {
     rows = 1
     xs = 12
   }
-  const yyy = toJS(pplist)
-  console.log('getVerticalProjectPosts', pplist)
-  yyy.map((projectPost, index) => {
+  const projectListData = toJS(projectList)
+  //console.log('aaa', projectListData)
+  projectListData.map((projectPost, index) => {
+    console.log('bbb', projectPost)
     gridRows[index % rows].push(
       <Grid key={projectPost.id} item xs={12}>
         <Box mb={3}>
@@ -54,14 +55,13 @@ function getVerticalProjectPosts(width, projectPosts, pplist) {
             <ProjectCard
               src={projectPost.imageSrc}
               title={projectPost.title}
-              titleText={projectPost.titleText}
-              date={projectPost.date}
+              titleText={projectPost.title}
               startDate={projectPost.startDate}
               endDate={projectPost.endDate}
               irr={projectPost.irr}
-              url={projectPost.url}
+              url={'/project/post/' + projectPost.id}
               totalAmount={projectPost.totalAmount}
-              content={projectPost.content}
+              investAmount={projectPost.investAmount}
               percent={projectPost.percent}
               repaymentType={projectPost.repaymentType}
             />

@@ -1,7 +1,7 @@
-import { observable, action, runInAction } from 'mobx'
+import { observable, action } from 'mobx'
 import request from '../shared/request'
 import agent from '../agent'
-import { getProjectList } from './userService'
+
 class UserStore {
   @observable isLoading = false
   @observable isLoadingAddress = false
@@ -23,7 +23,7 @@ class UserStore {
       startDate: '',
       endDate: '',
       url: '',
-      imageSrc: [],
+      imageSrc: '',
       percent: 0,
       title: '',
       repaymentType: '',
@@ -114,54 +114,36 @@ class UserStore {
       })
   }
 
-  @action async getProject() {
-    const response = await getProjectList()
-    //console.log('ss', response.data)
-
-    runInAction(() => {
-      this.projectList = response.data.map((project) => ({
-        irr: project.IRR * 10,
-        investAmount: 60,
-        startDate: project.startDate,
-        endDate: project.endDate,
-        url: '/project/post/' + project.id,
-        id: project.id,
-        imageSrc: project.projectMutiplePhotos[0],
-        percent: 77,
-        date: 1598511600,
-        title: project.title,
-        titleText: project.title,
-        totalAmount: project.totalAmount,
-      }))
-    })
-    // return request('/project/?sort=DESC')
-    //   .then(
-    //     action((response) => {
-    //       const status: any = response.status
-    //       if (status === 'success') {
-    //         //this.projectList = response.data
-    //         this.projectList = response.data.map((project) => ({
-    //           irr: project.IRR * 10,
-    //           investAmount: 60,
-    //           startDate: project.startDate,
-    //           endDate: project.endDate,
-    //           url: '/project/post/' + project.id,
-    //           id: project.id,
-    //           imageSrc: project.projectMutiplePhotos[0],
-    //           percent: 77,
-    //           title: project.title,
-    //           totalAmount: 20650,
-    //         }))
-    //       }
-    //     })
-    //   )
-    //   .catch((error) => {
-    //     const { response } = error
-    //     if (response) {
-    //       console.log('err', response)
-    //     }
-    //     return Promise.resolve(error)
-    //   })
+  @action getProject() {
+    return request('/project/?sort=DESC')
+      .then(
+        action((response) => {
+          const status: any = response.status
+          if (status === 'success') {
+            //this.projectList = response.data
+            this.projectList = response.data.map((project) => ({
+              irr: project.IRR * 10,
+              investAmount: project.ProjectsInvestingListingTotalAmount,
+              startDate: project.startDate,
+              endDate: project.endDate,
+              id: project.id,
+              imageSrc: project.projectMutiplePhotos[0].coverUrl,
+              percent: Math.round((30000000000 / project.totalAmount) * 100),
+              repaymentType: '每月付息到期還本',
+              title: project.title,
+              titleText: project.title,
+              totalAmount: project.totalAmount,
+            }))
+          }
+        })
+      )
+      .catch((error) => {
+        const { response } = error
+        if (response) {
+          console.log('err', response)
+        }
+        return Promise.resolve(error)
+      })
   }
 
   @action addWallet({ payload }) {

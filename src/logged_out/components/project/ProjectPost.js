@@ -215,8 +215,8 @@ function ProjectPost(props) {
     classes,
     date,
     title,
-    src,
-    content,
+    //src,
+    //content,
     otherArticles,
     titleText,
     startDate,
@@ -242,6 +242,10 @@ function ProjectPost(props) {
   }, [])
 
   useEffect(() => {
+    if (percent == 0) {
+      setCompleted(0)
+      return
+    }
     progress.current = () => {
       if (completed >= percent) {
         setCompleted(percent)
@@ -561,12 +565,12 @@ function ProjectPost(props) {
           {otherArticles.slice(0, 4).map((projectPost) => (
             <Grid key={projectPost.id} item md={3}>
               <Box mb={3}>
-                <ProjectCardOld
+                {/* <ProjectCardOld
                   title={projectPost.titleText}
                   date={projectPost.date}
                   src={projectPost.imageSrc}
                   url={`${projectPost.url}${projectPost.params}`}
-                />
+                /> */}
               </Box>
             </Grid>
           ))}
@@ -581,13 +585,13 @@ ProjectPost.propTypes = {
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
-  src: PropTypes.string.isRequired,
+  //src: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   irr: PropTypes.number.isRequired,
   totalAmount: PropTypes.number.isRequired,
-  content: PropTypes.node.isRequired,
-  percent: PropTypes.number.isRequired,
+  //content: PropTypes.node.isRequired,
+  percent: PropTypes.number,
   otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number.isRequired,
 }

@@ -131,15 +131,15 @@ function ProjectCard(props) {
     classes,
     url,
     src,
-    date,
     title,
     titleText,
     startDate,
     endDate,
     irr,
     totalAmount,
-    percent,
     repaymentType,
+    investAmount,
+    percent,
   } = props
   const [completed, setCompleted] = React.useState(0)
   const [countIRR, setcountIRR] = React.useState(0)
@@ -156,6 +156,11 @@ function ProjectCard(props) {
     //console.log('dddddd', moment(endDate, 'YYYY-MM-DD').isValid())
   }, [])
   React.useEffect(() => {
+    if (percent == 0) {
+      setCompleted(0)
+      setcountIRR(irr)
+      return
+    }
     progress.current = () => {
       if (completed >= percent) {
         setCompleted(percent)
@@ -277,14 +282,13 @@ ProjectCard.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
   src: PropTypes.string,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   irr: PropTypes.number.isRequired,
   totalAmount: PropTypes.number.isRequired,
-  content: PropTypes.node.isRequired,
-  percent: PropTypes.number.isRequired,
+  investAmount: PropTypes.number,
+  percent: PropTypes.number,
   url: PropTypes.string.isRequired,
   repaymentType: PropTypes.string.isRequired,
 }

@@ -17,49 +17,26 @@ function Routing(props) {
   const { projectPosts, selectProject, selectHome } = props
   return useObserver(() => (
     <Switch>
-      {projectPosts.map((post, index) => {
-        // return (
-        //   <PropsRoute
-        //     path={post.url}
-        //     component={ProjectPost}
-        // title={post.title}
-        // titleText={post.titleText}
-        // date={post.date}
-        // src={post.imageSrc}
-        // startDate={post.startDate}
-        // endDate={post.endDate}
-        // irr={post.irr}
-        // totalAmount={post.totalAmount}
-        // content={post.content}
-        // percent={post.percent}
-        // totalAmount={post.totalAmount}
-        // key={post.id}
-        // id={post.id}
-        // otherArticles={projectPosts.filter((projectPost) => projectPost.id !== post.id)}
-        //   />
-        // )
-      })}
       {userStore.projectList.map((post, index) => {
-        //console.log('url', '/project/post/' + post.id)
+        console.log('post', toJS(post))
         return (
           <PropsRoute
             //path={'/project/post/5'}
             path={'/project/post/' + post.id}
             component={ProjectPost}
-            // title={post.title}
-            // titleText={post.titleText}
-            // date={post.date}
+            title={post.title}
+            titleText={post.titleText}
+            date={1593068400}
             // src={post.imageSrc}
-            // startDate={post.startDate}
-            // endDate={post.endDate}
-            // irr={post.irr}
-            // totalAmount={post.totalAmount}
+            startDate={post.startDate}
+            endDate={post.endDate}
+            irr={post.irr}
             // content={post.content}
-            // percent={post.percent}
-            // totalAmount={post.totalAmount}
-            // key={post.id}
-            // id={post.id}
-            //     otherArticles={projectPosts.filter((projectPost) => projectPost.id !== post.id)}
+            percent={post.percent}
+            totalAmount={post.totalAmount}
+            key={post.id}
+            id={post.id}
+            otherArticles={userStore.projectList.filter((projectPost) => projectPost.id !== post.id)}
           />
         )
       })}
