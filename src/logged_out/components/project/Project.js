@@ -73,7 +73,7 @@ function getVerticalProjectPosts(width, projectPosts, projectList) {
   return gridRows.map((element, index) => (
     <Observer>
       {() => (
-        <Grid key={index} item xs={xs}>
+        <Grid key={element.id} item xs={xs}>
           {element}
         </Grid>
       )}

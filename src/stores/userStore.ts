@@ -29,6 +29,7 @@ class UserStore {
       repaymentType: '',
       amount: 0,
       totalAmount: 0,
+      id: 0,
     },
   ]
 
