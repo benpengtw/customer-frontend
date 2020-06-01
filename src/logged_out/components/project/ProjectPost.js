@@ -103,8 +103,8 @@ const thousands_separators = (num) => {
 
 function ProjectPost(props) {
   let store = useStores()
-  const { articlesStore, userStore } = store
-  const { classes, date, title, otherArticles, titleText, startDate, endDate, percent, totalAmount, id } = props
+  const { userStore } = store
+  const { classes, date, title, otherArticles, titleText, startDate, endDate, percent, totalAmount, id, irr } = props
   const [completed, setCompleted] = React.useState(0)
   const [rvalue, setrValue] = React.useState('female')
   const [amount, setAmount] = React.useState(0)
@@ -117,7 +117,6 @@ function ProjectPost(props) {
   }, [title])
 
   useEffect(() => {
-    articlesStore.loadfakeHouse()
     userStore.getProjectDetail({
       payload: {
         id: id,
@@ -272,7 +271,7 @@ function ProjectPost(props) {
                     />
                     <Divider />
                     <br />
-                    <div dangerouslySetInnerHTML={{ __html: articlesStore.fakeHouse.column7 }} />
+                    <div dangerouslySetInnerHTML={{ __html: userStore.projectDetail.column7 }} />
                   </CardContent>
                 </Card>
               </Grid>
@@ -361,9 +360,16 @@ function ProjectPost(props) {
                     </Grid>
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                     <Grid container spacing={1}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>市價: {userStore.projectDetail.column5}</span>
-                      </Typography>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                          <span>市價: {userStore.projectDetail.column5}</span>
+                        </Typography>
+                      </Grid>
+                      <Grid container item spacing={1} item xs={6}>
+                        <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} color="secondary">
+                          <span>年化報酬率: {irr.toFixed(2)}%</span>
+                        </Typography>
+                      </Grid>
                     </Grid>
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                     <Grid container spacing={1}>
