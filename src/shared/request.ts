@@ -8,28 +8,28 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     // do something before request is sent
-    const url = config.url
+    //const url = config.url
 
     console.log('request', config)
     console.log('NODE_ENV', process.env.NODE_ENV)
     let tokenLocalStorage: string | null = localStorage.getItem('token')
-    const limitUrl = {
-      login: '/customer/account/login',
-      projectList: '/project',
-      forget: '/api/merchant/me/forget_password',
-      reset_password: '/api/merchant/me/reset_password',
-    }
+    // const limitUrl = {
+    //   login: '/customer/account/login',
+    //   projectList: '/project/g'.test(),
+    //   forget: '/api/merchant/me/forget_password',
+    //   reset_password: '/api/merchant/me/reset_password',
+    // }
 
-    if (
-      (tokenLocalStorage === null || tokenLocalStorage.length === 0) &&
-      !Object.keys(limitUrl)
-        .map((key) => limitUrl[key] === url)
-        .find((d) => d == true)
-    ) {
-      //alert('You need login')
-      window.location.href = '/'
-      return config
-    }
+    // if (
+    //   (tokenLocalStorage === null || tokenLocalStorage.length === 0) &&
+    //   !Object.keys(limitUrl)
+    //     .map((key) => limitUrl[key] === url)
+    //     .find((d) => d == true)
+    // ) {
+    //   //alert('You need login')
+    //   window.location.href = '/'
+    //   return config
+    // }
 
     if (tokenLocalStorage === null) {
       tokenLocalStorage = ''
