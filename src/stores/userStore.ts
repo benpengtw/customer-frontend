@@ -40,6 +40,7 @@ class UserStore {
     column5: '',
     column6: '',
     column7: '',
+    photos: [],
   }
 
   @action getMyProjectOrderList({ payload }) {
@@ -131,19 +132,20 @@ class UserStore {
           const status: any = response.status
           if (status === 'success') {
             //this.projectList = response.data
-            this.projectList = response.data.map((project) => ({
-              irr: project.IRR * 10,
-              investAmount: project.ProjectsInvestingListingTotalAmount,
-              startDate: project.startDate,
-              endDate: project.endDate,
-              id: project.id,
-              imageSrc: project.projectMutiplePhotos[0].coverUrl,
-              percent: Math.round((30000000000 / project.totalAmount) * 100),
-              repaymentType: '每月付息到期還本',
-              title: project.title,
-              titleText: project.title,
-              totalAmount: project.totalAmount,
-            }))
+            this.projectList = response.data.map((project) => {
+              return {
+                irr: project.IRR ? project.IRR * 10 : 0,
+                investAmount: project.ProjectsInvestingListingTotalAmount,
+                startDate: project.startDate,
+                endDate: project.endDate,
+                id: project.id,
+                imageSrc: project.projectMutiplePhotos[0].coverUrl,
+                percent: Math.round((project.ProjectsInvestingListingTotalAmount / project.totalAmount) * 100),
+                title: project.title,
+                titleText: project.title,
+                totalAmount: project.totalAmount,
+              }
+            })
           }
         })
       )
@@ -167,6 +169,10 @@ class UserStore {
           this.projectDetail.column5 = response.data.projectInfo.column5
           this.projectDetail.column6 = response.data.projectInfo.column6
           this.projectDetail.column7 = response.data.projectInfo.column7
+          this.projectDetail.photos = response.data.projectMutiplePhotos.map((photo) => ({
+            original: photo.coverUrl,
+            thumbnail: photo.coverUrl,
+          }))
         })
       )
       .catch((error) => {

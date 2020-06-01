@@ -15,23 +15,21 @@ function Routing(props) {
   let store = useStores()
   const { userStore } = store
   const { projectPosts, selectProject, selectHome } = props
+  //console.log('sdsdsdsd', toJS(userStore.projectList))
   return useObserver(() => (
     <Switch>
       {userStore.projectList.map((post, index) => {
-        console.log('post', toJS(post))
+        //console.log('post', toJS(post))
         return (
           <PropsRoute
-            //path={'/project/post/5'}
             path={'/project/post/' + post.id}
             component={ProjectPost}
             title={post.title}
             titleText={post.titleText}
             date={1593068400}
-            // src={post.imageSrc}
             startDate={post.startDate}
             endDate={post.endDate}
             irr={post.irr}
-            // content={post.content}
             percent={post.percent}
             totalAmount={post.totalAmount}
             key={post.id}

@@ -47,7 +47,7 @@ function getVerticalProjectPosts(width, projectPosts, projectList) {
   const projectListData = toJS(projectList)
   //console.log('aaa', projectListData)
   projectListData.map((projectPost, index) => {
-    console.log('bbb', projectPost)
+    //console.log('bbb', projectPost)
     gridRows[index % rows].push(
       <Grid key={projectPost.id} item xs={12}>
         <Box mb={3}>

@@ -50,7 +50,7 @@ const styles = (theme) => ({
 })
 
 function ProjectCardOld(props) {
-  const { classes, url, src, date, title } = props
+  const { classes, url, src, title, endDate } = props
   return (
     <Card className={classes.card}>
       {src && (
@@ -60,9 +60,7 @@ function ProjectCardOld(props) {
       )}
       <Box p={2}>
         <Typography variant="body2" color="textSecondary">
-          {format(new Date(date * 1000), 'PPP', {
-            awareOfUnicodeTokens: true,
-          })}
+          投資到期日：{endDate.slice(0, 10)}
         </Typography>
         <Link to={url} className={classNames(classes.noDecoration, classes.showFocus)}>
           <Typography variant="h6">
@@ -78,8 +76,8 @@ ProjectCardOld.propTypes = {
   classes: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
   src: PropTypes.string,
+  endDate: PropTypes.string,
 }
 
 export default withStyles(styles, { withTheme: true })(ProjectCardOld)

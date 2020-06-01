@@ -66,7 +66,10 @@ const styles = (theme) => ({
   },
   cardSticky: {
     boxShadow: theme.shadows[3],
-    height: '95%',
+    //height: '70%',
+    height: '730px',
+    top: '80px',
+    position: 'fixed',
   },
   timerIcon: {
     color: '#00468b',
@@ -77,116 +80,6 @@ const styles = (theme) => ({
     // textAlign: 'right',
   },
 })
-
-const images = [
-  {
-    original:
-      'https://d1g2pem5yharpo.cloudfront.net/uploads/image/file/000/016/847/f5b52d3e-8248-486a-8ff6-e0c53e6ce6d2.JPG',
-    thumbnail:
-      'https://d1g2pem5yharpo.cloudfront.net/uploads/image/file/000/016/847/f5b52d3e-8248-486a-8ff6-e0c53e6ce6d2.JPG',
-  },
-  {
-    original:
-      'https://d1g2pem5yharpo.cloudfront.net/uploads/image/file/000/016/848/3fb5148b-5186-429c-8c11-a001f9f43bb3.JPG',
-    thumbnail:
-      'https://d1g2pem5yharpo.cloudfront.net/uploads/image/file/000/016/848/3fb5148b-5186-429c-8c11-a001f9f43bb3.JPG',
-  },
-  {
-    original:
-      'https://d1g2pem5yharpo.cloudfront.net/uploads/image/file/000/016/849/6d43c863-a7ac-491b-b060-ce0aed603340.JPG',
-    thumbnail:
-      'https://d1g2pem5yharpo.cloudfront.net/uploads/image/file/000/016/849/6d43c863-a7ac-491b-b060-ce0aed603340.JPG',
-  },
-]
-
-const fakeContent = (
-  <Fragment>
-    <Grid item xs={12}>
-      <Grid container justify="flex-start" spacing={1}>
-        <Grid item>
-          <Box
-            style={{
-              checkCircleIcon: {
-                color: '#40c440',
-              },
-            }}
-            justifyContent="right"
-          >
-            <CheckCircleIcon style={{ color: '#40c440' }} />
-          </Box>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            步行4分鐘到大里火車站、公車站
-          </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-    <Grid item xs={12}>
-      <Grid container justify="flex-start" spacing={1}>
-        <Grid item>
-          <Box
-            style={{
-              checkCircleIcon: {
-                color: '#40c440',
-              },
-            }}
-            justifyContent="right"
-          >
-            <CheckCircleIcon style={{ color: '#40c440' }} />
-          </Box>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            大里海邊、草嶺古道，依山傍水
-          </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-    <Grid item xs={12}>
-      <Grid container justify="flex-start" spacing={1}>
-        <Grid item>
-          <Box
-            style={{
-              checkCircleIcon: {
-                color: '#40c440',
-              },
-            }}
-            justifyContent="right"
-          >
-            <CheckCircleIcon style={{ color: '#40c440' }} />
-          </Box>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            緊鄰學區大里國民小學
-          </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-    <Grid item xs={12}>
-      <Grid container justify="flex-start" spacing={1}>
-        <Grid item>
-          <Box
-            style={{
-              checkCircleIcon: {
-                color: '#40c440',
-              },
-            }}
-            justifyContent="right"
-          >
-            <CheckCircleIcon style={{ color: '#40c440' }} />
-          </Box>
-        </Grid>
-        <Grid item>
-          <Typography variant="subtitle1" gutterBottom>
-            第一順位
-          </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-  </Fragment>
-)
 
 const BorderLinearProgress = withStyles({
   root: {
@@ -211,20 +104,7 @@ const thousands_separators = (num) => {
 function ProjectPost(props) {
   let store = useStores()
   const { articlesStore, userStore } = store
-  const {
-    classes,
-    date,
-    title,
-    //src,
-    //content,
-    otherArticles,
-    titleText,
-    startDate,
-    endDate,
-    percent,
-    totalAmount,
-    id,
-  } = props
+  const { classes, date, title, otherArticles, titleText, startDate, endDate, percent, totalAmount, id } = props
   const [completed, setCompleted] = React.useState(0)
   const [rvalue, setrValue] = React.useState('female')
   const [amount, setAmount] = React.useState(0)
@@ -238,7 +118,11 @@ function ProjectPost(props) {
 
   useEffect(() => {
     articlesStore.loadfakeHouse()
-    //console.log('aaa', props)
+    userStore.getProjectDetail({
+      payload: {
+        id: id,
+      },
+    })
   }, [])
 
   useEffect(() => {
@@ -343,13 +227,29 @@ function ProjectPost(props) {
     }
   }
 
+  const buildingType = () => {
+    switch (userStore.projectDetail.column6) {
+      case '1':
+        return <span>住宅大樓(11層含以上有電梯)</span>
+      case '2':
+        return <span>華廈(10層含以下有電梯)</span>
+      case '3':
+        return <span>透天厝</span>
+      case '4':
+        return <span>公寓</span>
+      default:
+        return <span></span>
+    }
+  }
+
   return useObserver(() => (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       {printSnackbar()}
       <div className={classes.projectContentWrapper}>
         <Grid container spacing={5}>
           <Grid item md={12}>
-            {/*console.log('ProjectPost', userStore.currentUser.address)*/}
+            {console.log('WalletAddress', userStore.currentUser.address)}
+            {console.log('ProjectPost', userStore.projectDetail)}
             <Box pt={3} pr={3} pl={3} pb={2}>
               <Typography variant="h4">
                 <b>{titleText}</b>
@@ -365,7 +265,7 @@ function ProjectPost(props) {
                 <Card className={classes.card} variant="outlined">
                   <CardContent>
                     <ImageGallery
-                      items={images}
+                      items={userStore.projectDetail.photos}
                       useBrowserFullscreen={false}
                       showPlayButton={false}
                       showBullets={true}
@@ -383,31 +283,31 @@ function ProjectPost(props) {
                       <b>投資內容</b>
                     </Typography>
                     <Grid container spacing={1}>
-                      <Grid container item spacing={1} item xs={6}>
-                        <Grid item md={2} xs={4}>
+                      <Grid container item item xs={6}>
+                        <Grid item md={3} xs={4}>
                           <Box className={classes.timerIcon}>
                             <TimerIcon style={{ fontSize: 35 }} />
                           </Box>
                         </Grid>
-                        <Grid item md={10} xs={8}>
+                        <Grid item md={9} xs={8}>
                           <Box color="#00468b">
                             投資起始日
                             <br />
-                            {startDate}
+                            {startDate.slice(0, 10)}
                           </Box>
                         </Grid>
                       </Grid>
-                      <Grid container item spacing={1} item xs={6}>
-                        <Grid item md={2} xs={4}>
+                      <Grid container item item xs={6}>
+                        <Grid item md={3} xs={4}>
                           <Box className={classes.timerOffIcon}>
                             <TimerOffIcon style={{ fontSize: 35 }} />
                           </Box>
                         </Grid>
-                        <Grid item md={10} xs={8}>
+                        <Grid item md={9} xs={8}>
                           <Box color="#8b0000 ">
                             投資到期日
                             <br />
-                            {endDate}
+                            {endDate.slice(0, 10)}
                           </Box>
                         </Grid>
                       </Grid>
@@ -437,12 +337,12 @@ function ProjectPost(props) {
                     <Grid container spacing={1}>
                       <Grid container item spacing={1} item xs={6}>
                         <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                          <span>建物坪數: {articlesStore.fakeHouse.column2}坪</span>
+                          <span>建物坪數: {userStore.projectDetail.column2}坪</span>
                         </Typography>
                       </Grid>
                       <Grid container item spacing={1} item xs={6}>
                         <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                          <span>土地持分坪數: {articlesStore.fakeHouse.column3}坪</span>
+                          <span>土地持分坪數: {userStore.projectDetail.column3}坪</span>
                         </Typography>
                       </Grid>
                     </Grid>
@@ -450,29 +350,28 @@ function ProjectPost(props) {
                     <Grid container spacing={1}>
                       <Grid container item spacing={1} item xs={6}>
                         <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                          <span>車位: {articlesStore.fakeHouse.column4}</span>
+                          <span>車位: {userStore.projectDetail.column4}</span>
                         </Typography>
                       </Grid>
                       <Grid container item spacing={1} item xs={6}>
                         <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                          <span>類型: {articlesStore.fakeHouse.column6}</span>
+                          <span>建物類型: {buildingType()}</span>
                         </Typography>
                       </Grid>
                     </Grid>
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                     <Grid container spacing={1}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>市價: {articlesStore.fakeHouse.column5}</span>
+                        <span>市價: {userStore.projectDetail.column5}</span>
                       </Typography>
                     </Grid>
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                     <Grid container spacing={1}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>地址: {articlesStore.fakeHouse.column1}</span>
+                        <span>地址: {userStore.projectDetail.column1}</span>
                       </Typography>
                     </Grid>
                     <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                    {fakeContent}
                     <br />
                     {userStore.currentUser.name ? (
                       <Fragment>
@@ -537,7 +436,7 @@ function ProjectPost(props) {
               </Grid>
             </Grid>
             <Box p={3}>
-              <Grid spacing={1} container justify="center" alignItems="center">
+              <Grid spacing={1} container justify="flex-start" alignItems="center">
                 {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
                   <Grid item key={index}>
                     <ShareButton
@@ -555,7 +454,6 @@ function ProjectPost(props) {
                 ))}
               </Grid>
             </Box>
-            {/* </Card> */}
           </Grid>
         </Grid>
         <Typography variant="h6" paragraph>
@@ -565,12 +463,12 @@ function ProjectPost(props) {
           {otherArticles.slice(0, 4).map((projectPost) => (
             <Grid key={projectPost.id} item md={3}>
               <Box mb={3}>
-                {/* <ProjectCardOld
+                <ProjectCardOld
                   title={projectPost.titleText}
-                  date={projectPost.date}
                   src={projectPost.imageSrc}
+                  endDate={projectPost.endDate}
                   url={`${projectPost.url}${projectPost.params}`}
-                /> */}
+                />
               </Box>
             </Grid>
           ))}
@@ -585,12 +483,10 @@ ProjectPost.propTypes = {
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
   date: PropTypes.number.isRequired,
-  //src: PropTypes.string.isRequired,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   irr: PropTypes.number.isRequired,
   totalAmount: PropTypes.number.isRequired,
-  //content: PropTypes.node.isRequired,
   percent: PropTypes.number,
   otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number.isRequired,
