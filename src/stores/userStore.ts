@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx'
 import request from '../shared/request'
 import agent from '../agent'
-
+import { TradeModules } from '../shared/TradInfo'
 class UserStore {
   @observable isLoading = false
   @observable isLoadingAddress = false
@@ -42,7 +42,8 @@ class UserStore {
     column7: '',
     photos: [],
   }
-
+  @observable errorMessage = ''
+  @observable formHTML = ''
   @action getMyProjectOrderList({ payload }) {
     return request('/customer/me/projectOrder/list', {
       params: {
@@ -144,6 +145,7 @@ class UserStore {
                 title: project.title,
                 titleText: project.title,
                 totalAmount: project.totalAmount,
+                repaymentType: '每月付息到期還本',
               }
             })
           }
@@ -207,6 +209,7 @@ class UserStore {
             this.isLoadingAddress = false
             this.snackSuccess = 'failed'
             const { response } = error
+            this.errorMessage = response.data.message
             console.log('err', response)
             return Promise.resolve(error)
           }, 3000)
@@ -243,6 +246,46 @@ class UserStore {
                 this.currentUser.address
             }
           }, 3000)
+        })
+      )
+      .catch(
+        action((error) => {
+          this.isLoadingInvest = false
+          this.snackSuccess = 'failed'
+          const { response } = error
+          console.log('err', response)
+          return Promise.resolve(error)
+        })
+      )
+  }
+
+  @action investCredit({ payload }) {
+    this.isLoadingInvest = true
+    return request('/project/' + payload.projectId + '/invest', {
+      method: 'POST',
+      data: payload,
+    })
+      .then(
+        action((response) => {
+          console.log('investCredit', response)
+          const trade = new TradeModules()
+          const tradeInfo = trade.getTradeInfo(
+            payload.amount,
+            payload.DESC,
+            payload.email,
+            response.data.projectOrderId
+          )
+          console.log('tradeInfo', tradeInfo.TradeSha)
+          var szHtml =
+            '<form id="newebpay" method="post" action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post" >'
+          szHtml += '<input type="hidden" name="MerchantID" value="' + tradeInfo.MerchantID + '" type="hidden">'
+          szHtml += '<input type="hidden" name="TradeInfo" value="' + tradeInfo.TradeInfo + '" type="hidden">'
+          szHtml += '<input type="hidden" name="TradeSha" value="' + tradeInfo.TradeSha + '" type="hidden">'
+          szHtml += '<input type="hidden" name="Version"  value="' + tradeInfo.Version + '" type="hidden">'
+          szHtml += '</form>'
+
+          this.formHTML = szHtml
+          return szHtml
         })
       )
       .catch(

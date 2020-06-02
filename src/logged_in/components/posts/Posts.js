@@ -81,7 +81,7 @@ class Posts extends PureComponent {
             }}
             onClose={this.handleClose}
           >
-            <Alert severity="error">This is an error message!</Alert>
+            <Alert severity="error">This is an error message!{userStore.errorMessage}</Alert>
           </Snackbar>
         )
       default:
