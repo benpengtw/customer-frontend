@@ -117,6 +117,13 @@ function ProjectPost(props) {
   }, [title])
 
   useEffect(() => {
+    if (userStore.formHTML.length > 370) {
+      document.getElementById('newebpay').submit()
+      return
+    }
+  }, [userStore.formHTML])
+
+  useEffect(() => {
     userStore.getProjectDetail({
       payload: {
         id: id,
@@ -191,14 +198,6 @@ function ProjectPost(props) {
             projectId: id,
           },
         })
-        //console.log('ssss', userStore.investCredit)
-        setTimeout(() => {
-          if (userStore.formHTML.length > 370) {
-            console.log('sdfsdfsdf')
-            document.getElementById('newebpay').submit()
-            return
-          }
-        }, 3500)
       default:
         return null
     }
