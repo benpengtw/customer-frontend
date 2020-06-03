@@ -94,7 +94,7 @@ const BorderLinearProgress = withStyles({
 
 const thousands_separators = (num) => {
   let num_parts = num
-    .toFixed(2)
+    //.toFixed(2)
     .toString()
     .split('.')
   num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -336,16 +336,30 @@ function ProjectPost(props) {
                   <Grid container spacing={1}>
                     <Grid container item spacing={1} item xs={6}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span style={{ color: '#8b0000 ' }}>已投金額 </span>/
+                        {/* <span style={{ color: '#8b0000 ' }}>已投金額 </span> */}
                         <span style={{ color: '#00468b' }}> 貸款總額</span>
                       </Typography>
                     </Grid>
                     <Grid container item spacing={1} item xs={6}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        {/* <span style={{ color: '#8b0000' }}>
+                          $ {thousands_separators(totalAmount * (completed / 100))} 元
+                        </span> */}
+                        <span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount)} 元</span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span style={{ color: '#8b0000 ' }}>已投金額 </span>
+                        {/* <span style={{ color: '#00468b' }}> 貸款總額</span> */}
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
                         <span style={{ color: '#8b0000' }}>
-                          $ {thousands_separators((totalAmount * (completed / 100)) / 10000)} 萬{' '}
-                        </span>{' '}
-                        /<span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount / 10000)} 萬</span>
+                          $ {thousands_separators(totalAmount * (completed / 100))} 元
+                        </span>
+                        {/* <span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount)} 元</span> */}
                       </Typography>
                     </Grid>
                   </Grid>

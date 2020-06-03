@@ -119,7 +119,7 @@ const BorderLinearProgress = withStyles({
 
 const thousands_separators = (num) => {
   let num_parts = num
-    .toFixed(2)
+    //.toFixed(2)
     .toString()
     .split('.')
   num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -215,12 +215,12 @@ function ProjectCard(props) {
         )}
       </GridList>
       <Box p={2}>
-        <Grid container>
+        {/* <Grid container>
           <Grid item xs={6}>
             <Link to={url} className={classNames(classes.noDecoration)}>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  貸款總額 $ {thousands_separators(totalAmount / 10000)} 萬
+                  貸款總額 $ {thousands_separators(totalAmount)} 元
                 </span>
               </Typography>
             </Link>
@@ -233,15 +233,24 @@ function ProjectCard(props) {
               </Typography>
             </Link>
           </Grid>
-        </Grid>
+        </Grid> */}
         <Grid container spacing={1} justify="space-between">
           <Grid item xs={12}>
             <Link to={url} className={classNames(classes.noDecoration)}>
-              <Grid container>
+              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>年化報酬率：</span>
+                <span style={{ color: '#FF0000' }}>{countIRR.toFixed(1) + '%'}</span>
+              </Typography>
+              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
+                  貸款總額 $ {thousands_separators(totalAmount)} 元
+                </span>
+              </Typography>
+              {/* <Grid container>
                 <Grid item xs={6}>
                   <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                     <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                      已投金額 $ {thousands_separators(totalAmount * (completed / 100))} 元
+                      已投金額 $ {totalAmount * (completed / 100)} 元
                     </span>
                   </Typography>
                 </Grid>
@@ -253,17 +262,35 @@ function ProjectCard(props) {
                     <span style={{ color: '#FF0000' }}>{completed.toFixed(2) + '%'}</span>
                   </Typography>
                 </Grid>
-              </Grid>
-              <BorderLinearProgress variant="determinate" value={completed} />
+              </Grid> */}
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  起始時間：{startDate}
+                  已投金額 $ {totalAmount * (completed / 100)} 元
                 </span>
               </Typography>
+              <BorderLinearProgress variant="determinate" value={completed} />
+
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>結束時間：</span>
-                <span style={{ color: '#FF0000' }}>{endDate}</span>
+                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>認購進度：</span>
+                <span style={{ color: '#FF0000' }}>{completed.toFixed(2) + '%'}</span>
               </Typography>
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                    <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
+                      起始時間：{startDate.slice(0, 10)}
+                    </span>
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
+                    <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
+                      結束時間：
+                    </span>
+                    <span style={{ color: '#FF0000' }}>{endDate.slice(0, 10)}</span>
+                  </Typography>
+                </Grid>
+              </Grid>
               <Typography variant="body2">
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
                   還款方式： {repaymentType}

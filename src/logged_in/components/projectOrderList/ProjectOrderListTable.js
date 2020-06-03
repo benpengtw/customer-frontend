@@ -62,7 +62,7 @@ const rows = [
 ]
 const thousands_separators = (num) => {
   let num_parts = num
-    .toFixed(2)
+    //.toFixed(2)
     .toString()
     .split('.')
   num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -96,7 +96,7 @@ function ProjectOrderListTable(props) {
                   <ColorfulChip label={`${transaction.amount} USDT`} color={theme.palette.error.dark} />
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {thousands_separators(transaction.totalAmount / 10000)} 萬
+                  {thousands_separators(transaction.totalAmount)} 元
                 </TableCell>
                 <TableCell component="th" scope="row">
                   8.5%
