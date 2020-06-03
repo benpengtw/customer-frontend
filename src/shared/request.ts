@@ -11,7 +11,7 @@ request.interceptors.request.use(
     //const url = config.url
 
     console.log('request', config)
-    console.log('NODE_ENV', process.env.NODE_ENV)
+    //console.log('NODE_ENV', process.env.NODE_ENV)
     let tokenLocalStorage: string | null = localStorage.getItem('token')
     // const limitUrl = {
     //   login: '/customer/account/login',

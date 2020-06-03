@@ -220,7 +220,7 @@ function ProjectCard(props) {
             <Link to={url} className={classNames(classes.noDecoration)}>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  貸款總額 $ {thousands_separators(totalAmount)} 萬
+                  貸款總額 $ {thousands_separators(totalAmount / 10000)} 萬
                 </span>
               </Typography>
             </Link>
@@ -241,7 +241,7 @@ function ProjectCard(props) {
                 <Grid item xs={6}>
                   <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                     <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                      已投金額 $ {thousands_separators(totalAmount * (completed / 100))} 萬
+                      已投金額 $ {thousands_separators(totalAmount * (completed / 100))} 元
                     </span>
                   </Typography>
                 </Grid>

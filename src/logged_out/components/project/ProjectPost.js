@@ -106,7 +106,7 @@ function ProjectPost(props) {
   const { userStore } = store
   const { classes, date, title, otherArticles, titleText, startDate, endDate, percent, totalAmount, id, irr } = props
   const [completed, setCompleted] = React.useState(0)
-  const [paymentType, setrPaymentType] = React.useState('CRYPTOCURRENCY')
+  const [paymentType, setrPaymentType] = React.useState('')
   const [amount, setAmount] = React.useState(0)
   const [open, setOpen] = React.useState(true)
   const [clickbtn, setClickbtn] = React.useState(false)
@@ -117,7 +117,7 @@ function ProjectPost(props) {
   }, [title])
 
   useEffect(() => {
-    if (userStore.formHTML.length > 370) {
+    if (userStore.formHTML.length > 370 && paymentType == 'CREDIT') {
       document.getElementById('newebpay').submit()
       return
     }
@@ -343,9 +343,9 @@ function ProjectPost(props) {
                     <Grid container item spacing={1} item xs={6}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
                         <span style={{ color: '#8b0000' }}>
-                          $ {thousands_separators(totalAmount * (completed / 100))} 萬{' '}
+                          $ {thousands_separators((totalAmount * (completed / 100)) / 10000)} 萬{' '}
                         </span>{' '}
-                        /<span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount)} 萬</span>
+                        /<span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount / 10000)} 萬</span>
                       </Typography>
                     </Grid>
                   </Grid>
@@ -432,7 +432,7 @@ function ProjectPost(props) {
                               helperText={amount < 0 && '投資金額不正確，請修改至正確數值'}
                               FormHelperTextProps={{ error: true }}
                               InputProps={{
-                                endAdornment: <InputAdornment position="end">萬元</InputAdornment>,
+                                endAdornment: <InputAdornment position="end">元</InputAdornment>,
                               }}
                             />
                           </Typography>
