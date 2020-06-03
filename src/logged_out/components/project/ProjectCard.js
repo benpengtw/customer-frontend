@@ -205,7 +205,14 @@ function ProjectCard(props) {
                         titleWrap: classes.TileBarTitleWrap,
                       }
                 }
-                title={titleText}
+                title={
+                  <div class="rate">
+                    <span>年利率：</span>
+                    <span style={{ color: '#a10004' }}>{`${countIRR.toFixed(1)}` + '%'}</span>
+                    <br />
+                    <span>{`${titleText}`}</span>
+                  </div>
+                }
                 titlePosition="bottom"
               />
             </Link>
@@ -215,54 +222,14 @@ function ProjectCard(props) {
         )}
       </GridList>
       <Box p={2}>
-        {/* <Grid container>
-          <Grid item xs={6}>
-            <Link to={url} className={classNames(classes.noDecoration)}>
-              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  貸款總額 $ {thousands_separators(totalAmount)} 元
-                </span>
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item xs={6}>
-            <Link to={url} className={classNames(classes.noDecoration)}>
-              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>年化報酬率：</span>
-                <span style={{ color: '#FF0000' }}>{countIRR.toFixed(1) + '%'}</span>
-              </Typography>
-            </Link>
-          </Grid>
-        </Grid> */}
         <Grid container spacing={1} justify="space-between">
           <Grid item xs={12}>
             <Link to={url} className={classNames(classes.noDecoration)}>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>年化報酬率：</span>
-                <span style={{ color: '#FF0000' }}>{countIRR.toFixed(1) + '%'}</span>
-              </Typography>
-              <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
                   貸款總額 $ {thousands_separators(totalAmount)} 元
                 </span>
               </Typography>
-              {/* <Grid container>
-                <Grid item xs={6}>
-                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                    <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                      已投金額 $ {totalAmount * (completed / 100)} 元
-                    </span>
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
-                    <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                      認購進度：
-                    </span>
-                    <span style={{ color: '#FF0000' }}>{completed.toFixed(2) + '%'}</span>
-                  </Typography>
-                </Grid>
-              </Grid> */}
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
                   已投金額 $ {totalAmount * (completed / 100)} 元
