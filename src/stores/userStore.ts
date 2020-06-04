@@ -53,10 +53,15 @@ class UserStore {
       .then(
         action((response) => {
           this.projectOrderList = response.data.map((project) => ({
+            id: project.project.id,
+            currency: project.currency,
             totalAmount: project.project.totalAmount,
             title: project.project.title,
             endDate: project.project.endDate,
+            irr: project.project.IRR ? project.project.IRR * 10 : 0,
+            updatedAt: project.project.updatedAt,
             amount: project.amount,
+            transactionCheckUrl: project.transactionCheckUrl,
           }))
         })
       )

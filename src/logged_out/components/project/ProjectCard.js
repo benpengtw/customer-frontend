@@ -206,7 +206,7 @@ function ProjectCard(props) {
                       }
                 }
                 title={
-                  <div class="rate">
+                  <div>
                     <span>年利率：</span>
                     <span style={{ color: '#a10004' }}>{`${countIRR.toFixed(1)}` + '%'}</span>
                     <br />

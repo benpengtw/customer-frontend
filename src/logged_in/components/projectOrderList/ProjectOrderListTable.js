@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Table, TableBody, TableCell, TablePagination, TableRow, withStyles } from '@material-ui/core'
+import { Table, TableBody, TableCell, TablePagination, TableRow, withStyles, Button } from '@material-ui/core'
 import EnhancedTableHead from '../../../shared/components/EnhancedTableHead'
 import ColorfulChip from '../../../shared/components/ColorfulChip'
 import unixToDateString from '../../../shared/functions/unixToDateString'
@@ -35,6 +35,11 @@ const styles = (theme) => ({
 
 const rows = [
   {
+    id: 'id',
+    numeric: false,
+    label: '案件編號',
+  },
+  {
     id: 'title',
     numeric: false,
     label: '案件名稱',
@@ -59,6 +64,11 @@ const rows = [
     numeric: false,
     label: '案件結束日期',
   },
+  {
+    id: 'updatedAt',
+    numeric: false,
+    label: '交易時間',
+  },
 ]
 const thousands_separators = (num) => {
   let num_parts = num
@@ -69,10 +79,27 @@ const thousands_separators = (num) => {
   return num_parts.join('.')
 }
 const rowsPerPage = 25
-
+const preventDefault = (event) => event.preventDefault()
 function ProjectOrderListTable(props) {
   const { theme, classes, projectOrderList } = props
   const [page, setPage] = useState(0)
+  const printCurrency = (currency, amount, transactionCheckUrl) => {
+    switch (currency) {
+      case 'USDT':
+        return (
+          <Fragment>
+            <ColorfulChip label={`${amount} USDT`} color={'#37b8b5'} />
+            <Button href={transactionCheckUrl} color="secondary">
+              交易詳細資料
+            </Button>
+          </Fragment>
+        )
+      case 'TWD':
+        return <ColorfulChip label={`${amount} TWD`} color={'#82b4e5'} />
+      default:
+        return null
+    }
+  }
 
   const handleChangePage = useCallback(
     (_, page) => {
@@ -90,19 +117,25 @@ function ProjectOrderListTable(props) {
             {projectOrderList.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((transaction, index) => (
               <TableRow hover tabIndex={-1} key={index}>
                 <TableCell component="th" scope="row" className={classes.firstData}>
+                  {transaction.id}
+                </TableCell>
+                <TableCell component="th" scope="row">
                   {transaction.title}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  <ColorfulChip label={`${transaction.amount} USDT`} color={theme.palette.error.dark} />
+                  {printCurrency(transaction.currency, transaction.amount, transaction.transactionCheckUrl)}
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {thousands_separators(transaction.totalAmount)} 元
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  8.5%
+                  {transaction.irr.toFixed(2)}%
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {transaction.endDate ? transaction.endDate.slice(0, 10) : ''}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {transaction.updatedAt ? transaction.updatedAt : ''}
                 </TableCell>
               </TableRow>
             ))}

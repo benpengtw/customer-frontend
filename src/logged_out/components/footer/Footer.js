@@ -81,11 +81,11 @@ const styles = (theme) => ({
 const infos = [
   {
     icon: <FontAwesomeIcon icon={faHandshake} />,
-    description: '商務合作 ⁄ bd@wegames.com.tw',
+    description: '商務合作：blockchain.service@wegames.com.tw',
   },
   {
     icon: <FontAwesomeIcon icon={faComments} />,
-    description: '公關聯繫 ⁄ pr@wegames.com.tw',
+    description: '公關聯繫：blockchain.service@wegames.com.tw',
   },
 ]
 
