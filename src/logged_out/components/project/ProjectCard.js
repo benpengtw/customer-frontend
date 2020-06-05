@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import format from 'date-fns/format'
@@ -25,6 +25,17 @@ const styles = (theme) => ({
     width: '100%',
     height: '240px',
     marginBottom: 4,
+    position: 'relative',
+    top: '0',
+    left: '0',
+  },
+  imgOver: {
+    width: '100%',
+    height: '240px',
+    marginBottom: 4,
+    position: 'absolute',
+    top: '0',
+    left: '0',
   },
   card: {
     boxShadow: theme.shadows[6],
@@ -183,9 +194,20 @@ function ProjectCard(props) {
 
   const imgSwitch = () => {
     if (IFendDate) {
-      return <img src={timesup} className={classes.img} alt="" />
+      return (
+        // <img src={timesup} className={classes.img} alt="" />
+        <div>
+          <img src={src} className={classes.img} alt="" />
+          <img src={timesup} className={classes.imgOver} alt="" />
+        </div>
+      )
     } else if (IFfullPercent) {
-      return <img src={soldout} className={classes.img} alt="" />
+      return (
+        <div>
+          <img src={src} className={classes.img} alt="" />
+          <img src={soldout} className={classes.imgOver} alt="" />
+        </div>
+      )
     } else {
       return <img src={src} className={classes.img} alt="" />
     }
