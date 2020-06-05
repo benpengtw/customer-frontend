@@ -89,18 +89,6 @@ const styles = (theme) => ({
         paddingTop: `${theme.spacing(14)}px !important`,
       },
     },
-    '.lg-p-topProjectPost': {
-      paddingTop: `${theme.spacing(10)}px !important`,
-      [theme.breakpoints.down('md')]: {
-        paddingTop: `${theme.spacing(9)}px !important`,
-      },
-      [theme.breakpoints.down('sm')]: {
-        paddingTop: `${theme.spacing(8)}px !important`,
-      },
-      [theme.breakpoints.down('xs')]: {
-        paddingTop: `${theme.spacing(7)}px !important`,
-      },
-    },
   },
 })
 

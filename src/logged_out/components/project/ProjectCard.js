@@ -29,11 +29,13 @@ const styles = (theme) => ({
   card: {
     boxShadow: theme.shadows[6],
     height: '500px',
+    width: '30vw',
   },
   cardDisable: {
     boxShadow: theme.shadows[6],
     height: '500px',
     background: 'rgba(0, 0, 0, 0.30)',
+    width: '30vw',
   },
   noDecoration: {
     textDecoration: 'none !important',
@@ -97,12 +99,6 @@ const styles = (theme) => ({
   },
   TileBarTitleWrap: {
     marginTop: '70px',
-  },
-  overlay: {
-    position: 'absolute',
-    // color: theme.palette.primary.main,
-    height: '75%',
-    // width: '80%',
   },
 })
 
@@ -184,13 +180,23 @@ function ProjectCard(props) {
       clearInterval(timer)
     }
   }, [])
+
+  const imgSwitch = () => {
+    if (IFendDate) {
+      return <img src={timesup} className={classes.img} alt="" />
+    } else if (IFfullPercent) {
+      return <img src={soldout} className={classes.img} alt="" />
+    } else {
+      return <img src={src} className={classes.img} alt="" />
+    }
+  }
   return (
     <Card className={IFfullPercent || IFendDate ? classes.cardDisable : classes.card}>
       <GridList cellHeight={'auto'}>
         {src && (
           <GridListTile key={src} style={{ height: 'auto', padding: '0px', width: '100%' }}>
             <Link to={url} tabIndex={-1} className={classNames(classes.noDecoration)}>
-              <img src={src} className={classes.img} alt="" />
+              {imgSwitch()}
               <GridListTileBar
                 classes={
                   IFfullPercent || IFendDate
@@ -216,8 +222,6 @@ function ProjectCard(props) {
                 titlePosition="bottom"
               />
             </Link>
-            {IFendDate && <img src={timesup} className={classes.overlay} alt="" />}
-            {IFfullPercent && <img src={soldout} className={classes.overlay} alt="" />}
           </GridListTile>
         )}
       </GridList>

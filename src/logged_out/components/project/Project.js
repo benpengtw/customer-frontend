@@ -35,8 +35,8 @@ function getVerticalProjectPosts(width, projectPosts, projectList) {
   let rows
   let xs
   if (isWidthUp('md', width)) {
-    rows = 3
-    xs = 4
+    rows = 2
+    xs = 6
   } else if (isWidthUp('sm', width)) {
     rows = 2
     xs = 6
@@ -50,7 +50,7 @@ function getVerticalProjectPosts(width, projectPosts, projectList) {
     //console.log('bbb', projectPost)
     gridRows[index % rows].push(
       <Grid key={projectPost.id} item xs={12}>
-        <Box mb={3}>
+        <Box mb={3} marginTop={6}>
           <LazyLoad height={900} offset={100}>
             <ProjectCard
               src={projectPost.imageSrc}
@@ -96,7 +96,7 @@ function Project(props) {
 
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
-          <Grid container spacing={5}>
+          <Grid container spacing={8}>
             {getVerticalProjectPosts(width, projectPosts, userStore.projectList)}
           </Grid>
         </div>

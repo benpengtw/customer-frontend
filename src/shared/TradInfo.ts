@@ -88,7 +88,7 @@ export class TradeModules {
         Version: 1.5,
         MerchantOrderNo: projectOrderId,
         LoginType: 0,
-        OrderComment: 'OrderComment',
+        OrderComment: '',
         Amt: Amt,
         ItemDesc: Desc,
         Email: email,

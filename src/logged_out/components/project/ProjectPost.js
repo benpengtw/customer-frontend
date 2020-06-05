@@ -50,11 +50,12 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(4),
       marginRight: theme.spacing(4),
     },
-    maxWidth: 1600,
+    maxWidth: 1920,
     width: '100%',
   },
   wrapper: {
-    minHeight: '60vh',
+    //minHeight: '60vh',
+    minHeight: '100%',
   },
   img: {
     width: '100%',
@@ -69,8 +70,9 @@ const styles = (theme) => ({
     //height: '70vh',
     height: '730px',
     width: '405px',
-    position: 'relative',
-    marginTop: '-60vh',
+    position: 'absolute',
+    bottom: '90px',
+    display: 'flex',
     '@media (max-width: 960px)': {
       position: 'relative',
       top: 'auto',
@@ -329,12 +331,12 @@ function ProjectPost(props) {
   }
 
   return useObserver(() => (
-    <Box className={classNames('lg-p-topProjectPost', classes.wrapper)} display="flex" justifyContent="center">
+    <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       {printSnackbar()}
       <div className={classes.projectContentWrapper}>
-        {console.log('height', size.height)}
+        {/* {console.log('height', size.height)}
         {console.log('bodyHeight', size.bodyHeight)}
-        {console.log('windowHeight', size.windowHeight)}
+        {console.log('windowHeight', size.windowHeight)} */}
         <Grid container spacing={1}>
           <Grid item xl={2} md={2} xs={12} className={classes.gridOhers}>
             <Grid container spacing={1}>

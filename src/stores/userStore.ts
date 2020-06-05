@@ -132,7 +132,7 @@ class UserStore {
   }
 
   @action getProject() {
-    return request('/project/?sort=DESC')
+    return request('/project/?sort=DESC&page=1')
       .then(
         action((response) => {
           const status: any = response.status
