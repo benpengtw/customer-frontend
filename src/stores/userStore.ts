@@ -131,8 +131,9 @@ class UserStore {
       })
   }
 
-  @action getProject() {
-    return request('/project/?sort=DESC&page=1')
+  @action getProject({ payload }) {
+    //console.log('ssss', payload)
+    return request('/project/?sort=DESC&page=' + payload.page)
       .then(
         action((response) => {
           const status: any = response.status

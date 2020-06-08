@@ -2,6 +2,7 @@ import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Grid, Box, isWidthUp, withWidth, withStyles } from '@material-ui/core'
+import Pagination from '@material-ui/lab/Pagination'
 import ProjectCard from './ProjectCard'
 import LazyLoad from 'react-lazyload'
 import ProjectHeadSection from './ProjectHeadSection'
@@ -85,10 +86,23 @@ function Project(props) {
   let store = useStores()
   const { userStore } = store
   const { classes, width, projectPosts, selectProject } = props
+  const [page, setPage] = React.useState(1)
+
+  const handleChange = (event, value) => {
+    setPage(value)
+  }
 
   useEffect(() => {
     selectProject()
   }, [selectProject])
+
+  useEffect(() => {
+    userStore.getProject({
+      payload: {
+        page: page,
+      },
+    })
+  }, [page])
   // console.log('ooo', projectPosts)
   return (
     <Fragment>
@@ -98,6 +112,13 @@ function Project(props) {
         <div className={classes.projectContentWrapper}>
           <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
             {getVerticalProjectPosts(width, projectPosts, userStore.projectList)}
+          </Grid>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                <Pagination count={10} color="secondary" onChange={handleChange} />
+              </Grid>
+            </Grid>
           </Grid>
         </div>
       </Box>
