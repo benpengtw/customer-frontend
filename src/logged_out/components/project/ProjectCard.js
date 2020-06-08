@@ -41,12 +41,18 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[6],
     height: '500px',
     width: '30vw',
+    '@media (max-width: 960px)': {
+      width: '100%',
+    },
   },
   cardDisable: {
     boxShadow: theme.shadows[6],
     height: '500px',
     background: 'rgba(0, 0, 0, 0.30)',
     width: '30vw',
+    '@media (max-width: 960px)': {
+      width: '100%',
+    },
   },
   noDecoration: {
     textDecoration: 'none !important',
