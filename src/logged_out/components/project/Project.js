@@ -15,12 +15,12 @@ const styles = (theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(4),
+      marginLeft: theme.spacing(10),
       marginRight: theme.spacing(4),
     },
     marginTop: '-80px',
-    maxWidth: 1280,
-    width: '100%',
+    // maxWidth: 1280,
+    // width: '100%',
   },
   wrapper: {
     minHeight: '60vh',
@@ -89,14 +89,14 @@ function Project(props) {
   useEffect(() => {
     selectProject()
   }, [selectProject])
-  console.log('ooo', projectPosts)
+  // console.log('ooo', projectPosts)
   return (
     <Fragment>
       <ProjectHeadSection />
 
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
-          <Grid container spacing={8}>
+          <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
             {getVerticalProjectPosts(width, projectPosts, userStore.projectList)}
           </Grid>
         </div>
