@@ -67,11 +67,9 @@ const styles = (theme) => ({
   },
   cardNoSticky: {
     boxShadow: theme.shadows[3],
-    //height: '70vh',
-    height: '730px',
+    height: '70vh',
+    //height: '100%',
     width: '405px',
-    position: 'absolute',
-    bottom: '90px',
     display: 'flex',
     '@media (max-width: 960px)': {
       position: 'relative',
@@ -83,7 +81,7 @@ const styles = (theme) => ({
     //height: '70vh',
     height: '730px',
     width: '405px',
-    top: '80px',
+    top: '160px',
     right: 'calc(50%-585px)',
     position: 'fixed',
     '@media (max-width: 960px)': {
@@ -179,7 +177,7 @@ function ProjectPost(props) {
   }, [userStore.formHTML])
 
   useEffect(() => {
-    if (size.height > size.bodyHeight - size.windowHeight - 280) {
+    if (size.height > size.bodyHeight - size.windowHeight - 470) {
       console.log('setSticky(false)')
       setSticky(false)
       return
@@ -337,13 +335,13 @@ function ProjectPost(props) {
         {/* {console.log('height', size.height)}
         {console.log('bodyHeight', size.bodyHeight)}
         {console.log('windowHeight', size.windowHeight)} */}
-        <Grid container spacing={1}>
+        <Grid container spacing={3} alignItems="flex-stretch" direction="row" justify="center">
           <Grid item xl={2} md={2} xs={12} className={classes.gridOhers}>
             <Grid container spacing={1}>
               <Typography variant="h6" paragraph>
                 其他投資計畫
               </Typography>
-              {otherArticles.slice(0, 4).map((projectPost) => (
+              {otherArticles.slice(0, 6).map((projectPost) => (
                 <Grid key={projectPost.id} item md={12} xs={12}>
                   <Box mb={12} xs={12} marginBottom="12px">
                     <ProjectCardOld
@@ -358,26 +356,26 @@ function ProjectPost(props) {
             </Grid>
           </Grid>
           <Grid item xl={6} md={6} xs={12}>
-            <Box pt={3} pr={3} pl={3} pb={2}>
-              <Typography variant="h4">
-                <b>{titleText}</b>
-              </Typography>
-              <br />
-              <div dangerouslySetInnerHTML={{ __html: userStore.formHTML }} />
-              <Card className={classes.card} variant="outlined">
-                <CardContent>
-                  <ImageGallery
-                    items={userStore.projectDetail.photos}
-                    useBrowserFullscreen={false}
-                    showPlayButton={false}
-                    showBullets={true}
-                  />
-                  <Divider />
-                  <br />
-                  <div dangerouslySetInnerHTML={{ __html: userStore.projectDetail.column7 }} />
-                </CardContent>
-              </Card>
-            </Box>
+            <div dangerouslySetInnerHTML={{ __html: userStore.formHTML }} />
+            <Card className={classes.card} variant="outlined">
+              <Box pt={3} pr={3} pl={3} pb={2}>
+                <Typography variant="h4">
+                  <b>{titleText}</b>
+                </Typography>
+                <br />
+              </Box>
+              <CardContent>
+                <ImageGallery
+                  items={userStore.projectDetail.photos}
+                  useBrowserFullscreen={false}
+                  showPlayButton={false}
+                  showBullets={true}
+                />
+                <Divider />
+                <br />
+                <div dangerouslySetInnerHTML={{ __html: userStore.projectDetail.column7 }} />
+              </CardContent>
+            </Card>
             <Box p={3}>
               <Grid spacing={1} container justify="flex-start" alignItems="center">
                 {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
@@ -398,177 +396,184 @@ function ProjectPost(props) {
               </Grid>
             </Box>
           </Grid>
-          <Grid item xl={4} md={4} xs={12}>
-            <Card className={sticky ? classes.cardSticky : classes.cardNoSticky} variant="outlined">
-              <CardContent>
-                <Typography variant="h5" gutterBottom={true}>
-                  <b>投資內容</b>
-                </Typography>
-                <Grid container spacing={1}>
-                  <Grid container item item xs={6}>
-                    <Grid item md={3} xs={4}>
-                      <Box className={classes.timerIcon}>
-                        <TimerIcon style={{ fontSize: 35 }} />
-                      </Box>
-                    </Grid>
-                    <Grid item md={9} xs={8}>
-                      <Box color="#00468b">
-                        投資起始日
-                        <br />
-                        {startDate.slice(0, 10)}
-                      </Box>
-                    </Grid>
-                  </Grid>
-                  <Grid container item item xs={6}>
-                    <Grid item md={3} xs={4}>
-                      <Box className={classes.timerOffIcon}>
-                        <TimerOffIcon style={{ fontSize: 35 }} />
-                      </Box>
-                    </Grid>
-                    <Grid item md={9} xs={8}>
-                      <Box color="#8b0000 ">
-                        投資到期日
-                        <br />
-                        {endDate.slice(0, 10)}
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                {/* money */}
-                <br />
-                <span>認購進度：{completed.toFixed(2) + '%'}</span>
-                <BorderLinearProgress variant="determinate" value={completed} />
-                <br />
-                <Grid container spacing={1}>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span style={{ color: '#00468b' }}> 貸款總額</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount)} 元</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span style={{ color: '#8b0000 ' }}>已投金額 </span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span style={{ color: '#8b0000' }}>
-                        $ {thousands_separators(totalAmount * (completed / 100))} 元
-                      </span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <br />
-                <Grid container spacing={1}>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>建物坪數: {userStore.projectDetail.column2}坪</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>土地持分坪數: {userStore.projectDetail.column3}坪</span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                <Grid container spacing={1}>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>車位: {userStore.projectDetail.column4}</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>建物類型: {buildingType()}</span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                <Grid container spacing={1}>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>市價: {userStore.projectDetail.column5}</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} color="secondary">
-                      <span>年化報酬率: {irr.toFixed(2)}%</span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                <Grid container spacing={1}>
-                  <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                    <span>地址: {userStore.projectDetail.column1}</span>
+          <Grid container item xl={4} md={4} xs={12} alignItems="flex-end" direction="row" justify="center">
+            <Grid item xl={12} md={12} xs={12}>
+              <Card className={sticky ? classes.cardSticky : classes.cardNoSticky} variant="outlined">
+                <CardContent>
+                  <Typography variant="h5" gutterBottom={true}>
+                    <b>投資內容</b>
                   </Typography>
-                </Grid>
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                <br />
-                {userStore.currentUser.name ? (
-                  <Fragment>
-                    <Grid container spacing={1}>
-                      <FormControl component="fieldset">
-                        <FormLabel component="legend">請選擇投資方式</FormLabel>
-                        <RadioGroup aria-label="gender" name="gender1" value={paymentType} onChange={handleRadioChange}>
-                          <FormControlLabel value="CRYPTOCURRENCY" control={<Radio />} label="加密貨幣" />
-                          <FormControlLabel value="CREDIT" control={<Radio />} label="信用卡" />
-                          <FormControlLabel value="disabled" disabled control={<Radio />} label="虛擬帳戶轉帳" />
-                        </RadioGroup>
-                      </FormControl>
-                    </Grid>
-                    <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                    <Grid container spacing={1}>
-                      <Grid container item spacing={1} item xs={6} justify="flex-end">
-                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
-                          我要投資：
-                        </Typography>
+                  <Grid container spacing={1}>
+                    <Grid container item item xs={6}>
+                      <Grid item md={3} xs={4}>
+                        <Box className={classes.timerIcon}>
+                          <TimerIcon style={{ fontSize: 35 }} />
+                        </Box>
                       </Grid>
-                      <Grid container item spacing={1} item xs={4}>
-                        <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
-                          <TextField
-                            id="standard-adornment-weight"
-                            value={amount}
-                            error={amount < 0}
-                            onChange={handleChange}
-                            type="number"
-                            helperText={amount < 0 && '投資金額不正確，請修改至正確數值'}
-                            FormHelperTextProps={{ error: true }}
-                            InputProps={{
-                              endAdornment: <InputAdornment position="end">元</InputAdornment>,
-                            }}
-                          />
-                        </Typography>
+                      <Grid item md={9} xs={8}>
+                        <Box color="#00468b">
+                          投資起始日
+                          <br />
+                          {startDate.slice(0, 10)}
+                        </Box>
                       </Grid>
                     </Grid>
-                    <br />
-                    <Grid container spacing={1} justify="center" alignItems="flex-end">
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={onSubmit}
-                        className={classes.button}
-                        startIcon={<TrendingUpIcon />}
-                        disabled={clickbtn}
-                      >
-                        我要投資{userStore.isLoadingInvest && <ButtonCircularProgress />}
-                      </Button>
+                    <Grid container item item xs={6}>
+                      <Grid item md={3} xs={4}>
+                        <Box className={classes.timerOffIcon}>
+                          <TimerOffIcon style={{ fontSize: 35 }} />
+                        </Box>
+                      </Grid>
+                      <Grid item md={9} xs={8}>
+                        <Box color="#8b0000 ">
+                          投資到期日
+                          <br />
+                          {endDate.slice(0, 10)}
+                        </Box>
+                      </Grid>
                     </Grid>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
-                      會員登入後才可進行投資
+                  </Grid>
+                  {/* money */}
+                  <br />
+                  <span>認購進度：{completed.toFixed(2) + '%'}</span>
+                  <BorderLinearProgress variant="determinate" value={completed} />
+                  <br />
+                  <Grid container spacing={1}>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span style={{ color: '#00468b' }}> 貸款總額</span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span style={{ color: '#00468b' }}> $ {thousands_separators(totalAmount)} 元</span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span style={{ color: '#8b0000 ' }}>已投金額 </span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span style={{ color: '#8b0000' }}>
+                          $ {thousands_separators(totalAmount * (completed / 100))} 元
+                        </span>
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <br />
+                  <Grid container spacing={1}>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>建物坪數: {userStore.projectDetail.column2}坪</span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>土地持分坪數: {userStore.projectDetail.column3}坪</span>
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                  <Grid container spacing={1}>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>車位: {userStore.projectDetail.column4}</span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>建物類型: {buildingType()}</span>
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                  <Grid container spacing={1}>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                        <span>市價: {userStore.projectDetail.column5}</span>
+                      </Typography>
+                    </Grid>
+                    <Grid container item spacing={1} item xs={6}>
+                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} color="secondary">
+                        <span>年化報酬率: {irr.toFixed(2)}%</span>
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                  <Grid container spacing={1}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <span>地址: {userStore.projectDetail.column1}</span>
                     </Typography>
-                  </Fragment>
-                )}
-              </CardContent>
-            </Card>
+                  </Grid>
+                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                  <br />
+                  {userStore.currentUser.name ? (
+                    <Fragment>
+                      <Grid container spacing={1}>
+                        <FormControl component="fieldset">
+                          <FormLabel component="legend">請選擇投資方式</FormLabel>
+                          <RadioGroup
+                            aria-label="gender"
+                            name="gender1"
+                            value={paymentType}
+                            onChange={handleRadioChange}
+                          >
+                            <FormControlLabel value="CRYPTOCURRENCY" control={<Radio />} label="加密貨幣" />
+                            <FormControlLabel value="CREDIT" control={<Radio />} label="信用卡" />
+                            <FormControlLabel value="disabled" disabled control={<Radio />} label="虛擬帳戶轉帳" />
+                          </RadioGroup>
+                        </FormControl>
+                      </Grid>
+                      <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                      <Grid container spacing={1}>
+                        <Grid container item spacing={1} item xs={6} justify="flex-end">
+                          <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                            我要投資：
+                          </Typography>
+                        </Grid>
+                        <Grid container item spacing={1} item xs={4}>
+                          <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                            <TextField
+                              id="standard-adornment-weight"
+                              value={amount}
+                              error={amount < 0}
+                              onChange={handleChange}
+                              type="number"
+                              helperText={amount < 0 && '投資金額不正確，請修改至正確數值'}
+                              FormHelperTextProps={{ error: true }}
+                              InputProps={{
+                                endAdornment: <InputAdornment position="end">元</InputAdornment>,
+                              }}
+                            />
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <br />
+                      <Grid container spacing={1} justify="center" alignItems="flex-end">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={onSubmit}
+                          className={classes.button}
+                          startIcon={<TrendingUpIcon />}
+                          disabled={clickbtn}
+                        >
+                          我要投資{userStore.isLoadingInvest && <ButtonCircularProgress />}
+                        </Button>
+                      </Grid>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <Typography variant="h4" fontWeight="fontWeightBold" letterSpacing={6}>
+                        會員登入後才可進行投資
+                      </Typography>
+                    </Fragment>
+                  )}
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
         </Grid>
       </div>
