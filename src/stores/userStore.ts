@@ -2,6 +2,7 @@ import { observable, action } from 'mobx'
 import request from '../shared/request'
 import agent from '../agent'
 import { TradeModules } from '../shared/TradInfo'
+import { AxiosResponse } from './data.d'
 class UserStore {
   @observable isLoading = false
   @observable isLoadingAddress = false
@@ -44,7 +45,25 @@ class UserStore {
   }
   @observable errorMessage = ''
   @observable formHTML = ''
-  @observable pageCount = 0
+  @observable pageCount = 1
+  @action init() {
+    this.projectList = [
+      {
+        irr: 0,
+        investAmount: 0,
+        startDate: '',
+        endDate: '',
+        url: '',
+        imageSrc: '',
+        percent: 0,
+        title: '',
+        repaymentType: '',
+        amount: 0,
+        totalAmount: 0,
+        id: 0,
+      },
+    ]
+  }
 
   @action getMyProjectOrderList({ payload }) {
     return request('/customer/me/projectOrder/list', {
@@ -134,13 +153,14 @@ class UserStore {
   }
 
   @action getProject({ payload }) {
-    //console.log('ssss', payload)
     return request('/project/?sort=ASC&page=' + payload.page)
       .then(
-        action((response) => {
+        action((response: AxiosResponse) => {
+          this.init()
           const status: any = response.status
+          const total: any = response.total
           if (status === 'success') {
-            //this.projectList = response.data
+            this.pageCount = Math.ceil(total / 10)
             this.projectList = response.data.map((project) => {
               return {
                 irr: project.IRR ? project.IRR * 10 : 0,

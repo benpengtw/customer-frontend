@@ -72,20 +72,16 @@ function getVerticalProjectPosts(width, projectList) {
     )
   })
   return gridRows.map((element, index) => (
-    <Observer>
-      {() => (
-        <Grid key={element.id} item xs={xs}>
-          {element}
-        </Grid>
-      )}
-    </Observer>
+    <Grid key={element.id} item xs={xs}>
+      {element}
+    </Grid>
   ))
 }
 
 function Project(props) {
   let store = useStores()
   const { userStore } = store
-  const { classes, width, projectPosts, selectProject } = props
+  const { classes, width, selectProject } = props
   const [page, setPage] = React.useState(1)
 
   const handleChange = (event, value) => {
@@ -103,11 +99,10 @@ function Project(props) {
       },
     })
   }, [page])
-  //console.log('ppp', userStore.projectList)
-  return (
+
+  return useObserver(() => (
     <Fragment>
       <ProjectHeadSection />
-
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
           <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
@@ -116,14 +111,14 @@ function Project(props) {
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={12}>
               <Grid container justify="center" spacing={2}>
-                <Pagination count={10} color="secondary" onChange={handleChange} />
+                <Pagination count={userStore.pageCount} color="secondary" onChange={handleChange} />
               </Grid>
             </Grid>
           </Grid>
         </div>
       </Box>
     </Fragment>
-  )
+  ))
 }
 
 Project.propTypes = {
