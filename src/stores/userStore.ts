@@ -278,7 +278,7 @@ class UserStore {
           console.log('investCredit', response)
           const trade = new TradeModules()
           const tradeInfo = trade.getTradeInfo(
-            payload.amount * 10000,
+            payload.amount,
             payload.DESC,
             payload.email,
             response.data.projectOrderId

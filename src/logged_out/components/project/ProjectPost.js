@@ -155,7 +155,20 @@ function useWindowSize() {
 function ProjectPost(props) {
   let store = useStores()
   const { userStore } = store
-  const { classes, date, title, otherArticles, titleText, startDate, endDate, percent, totalAmount, id, irr } = props
+  const {
+    classes,
+    date,
+    title,
+    otherArticles,
+    titleText,
+    startDate,
+    endDate,
+    percent,
+    totalAmount,
+    id,
+    irr,
+    investAmount,
+  } = props
   const [completed, setCompleted] = useState(0)
   const [paymentType, setrPaymentType] = useState('')
   const [amount, setAmount] = useState(0)
@@ -253,7 +266,7 @@ function ProjectPost(props) {
         userStore.investCredit({
           payload: {
             paymentType: 'CREDIT',
-            amount: parseInt(amount),
+            amount: parseInt(amount) * 10000,
             DESC: titleText,
             email: userStore.currentUser.email,
             address: userStore.currentUser.address,
@@ -456,9 +469,7 @@ function ProjectPost(props) {
                     </Grid>
                     <Grid container item spacing={1} item xs={6}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span style={{ color: '#8b0000' }}>
-                          $ {thousands_separators(totalAmount * (completed / 100))} 元
-                        </span>
+                        <span style={{ color: '#8b0000' }}>$ {thousands_separators(investAmount)} 元</span>
                       </Typography>
                     </Grid>
                   </Grid>
@@ -590,6 +601,7 @@ ProjectPost.propTypes = {
   endDate: PropTypes.string.isRequired,
   irr: PropTypes.number.isRequired,
   totalAmount: PropTypes.number.isRequired,
+  investAmount: PropTypes.number,
   percent: PropTypes.number,
   otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number.isRequired,

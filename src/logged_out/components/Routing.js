@@ -31,6 +31,7 @@ function Routing(props) {
             endDate={post.endDate}
             irr={post.irr}
             percent={post.percent}
+            investAmount={post.investAmount}
             totalAmount={post.totalAmount}
             key={post.id}
             id={post.id}

@@ -264,7 +264,7 @@ function ProjectCard(props) {
               </Typography>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  已投金額 $ {totalAmount * (completed / 100)} 元
+                  已投金額 $ {thousands_separators(investAmount)} 元
                 </span>
               </Typography>
               <BorderLinearProgress variant="determinate" value={completed} />

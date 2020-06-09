@@ -34,11 +34,11 @@ class Main extends PureComponent {
   projectPostsMaxUnix = Math.round(new Date().getTime() / 1000)
 
   componentDidMount() {
-    this.props.userStore.getProject({
-      payload: {
-        page: 1,
-      },
-    })
+    // this.props.userStore.getProject({
+    //   payload: {
+    //     page: 1,
+    //   },
+    // })
     if (localStorage.getItem('token')) {
       this.props.userStore.getMe()
     }
