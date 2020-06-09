@@ -544,7 +544,7 @@ function ProjectPost(props) {
                               helperText={amount < 0 && '投資金額不正確，請修改至正確數值'}
                               FormHelperTextProps={{ error: true }}
                               InputProps={{
-                                endAdornment: <InputAdornment position="end">元</InputAdornment>,
+                                endAdornment: <InputAdornment position="end">萬</InputAdornment>,
                               }}
                             />
                           </Typography>

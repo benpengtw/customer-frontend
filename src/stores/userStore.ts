@@ -44,6 +44,8 @@ class UserStore {
   }
   @observable errorMessage = ''
   @observable formHTML = ''
+  @observable pageCount = 0
+
   @action getMyProjectOrderList({ payload }) {
     return request('/customer/me/projectOrder/list', {
       params: {
@@ -133,7 +135,7 @@ class UserStore {
 
   @action getProject({ payload }) {
     //console.log('ssss', payload)
-    return request('/project/?sort=DESC&page=' + payload.page)
+    return request('/project/?sort=ASC&page=' + payload.page)
       .then(
         action((response) => {
           const status: any = response.status
@@ -276,7 +278,7 @@ class UserStore {
           console.log('investCredit', response)
           const trade = new TradeModules()
           const tradeInfo = trade.getTradeInfo(
-            payload.amount,
+            payload.amount * 10000,
             payload.DESC,
             payload.email,
             response.data.projectOrderId

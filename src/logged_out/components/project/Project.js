@@ -31,7 +31,7 @@ const styles = (theme) => ({
   },
 })
 
-function getVerticalProjectPosts(width, projectPosts, projectList) {
+function getVerticalProjectPosts(width, projectList) {
   const gridRows = [[], [], []]
   let rows
   let xs
@@ -103,7 +103,7 @@ function Project(props) {
       },
     })
   }, [page])
-  // console.log('ooo', projectPosts)
+  //console.log('ppp', userStore.projectList)
   return (
     <Fragment>
       <ProjectHeadSection />
@@ -111,7 +111,7 @@ function Project(props) {
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
           <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
-            {getVerticalProjectPosts(width, projectPosts, userStore.projectList)}
+            {getVerticalProjectPosts(width, userStore.projectList)}
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item xs={12}>
