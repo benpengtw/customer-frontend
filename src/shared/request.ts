@@ -1,6 +1,6 @@
 import axios from 'axios'
 const request = axios.create({
-  baseURL: process.env.REACT_APP_URL + ':7002/customer_api/v1',
+  baseURL: process.env.REACT_APP_API + ':7002/customer_api/v1',
   timeout: 6000, // request timeout
 })
 

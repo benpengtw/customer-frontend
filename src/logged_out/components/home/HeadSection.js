@@ -137,7 +137,7 @@ function HeadSection(props) {
                           fullWidth
                           className={classes.extraLargeButton}
                           //classes={{ label: classes.extraLargeButtonLabel }}
-                          href={process.env.REACT_APP_URL + ':83/project'}
+                          href={process.env.REACT_APP_URL + '/loan/project'}
                         >
                           立即申請
                         </ColorButton>

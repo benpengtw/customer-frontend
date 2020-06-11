@@ -37,9 +37,9 @@ export class TradeModules {
     this.HashKey = 'M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422'
     this.HashIV = 'CsvJT0E8dn7i8h2P'
     this.PayGateWay = this.URL
-    this.ReturnURL = this.URL + ':83/c/projectOrderList'
+    this.ReturnURL = this.URL + '/loan/c/projectOrderList'
     this.NotifyURL = this.URL + '/api/customer_api/v1/cashFlow/spgateway/callback?from=NotifyURL'
-    this.ClientBackURL = this.URL + ':83/c/projectOrderList'
+    this.ClientBackURL = this.URL + '/loan/c/projectOrderList'
   }
 
   private genDataChain(TradeInfo: object): string {
