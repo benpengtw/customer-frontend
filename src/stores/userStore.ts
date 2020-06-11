@@ -260,7 +260,7 @@ class UserStore {
               this.snackSuccess = 'success'
               window.location.href =
                 process.env.REACT_APP_URL +
-                '/payment/?address=' +
+                '/loan/payment/?address=' +
                 res.data.projectAddress +
                 '&amount=' +
                 res.data.cryptoAmount +
