@@ -19,10 +19,10 @@ function Routing(props) {
   return useObserver(() => (
     <Switch>
       {userStore.projectList.map((post, index) => {
-        //console.log('post', toJS(post))
+        console.log('post', toJS(post.url))
         return (
           <PropsRoute
-            path={'/project/post/' + post.id}
+            path={`/project/post/${post.id}`}
             component={ProjectPost}
             title={post.title}
             titleText={post.titleText}

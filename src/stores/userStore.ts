@@ -23,14 +23,14 @@ class UserStore {
       investAmount: 0,
       startDate: '',
       endDate: '',
-      url: '',
+      id: 0,
       imageSrc: '',
       percent: 0,
       title: '',
-      repaymentType: '',
-      amount: 0,
+      titleText: '',
       totalAmount: 0,
-      id: 0,
+      repaymentType: '',
+      url: '',
     },
   ]
   @observable projectDetail = {
@@ -53,14 +53,14 @@ class UserStore {
         investAmount: 0,
         startDate: '',
         endDate: '',
-        url: '',
+        id: 0,
         imageSrc: '',
         percent: 0,
         title: '',
-        repaymentType: '',
-        amount: 0,
+        titleText: '',
         totalAmount: 0,
-        id: 0,
+        repaymentType: '',
+        url: '',
       },
     ]
   }
@@ -163,6 +163,7 @@ class UserStore {
             this.pageCount = Math.ceil(total / 10)
             this.projectList = response.data.map((project) => {
               return {
+                url: '/project/post/' + project.id,
                 irr: project.IRR ? project.IRR * 10 : 0,
                 investAmount: project.ProjectsInvestingListingTotalAmount,
                 startDate: project.startDate,
@@ -260,7 +261,7 @@ class UserStore {
               this.snackSuccess = 'success'
               window.location.href =
                 process.env.REACT_APP_URL +
-                '/loan/payment/?address=' +
+                '/payment/?address=' +
                 res.data.projectAddress +
                 '&amount=' +
                 res.data.cryptoAmount +

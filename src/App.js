@@ -28,7 +28,7 @@ const stores = {
 function App() {
   return (
     <Provider {...stores}>
-      <BrowserRouter basename="/loan/">
+      <BrowserRouter>
         <MuiThemeProvider theme={theme}>
           <CssBaseline />
           <GlobalStyles />
