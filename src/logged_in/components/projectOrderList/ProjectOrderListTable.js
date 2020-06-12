@@ -52,7 +52,7 @@ const rows = [
   {
     id: 'totalAmount',
     numeric: false,
-    label: '案件貸款總額',
+    label: '案件募資總額',
   },
   {
     id: 'irr',

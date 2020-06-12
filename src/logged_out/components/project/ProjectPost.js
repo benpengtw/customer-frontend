@@ -454,7 +454,7 @@ function ProjectPost(props) {
                   <Grid container spacing={1}>
                     <Grid container item spacing={1} item xs={6}>
                       <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span style={{ color: '#00468b' }}> 貸款總額</span>
+                        <span style={{ color: '#00468b' }}> 募資總額</span>
                       </Typography>
                     </Grid>
                     <Grid container item spacing={1} item xs={6}>

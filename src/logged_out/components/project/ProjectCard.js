@@ -256,7 +256,7 @@ function ProjectCard(props) {
             <Link to={url} className={classNames(classes.noDecoration)}>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
                 <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  貸款總額 $ {thousands_separators(totalAmount)} 元
+                  募資總額 $ {thousands_separators(totalAmount)} 元
                 </span>
               </Typography>
               <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={1}>
