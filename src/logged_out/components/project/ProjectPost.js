@@ -361,7 +361,7 @@ function ProjectPost(props) {
                       title={projectPost.titleText}
                       src={projectPost.imageSrc}
                       endDate={projectPost.endDate}
-                      url={`${projectPost.url}${projectPost.params}`}
+                      url={`/project/post/${projectPost.id}`}
                     />
                   </Box>
                 </Grid>
