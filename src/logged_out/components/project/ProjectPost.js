@@ -475,47 +475,26 @@ function ProjectPost(props) {
                   </Grid>
                   <br />
                   <Grid container spacing={1}>
-                    <Grid container item spacing={1} item xs={6}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>建物坪數: {userStore.projectDetail.column2}坪</span>
-                      </Typography>
-                    </Grid>
-                    <Grid container item spacing={1} item xs={6}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>土地持分坪數: {userStore.projectDetail.column3}坪</span>
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                  <Grid container spacing={1}>
-                    <Grid container item spacing={1} item xs={6}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>車位: {userStore.projectDetail.column4}</span>
-                      </Typography>
-                    </Grid>
-                    <Grid container item spacing={1} item xs={6}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>建物類型: {buildingType()}</span>
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                  <Grid container spacing={1}>
-                    <Grid container item spacing={1} item xs={6}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                        <span>市價: {userStore.projectDetail.column5}</span>
-                      </Typography>
-                    </Grid>
-                    <Grid container item spacing={1} item xs={6}>
-                      <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} color="secondary">
-                        <span>年化報酬率: {irr.toFixed(2)}%</span>
-                      </Typography>
-                    </Grid>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <span>開發團隊: {userStore.projectDetail.column1}</span>
+                    </Typography>
                   </Grid>
                   <Divider style={{ marginTop: 8, marginBottom: 8 }} />
                   <Grid container spacing={1}>
                     <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>地址: {userStore.projectDetail.column1}</span>
+                      <span>平台: {userStore.projectDetail.column3}</span>
+                    </Typography>
+                  </Grid>
+                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                  <Grid container spacing={1}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <span>售價: {userStore.projectDetail.column4}</span>
+                    </Typography>
+                  </Grid>
+                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                  <Grid container spacing={1}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <span>語言: {userStore.projectDetail.column5}</span>
                     </Typography>
                   </Grid>
                   <Divider style={{ marginTop: 8, marginBottom: 8 }} />

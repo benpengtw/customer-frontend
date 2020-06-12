@@ -241,9 +241,6 @@ function ProjectCard(props) {
                 }
                 title={
                   <div>
-                    <span>年利率：</span>
-                    <span style={{ color: '#a10004' }}>{`${countIRR.toFixed(1)}` + '%'}</span>
-                    <br />
                     <span>{`${titleText}`}</span>
                   </div>
                 }
@@ -290,12 +287,6 @@ function ProjectCard(props) {
                   </Typography>
                 </Grid>
               </Grid>
-              <Typography variant="body2">
-                <span className={IFfullPercent || IFendDate ? classes.titleDisable : classes.title}>
-                  還款方式： {repaymentType}
-                </span>
-                {/*console.log('aaa', IFendDate)*/}
-              </Typography>
             </Link>
           </Grid>
         </Grid>
