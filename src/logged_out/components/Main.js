@@ -47,13 +47,13 @@ class Main extends PureComponent {
 
   selectHome = () => {
     smoothScrollTop()
-    document.title = 'WG金融平台'
+    document.title = '安喬博德'
     this.setState({ selectedTab: 'Home' })
   }
 
   selectProject = () => {
     smoothScrollTop()
-    document.title = 'WG金融平台 - Project'
+    document.title = '安喬博德 - Project'
     this.setState({ selectedTab: 'Project' })
   }
 

@@ -178,7 +178,7 @@ function ProjectPost(props) {
   const progress = useRef(() => {})
   const size = useWindowSize()
   useEffect(() => {
-    document.title = `WG金融平台 - ${titleText}`
+    document.title = `安喬博德 - ${titleText}`
     smoothScrollTop()
   }, [title])
 

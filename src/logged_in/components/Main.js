@@ -164,7 +164,7 @@ class Main extends PureComponent {
 
   selectDashboard = () => {
     smoothScrollTop()
-    document.title = 'WG金融平台 - Dashboard'
+    document.title = '安喬博德 - Dashboard'
     this.setState({
       selectedTab: 'Dashboard',
     })
@@ -178,7 +178,7 @@ class Main extends PureComponent {
 
   selectPosts = () => {
     smoothScrollTop()
-    document.title = 'WG金融平台 - Posts'
+    document.title = '安喬博德 - Posts'
     this.setState({
       selectedTab: 'Posts',
     })
@@ -210,7 +210,7 @@ class Main extends PureComponent {
 
   selectProjectOrderList = () => {
     smoothScrollTop()
-    document.title = 'WG金融平台 - ProjectOrderList'
+    document.title = '安喬博德 - ProjectOrderList'
     this.setState({
       selectedTab: 'ProjectOrderList',
     })

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Grid, Typography, Card, Button, Hidden, Box, withStyles, withWidth, isWidthUp } from '@material-ui/core'
-import headerImage from '../../dummy_data/images/headerImage.png'
+import headerImage from '../../dummy_data/images/crowdfunding.jpg'
 import WaveBorder from '../../../shared/components/WaveBorder'
 
 const styles = (theme) => ({
@@ -121,14 +121,13 @@ function HeadSection(props) {
                   <Grid item xs={12} md={6}>
                     <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
                       <Box mb={4}>
-                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>
-                          防疫期間 您我共同攜手度過難關
-                        </Typography>
+                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>歡迎光臨Angel Bird</Typography>
+                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>我們將著你的夢想起飛！</Typography>
                       </Box>
                       <div>
                         <Box mb={2}>
                           <Typography variant={isWidthUp('lg', width) ? 'h6' : 'body1'} color="textSecondary">
-                            運用您的閒置資金，獲得優於傳統金融的報酬率
+                            現在就支持你所愛的遊戲吧！
                           </Typography>
                         </Box>
                         <ColorButton
@@ -139,7 +138,7 @@ function HeadSection(props) {
                           //classes={{ label: classes.extraLargeButtonLabel }}
                           href={process.env.REACT_APP_URL + '/project'}
                         >
-                          立即申請
+                          立即支持
                         </ColorButton>
                       </div>
                     </Box>

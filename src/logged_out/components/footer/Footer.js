@@ -179,7 +179,8 @@ function Footer(props) {
               About the Company
             </Typography>
             <Typography className="text-white" paragraph>
-              WGpay金融平台是唯數娛樂科技股份有限公司旗下之服務平台，致力於為客戶提供最專業的金融服務，我們不只提供金融媒合服務，更提供加密貨幣金流服務。
+              Angel Bird
+              遊戲募資平台是唯數娛樂科技股份有限公司旗下之服務平台，致力於為遊戲開發團隊提供最專業的服務，我們不只提供媒合服務，更提供加密貨幣金流服務。
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (

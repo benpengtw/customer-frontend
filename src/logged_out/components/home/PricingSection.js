@@ -111,7 +111,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    非一般個體經營的小公司，安全又專業，免費提供專業不動產諮詢服務。
+                    我們有最專業的團隊，提供您募資上架的諮詢服務
                   </Typography>
                 </Grid>
               </Grid>
@@ -146,7 +146,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="h5" className={classes.title}>
-                    WGpay與您一起共享經濟
+                    Agnel Bird 與您一起共享經濟
                   </Typography>
                 </Grid>
                 <Grid
@@ -157,7 +157,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    透過金融科技與專業審查，降低投資方及借貸方風險，，共創三方共贏新局面。
+                    透過金融科技與專業審查，降低遊戲團隊及支持者的風險，共創三方共贏新局面。
                   </Typography>
                 </Grid>
               </Grid>
@@ -203,7 +203,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    媒合過程符合台灣法令規定，WGpay擁有最優質的服務。
+                    過程符合台灣法令規定，Angel Bird 擁有最優質的服務。
                   </Typography>
                 </Grid>
               </Grid>
@@ -295,7 +295,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    分散投資、低門檻，人人都可輕鬆擁抱不動產市場債權收益。
+                    降低遊戲開發門檻，讓團隊可以永續經營，成為台灣之光
                   </Typography>
                 </Grid>
               </Grid>
@@ -330,7 +330,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="h5" className={classes.title}>
-                    穩健報酬抗漲跌
+                    宅經濟當道
                   </Typography>
                 </Grid>
                 <Grid
@@ -341,7 +341,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="body1" className={classes.title}>
-                    根據歷史經驗，不動產債權收益中長期報酬率優於股.匯.債市。
+                    遊戲產業前景看好，電競比賽獎金年年上漲，支持你所愛的作品吧!
                   </Typography>
                 </Grid>
               </Grid>
