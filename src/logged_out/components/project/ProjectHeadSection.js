@@ -50,7 +50,7 @@ function ProjectHeadSection(props) {
       <div className={classNames('lg-p-top', classes.wrapper)}>
         <div className={classNames('container-fluid', classes.container)}>
           <Typography variant={isWidthUp('lg', width) ? 'h5' : 'h6'} className={classes.typographySub}>
-            透過資產抵押的方式，可以讓小額投資人利用區塊鏈找到心儀的投資項目。
+            遊戲團隊透過分享遊戲智慧財產權的方式，支持者可以支持他們並獲得收益。
           </Typography>
         </div>
       </div>

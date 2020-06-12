@@ -36,9 +36,9 @@ export class TradeModules {
     this.MerchantID = 'MS311175634'
     this.HashKey = 'M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422'
     this.HashIV = 'CsvJT0E8dn7i8h2P'
-    this.PayGateWay = this.URL
+    this.PayGateWay = 'http://18.180.172.86'
     this.ReturnURL = this.URL + '/loan/c/projectOrderList'
-    this.NotifyURL = this.URL + '/api/customer_api/v1/cashFlow/spgateway/callback?from=NotifyURL'
+    this.NotifyURL = 'http://18.180.172.86/api/customer_api/v1/cashFlow/spgateway/callback'
     this.ClientBackURL = this.URL + '/loan/c/projectOrderList'
   }
 
