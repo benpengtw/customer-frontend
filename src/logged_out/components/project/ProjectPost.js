@@ -34,6 +34,7 @@ import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
+import { useParams } from 'react-router'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
 function useStores() {
@@ -155,19 +156,8 @@ function useWindowSize() {
 function ProjectPost(props) {
   let store = useStores()
   const { userStore } = store
-  const {
-    classes,
-    title,
-    otherArticles,
-    titleText,
-    startDate,
-    endDate,
-    percent,
-    totalAmount,
-    id,
-    irr,
-    investAmount,
-  } = props
+  const { classes } = props
+  const { title, titleText, startDate, endDate, percent, totalAmount, irr, investAmount } = userStore.projectDetail
   const [completed, setCompleted] = useState(0)
   const [paymentType, setrPaymentType] = useState('')
   const [amount, setAmount] = useState(0)
@@ -176,6 +166,16 @@ function ProjectPost(props) {
   const [sticky, setSticky] = useState(true)
   const progress = useRef(() => {})
   const size = useWindowSize()
+  const { id } = useParams()
+
+  useEffect(() => {
+    userStore.getProject({
+      payload: {
+        page: 1,
+      },
+    })
+  }, [1])
+
   useEffect(() => {
     document.title = `安喬博德 - ${titleText}`
     smoothScrollTop()
@@ -190,7 +190,6 @@ function ProjectPost(props) {
 
   useEffect(() => {
     if (size.height > size.bodyHeight - size.windowHeight - 470) {
-      console.log('setSticky(false)')
       setSticky(false)
       return
     } else {
@@ -353,18 +352,21 @@ function ProjectPost(props) {
               <Typography variant="h6" paragraph>
                 其他投資計畫
               </Typography>
-              {otherArticles.slice(0, 6).map((projectPost) => (
-                <Grid key={projectPost.id} item md={12} xs={12}>
-                  <Box mb={12} xs={12} marginBottom="12px">
-                    <ProjectCardOld
-                      title={projectPost.titleText}
-                      src={projectPost.imageSrc}
-                      endDate={projectPost.endDate}
-                      url={`/project/post/${projectPost.id}`}
-                    />
-                  </Box>
-                </Grid>
-              ))}
+              {userStore.projectList
+                .filter((projectPost) => projectPost.id !== id)
+                //.slice(0, 6)
+                .map((projectPost) => (
+                  <Grid key={projectPost.id} item md={12} xs={12}>
+                    <Box mb={12} xs={12} marginBottom="12px">
+                      <ProjectCardOld
+                        title={projectPost.titleText}
+                        src={projectPost.imageSrc}
+                        endDate={projectPost.endDate}
+                        url={projectPost.url}
+                      />
+                    </Box>
+                  </Grid>
+                ))}
             </Grid>
           </Grid>
           <Grid item xl={6} md={6} xs={12}>
@@ -580,7 +582,7 @@ ProjectPost.propTypes = {
   totalAmount: PropTypes.number.isRequired,
   investAmount: PropTypes.number,
   percent: PropTypes.number,
-  otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
+  //otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.number.isRequired,
 }
 

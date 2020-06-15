@@ -42,6 +42,15 @@ class UserStore {
     column6: '',
     column7: '',
     photos: [],
+    irr: 0,
+    investAmount: 0,
+    startDate: '',
+    endDate: '',
+    imageSrc: '',
+    percent: 0,
+    title: '',
+    titleText: '',
+    totalAmount: 0,
   }
   @observable errorMessage = ''
   @observable formHTML = ''
@@ -204,6 +213,16 @@ class UserStore {
             original: photo.coverUrl,
             thumbnail: photo.coverUrl,
           }))
+          this.projectDetail.totalAmount = response.data.totalAmount
+          this.projectDetail.irr = response.data.IRR ? response.data.IRR * 10 : 0
+          this.projectDetail.investAmount = response.data.ProjectsInvestingListingTotalAmount
+          this.projectDetail.startDate = response.data.startDate
+          this.projectDetail.endDate = response.data.endDate
+          this.projectDetail.percent = Math.round(
+            (response.data.ProjectsInvestingListingTotalAmount / response.data.totalAmount) * 100
+          )
+          this.projectDetail.title = response.data.title
+          this.projectDetail.titleText = response.data.title
         })
       )
       .catch((error) => {
