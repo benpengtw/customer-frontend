@@ -60,7 +60,8 @@ function getVerticalProjectPosts(width, projectList) {
               startDate={projectPost.startDate}
               endDate={projectPost.endDate}
               irr={projectPost.irr}
-              url={'/project/post/' + projectPost.id}
+              //url={'/project/post/' + projectPost.id}
+              url={projectPost.url}
               totalAmount={projectPost.totalAmount}
               investAmount={projectPost.investAmount}
               percent={projectPost.percent}

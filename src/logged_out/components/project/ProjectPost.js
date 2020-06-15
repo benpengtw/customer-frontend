@@ -157,7 +157,6 @@ function ProjectPost(props) {
   const { userStore } = store
   const {
     classes,
-    date,
     title,
     otherArticles,
     titleText,
@@ -575,7 +574,6 @@ ProjectPost.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   titleText: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
   startDate: PropTypes.string.isRequired,
   endDate: PropTypes.string.isRequired,
   irr: PropTypes.number.isRequired,

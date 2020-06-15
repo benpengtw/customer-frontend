@@ -14,19 +14,17 @@ function useStores() {
 function Routing(props) {
   let store = useStores()
   const { userStore } = store
-  const { projectPosts, selectProject, selectHome } = props
+  const { selectProject, selectHome } = props
   //console.log('sdsdsdsd', toJS(userStore.projectList))
   return useObserver(() => (
     <Switch>
       {userStore.projectList.map((post, index) => {
-        console.log('post', toJS(post.url))
         return (
           <PropsRoute
-            path={`/project/post/${post.id}`}
+            path={post.url}
             component={ProjectPost}
             title={post.title}
             titleText={post.titleText}
-            date={1593068400}
             startDate={post.startDate}
             endDate={post.endDate}
             irr={post.irr}
@@ -39,7 +37,7 @@ function Routing(props) {
           />
         )
       })}
-      <PropsRoute exact path="/project" component={Project} selectProject={selectProject} projectPosts={projectPosts} />
+      <PropsRoute exact path="/project" component={Project} selectProject={selectProject} />
       )
       <PropsRoute path="/" component={Home} selectHome={selectHome} />)
     </Switch>
@@ -47,7 +45,6 @@ function Routing(props) {
 }
 
 Routing.propTypes = {
-  projectposts: PropTypes.arrayOf(PropTypes.object),
   selectHome: PropTypes.func.isRequired,
   selectProject: PropTypes.func.isRequired,
 }

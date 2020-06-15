@@ -42,7 +42,6 @@ class Main extends PureComponent {
     if (localStorage.getItem('token')) {
       this.props.userStore.getMe()
     }
-    this.fetchProjectPosts()
   }
 
   selectHome = () => {
@@ -92,28 +91,20 @@ class Main extends PureComponent {
     this.setState({ dialogOpen: 'changePassword' })
   }
 
-  fetchProjectPosts = () => {
-    /**
-     * You would fetch this from the server, however we gonna use the example values from state here
-     */
-    //this.projectPostsMaxUnix = dummyProjectPosts[dummyProjectPosts.length - 1].date
-    const projectPosts = dummyProjectPosts.map((projectPost) => {
-      // let title = projectPost.title
-      // title = title.toLowerCase()
-      // /* Remove unwanted characters, only accept alphanumeric and space */
-      // title = title.replace(/[^A-Za-z0-9 ]/g, '')
-      // /* Replace multi spaces with a single space */
-      // title = title.replace(/\s{2,}/g, ' ')
-      // /* Replace space with a '-' symbol */
-      // title = title.replace(/\s/g, '-')
-      projectPost.url = `/project/post/${projectPost.id}`
-      projectPost.params = `?id=${projectPost.id}`
-      return projectPost
-    })
-    this.setState({
-      projectPosts,
-    })
-  }
+  //fetchProjectPosts = () => {
+  /**
+   * You would fetch this from the server, however we gonna use the example values from state here
+   */
+  //this.projectPostsMaxUnix = dummyProjectPosts[dummyProjectPosts.length - 1].date
+  // const projectPosts = dummyProjectPosts.map((projectPost) => {
+  //     projectPost.url = `/project/post/${projectPost.id}`
+  //     projectPost.params = `?id=${projectPost.id}`
+  //     return projectPost
+  //   })
+  //   this.setState({
+  //     projectPosts,
+  //   })
+  // }
 
   handleCookieRulesDialogOpen = () => {
     this.setState({ cookieRulesDialogOpen: true })

@@ -30,7 +30,7 @@ class UserStore {
       titleText: '',
       totalAmount: 0,
       repaymentType: '',
-      url: '',
+      url: '/project/post/0',
     },
   ]
   @observable projectDetail = {
@@ -60,7 +60,7 @@ class UserStore {
         titleText: '',
         totalAmount: 0,
         repaymentType: '',
-        url: '',
+        url: '/project/post/0',
       },
     ]
   }
@@ -163,7 +163,7 @@ class UserStore {
             this.pageCount = Math.ceil(total / 10)
             this.projectList = response.data.map((project) => {
               return {
-                url: '/project/post/' + project.id,
+                url: `/project/post/${project.id}`,
                 irr: project.IRR ? project.IRR * 10 : 0,
                 investAmount: project.ProjectsInvestingListingTotalAmount,
                 startDate: project.startDate,
