@@ -7,7 +7,7 @@ import Footer from './footer/Footer'
 import 'aos/dist/aos.css'
 import CookieRulesDialog from './cookies/CookieRulesDialog'
 import CookieConsent from './cookies/CookieConsent'
-import dummyProjectPosts from '../dummy_data/projectPosts'
+//import dummyProjectPosts from '../dummy_data/projectPosts'
 import DialogSelector from './register_login/DialogSelector'
 import Routing from './Routing'
 import smoothScrollTop from '../../shared/functions/smoothScrollTop'
@@ -26,12 +26,9 @@ class Main extends PureComponent {
   state = {
     selectedTab: null,
     mobileDrawerOpen: false,
-    projectPosts: [],
     dialogOpen: null,
     cookieRulesDialogOpen: false,
   }
-
-  projectPostsMaxUnix = Math.round(new Date().getTime() / 1000)
 
   componentDidMount() {
     // this.props.userStore.getProject({
@@ -91,21 +88,6 @@ class Main extends PureComponent {
     this.setState({ dialogOpen: 'changePassword' })
   }
 
-  //fetchProjectPosts = () => {
-  /**
-   * You would fetch this from the server, however we gonna use the example values from state here
-   */
-  //this.projectPostsMaxUnix = dummyProjectPosts[dummyProjectPosts.length - 1].date
-  // const projectPosts = dummyProjectPosts.map((projectPost) => {
-  //     projectPost.url = `/project/post/${projectPost.id}`
-  //     projectPost.params = `?id=${projectPost.id}`
-  //     return projectPost
-  //   })
-  //   this.setState({
-  //     projectPosts,
-  //   })
-  // }
-
   handleCookieRulesDialogOpen = () => {
     this.setState({ cookieRulesDialogOpen: true })
   }
@@ -116,7 +98,7 @@ class Main extends PureComponent {
 
   render() {
     const { classes, userStore } = this.props
-    const { selectedTab, mobileDrawerOpen, projectPosts, dialogOpen, cookieRulesDialogOpen } = this.state
+    const { selectedTab, mobileDrawerOpen, dialogOpen, cookieRulesDialogOpen } = this.state
     return (
       <div className={classes.wrapper}>
         {!cookieRulesDialogOpen && <CookieConsent handleCookieRulesDialogOpen={this.handleCookieRulesDialogOpen} />}
@@ -139,7 +121,7 @@ class Main extends PureComponent {
           handleMobileDrawerClose={this.handleMobileDrawerClose}
           currentUserName={userStore.currentUser.name}
         />
-        <Routing projectPosts={projectPosts} selectHome={this.selectHome} selectProject={this.selectProject} />
+        <Routing selectHome={this.selectHome} selectProject={this.selectProject} />
         <Footer />
       </div>
     )
