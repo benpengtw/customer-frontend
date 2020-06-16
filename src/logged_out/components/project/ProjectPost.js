@@ -70,7 +70,7 @@ const styles = (theme) => ({
   },
   cardNoSticky: {
     boxShadow: theme.shadows[3],
-    height: '60vh',
+    height: '75vh',
     width: '405px',
     display: 'flex',
     '@media (max-width: 960px)': {
@@ -80,7 +80,7 @@ const styles = (theme) => ({
   },
   cardSticky: {
     boxShadow: theme.shadows[3],
-    height: '60vh',
+    height: '75vh',
     //height: '730px',
     width: '405px',
     top: '160px',
@@ -190,7 +190,7 @@ function ProjectPost(props) {
   }, [userStore.formHTML])
 
   useEffect(() => {
-    if (size.height > size.bodyHeight - size.windowHeight - 360) {
+    if (size.height !== 0 && size.height > size.bodyHeight - size.windowHeight - 360) {
       setSticky(false)
       return
     } else {
