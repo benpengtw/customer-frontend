@@ -39,6 +39,7 @@ import { useParams } from 'react-router'
 import moment from 'moment'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
+
 function useStores() {
   return React.useContext(MobXProviderContext)
 }
@@ -204,7 +205,7 @@ function ProjectPost(props) {
         id: id,
       },
     })
-  }, [])
+  }, [id])
 
   useEffect(() => {
     if (percent == 0) {
@@ -355,16 +356,18 @@ function ProjectPost(props) {
                 其他投資計畫
               </Typography>
               {userStore.projectList
-                .filter((projectPost) => projectPost.id !== id)
-                .slice(0, 6)
+                // .filter((projectPost) => projectPost.id !== id)
+                // .slice(0, 6)
                 .map((projectPost) => (
                   <Grid key={projectPost.id} item md={12} xs={12}>
                     <Box mb={12} xs={12} marginBottom="12px">
                       <ProjectCardOld
-                        title={projectPost.titleText}
+                        title={projectPost.title}
                         src={projectPost.imageSrc}
                         endDate={projectPost.endDate}
                         url={projectPost.url}
+                        totalAmount={projectPost.totalAmount}
+                        investAmount={projectPost.investAmount}
                       />
                     </Box>
                   </Grid>

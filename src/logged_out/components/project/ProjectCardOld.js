@@ -49,8 +49,17 @@ const styles = (theme) => ({
   },
 })
 
+const thousands_separators = (num) => {
+  let num_parts = num
+    //.toFixed(2)
+    .toString()
+    .split('.')
+  num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return num_parts.join('.')
+}
+
 function ProjectCardOld(props) {
-  const { classes, url, src, title, endDate } = props
+  const { classes, url, src, title, endDate, totalAmount, investAmount } = props
   return (
     <Card className={classes.card}>
       {src && (
@@ -59,12 +68,18 @@ function ProjectCardOld(props) {
         </Link>
       )}
       <Box p={2}>
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textPrimary">
           投資到期日：{endDate.slice(0, 10)}
         </Typography>
         <Link to={url} className={classNames(classes.noDecoration, classes.showFocus)}>
           <Typography variant="h6">
             <span className={classes.title}>{title}</span>
+          </Typography>
+          <Typography variant="body1" color="textPrimary" letterSpacing={1}>
+            募資總額 $ {thousands_separators(totalAmount)} 元
+          </Typography>
+          <Typography variant="body1" color="primary" letterSpacing={1}>
+            已投金額 $ {thousands_separators(investAmount)} 元
           </Typography>
         </Link>
       </Box>
@@ -76,6 +91,8 @@ ProjectCardOld.propTypes = {
   classes: PropTypes.object.isRequired,
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  totalAmount: PropTypes.number.isRequired,
+  investAmount: PropTypes.number,
   src: PropTypes.string,
   endDate: PropTypes.string,
 }
