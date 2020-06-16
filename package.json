@@ -55,8 +55,8 @@
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "start:dev": "cross-env REACT_APP_URL=http://test.blockchain.wegames.com.tw REACT_APP_API=http://test.blockchain.wegames.com.tw/payment react-app-rewired start",
-    "build:dev": "cross-env REACT_APP_URL=http://test.blockchain.wegames.com.tw REACT_APP_API=http://test.blockchain.wegames.com.tw/payment react-app-rewired build",
+    "start:dev": "cross-env REACT_APP_URL=http://18.180.172.86 REACT_APP_API=http://18.180.172.86:7002 react-app-rewired start",
+    "build:dev": "cross-env REACT_APP_URL=http://18.180.172.86 REACT_APP_API=http://18.180.172.86:7002 react-app-rewired build",
     "build:prod": "cross-env REACT_APP_URL=http://test.blockchain.wegames.com.tw REACT_APP_API=http://test.blockchain.wegames.com.tw/payment react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"

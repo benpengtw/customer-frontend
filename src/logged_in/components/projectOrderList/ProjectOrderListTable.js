@@ -6,7 +6,7 @@ import ColorfulChip from '../../../shared/components/ColorfulChip'
 import unixToDateString from '../../../shared/functions/unixToDateString'
 import HighlightedInformation from '../../../shared/components/HighlightedInformation'
 import currencyPrettyPrint from '../../../shared/functions/currencyPrettyPrint'
-
+import moment from 'moment'
 const styles = (theme) => ({
   tableWrapper: {
     overflowX: 'auto',
@@ -135,7 +135,7 @@ function ProjectOrderListTable(props) {
                   {transaction.endDate ? transaction.endDate.slice(0, 10) : ''}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {transaction.updatedAt ? transaction.updatedAt : ''}
+                  {transaction.updatedAt ? moment(transaction.updatedAt).format('YYYY-MM-DD hh:mm:ss') : ''}
                 </TableCell>
               </TableRow>
             ))}

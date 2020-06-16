@@ -28,6 +28,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 import TimerIcon from '@material-ui/icons/Timer'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import ProjectCardOld from './ProjectCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
@@ -35,6 +36,7 @@ import ImageGallery from 'react-image-gallery'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
 import { useParams } from 'react-router'
+import moment from 'moment'
 import 'react-image-gallery/styles/css/image-gallery.css'
 import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
 function useStores() {
@@ -68,8 +70,7 @@ const styles = (theme) => ({
   },
   cardNoSticky: {
     boxShadow: theme.shadows[3],
-    height: '70vh',
-    //height: '100%',
+    height: '60vh',
     width: '405px',
     display: 'flex',
     '@media (max-width: 960px)': {
@@ -79,8 +80,8 @@ const styles = (theme) => ({
   },
   cardSticky: {
     boxShadow: theme.shadows[3],
-    //height: '70vh',
-    height: '730px',
+    height: '60vh',
+    //height: '730px',
     width: '405px',
     top: '160px',
     right: 'calc(50%-585px)',
@@ -129,7 +130,7 @@ function useWindowSize() {
   const isClient = typeof window === 'object'
   function getSize() {
     return {
-      height: isClient ? window.pageYOffset : undefined,
+      height: isClient ? window.pageYOffset : 600,
       bodyHeight: isClient ? window.document.body.offsetHeight : undefined,
       windowHeight: isClient ? window.innerHeight : undefined,
     }
@@ -189,7 +190,7 @@ function ProjectPost(props) {
   }, [userStore.formHTML])
 
   useEffect(() => {
-    if (size.height > size.bodyHeight - size.windowHeight - 470) {
+    if (size.height > size.bodyHeight - size.windowHeight - 360) {
       setSticky(false)
       return
     } else {
@@ -249,31 +250,30 @@ function ProjectPost(props) {
   }
 
   const onSubmit = () => {
-    switch (paymentType) {
-      case 'CRYPTOCURRENCY':
-        userStore.invest({
-          payload: {
-            paymentType: 'CRYPTOCURRENCY',
-            address: userStore.currentUser.address,
-            amount: parseInt(amount),
-            currency: 'USDT',
-            projectId: id,
-          },
-        })
-      case 'CREDIT':
-        userStore.investCredit({
-          payload: {
-            paymentType: 'CREDIT',
-            amount: parseInt(amount) * 10000,
-            DESC: titleText,
-            email: userStore.currentUser.email,
-            address: userStore.currentUser.address,
-            currency: 'TWD',
-            projectId: id,
-          },
-        })
-      default:
-        return null
+    if (paymentType == 'CRYPTOCURRENCY') {
+      userStore.invest({
+        payload: {
+          paymentType: 'CRYPTOCURRENCY',
+          address: userStore.currentUser.address,
+          amount: parseInt(amount) * 10000,
+          currency: 'USDT',
+          projectId: id,
+        },
+      })
+    } else if (paymentType == 'CREDIT') {
+      userStore.investCredit({
+        payload: {
+          paymentType: 'CREDIT',
+          amount: parseInt(amount) * 10000,
+          DESC: titleText,
+          email: userStore.currentUser.email,
+          address: userStore.currentUser.address,
+          currency: 'TWD',
+          projectId: id,
+        },
+      })
+    } else {
+      return null
     }
   }
 
@@ -343,9 +343,9 @@ function ProjectPost(props) {
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       {printSnackbar()}
       <div className={classes.projectContentWrapper}>
-        {/* {console.log('height', size.height)}
+        {console.log('height', size.height)}
         {console.log('bodyHeight', size.bodyHeight)}
-        {console.log('windowHeight', size.windowHeight)} */}
+        {console.log('windowHeight', size.windowHeight)}
         <Grid container spacing={3} alignItems="flex-stretch" direction="row" justify="center">
           <Grid item xl={2} md={2} xs={12} className={classes.gridOhers}>
             <Grid container spacing={1}>
@@ -354,7 +354,7 @@ function ProjectPost(props) {
               </Typography>
               {userStore.projectList
                 .filter((projectPost) => projectPost.id !== id)
-                //.slice(0, 6)
+                .slice(0, 6)
                 .map((projectPost) => (
                   <Grid key={projectPost.id} item md={12} xs={12}>
                     <Box mb={12} xs={12} marginBottom="12px">
@@ -377,6 +377,33 @@ function ProjectPost(props) {
                   <b>{titleText}</b>
                 </Typography>
                 <br />
+                {/* <Grid container spacing={1}>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <span>開發團隊: {userStore.projectDetail.column1}</span>
+                    </Typography>
+                  </Grid>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <span>平台: {userStore.projectDetail.column3}</span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+
+                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
+                <Grid container spacing={1}>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <PlayArrowIcon style={{ fontSize: 9 }} />
+                      <span>售價: {userStore.projectDetail.column4}</span>
+                    </Typography>
+                  </Grid>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} align="justify">
+                      <span> 語言: {userStore.projectDetail.column5}</span>
+                    </Typography>
+                  </Grid>
+                </Grid> */}
               </Box>
               <CardContent>
                 <ImageGallery
@@ -385,7 +412,36 @@ function ProjectPost(props) {
                   showPlayButton={false}
                   showBullets={true}
                 />
-                <Divider />
+                <Divider style={{ marginTop: 16, marginBottom: 16, background: '#8B0000' }} />
+                <Grid container spacing={3}>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
+                      <span>開發團隊: {userStore.projectDetail.column1}</span>
+                    </Typography>
+                  </Grid>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
+                      <span>平台: {userStore.projectDetail.column3}</span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Grid container spacing={3}>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
+                      <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
+                      <span>售價: {userStore.projectDetail.column4}</span>
+                    </Typography>
+                  </Grid>
+                  <Grid container item spacing={1} item xs={6}>
+                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} align="justify">
+                      <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
+                      <span>語言: {userStore.projectDetail.column5}</span>
+                    </Typography>
+                  </Grid>
+                </Grid>
+                <Divider style={{ marginTop: 16, marginBottom: 16, background: '#8B0000' }} />
                 <br />
                 <div dangerouslySetInnerHTML={{ __html: userStore.projectDetail.column7 }} />
               </CardContent>
@@ -447,7 +503,6 @@ function ProjectPost(props) {
                       </Grid>
                     </Grid>
                   </Grid>
-                  {/* money */}
                   <br />
                   <span>認購進度：{completed.toFixed(2) + '%'}</span>
                   <BorderLinearProgress variant="determinate" value={completed} />
@@ -474,32 +529,7 @@ function ProjectPost(props) {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <br />
-                  <Grid container spacing={1}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>開發團隊: {userStore.projectDetail.column1}</span>
-                    </Typography>
-                  </Grid>
                   <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                  <Grid container spacing={1}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>平台: {userStore.projectDetail.column3}</span>
-                    </Typography>
-                  </Grid>
-                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                  <Grid container spacing={1}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>售價: {userStore.projectDetail.column4}</span>
-                    </Typography>
-                  </Grid>
-                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                  <Grid container spacing={1}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>語言: {userStore.projectDetail.column5}</span>
-                    </Typography>
-                  </Grid>
-                  <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                  <br />
                   {userStore.currentUser.name ? (
                     <Fragment>
                       <Grid container spacing={1}>

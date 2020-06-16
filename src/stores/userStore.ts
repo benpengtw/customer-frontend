@@ -89,7 +89,7 @@ class UserStore {
             title: project.project.title,
             endDate: project.project.endDate,
             irr: project.project.IRR ? project.project.IRR * 10 : 0,
-            updatedAt: project.project.updatedAt,
+            updatedAt: project.createdAt,
             amount: project.amount,
             transactionCheckUrl: project.transactionCheckUrl,
           }))
@@ -279,8 +279,7 @@ class UserStore {
               this.isLoadingInvest = false
               this.snackSuccess = 'success'
               window.location.href =
-                process.env.REACT_APP_URL +
-                '/payment/?address=' +
+                'http://18.180.172.86:81/?address=' +
                 res.data.projectAddress +
                 '&amount=' +
                 res.data.cryptoAmount +
