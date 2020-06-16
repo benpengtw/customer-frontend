@@ -251,6 +251,7 @@ function ProjectPost(props) {
 
   const onSubmit = () => {
     if (paymentType == 'CRYPTOCURRENCY') {
+      console.log('CRYPTOCURRENCY', paymentType)
       userStore.invest({
         payload: {
           paymentType: 'CRYPTOCURRENCY',
@@ -261,6 +262,7 @@ function ProjectPost(props) {
         },
       })
     } else if (paymentType == 'CREDIT') {
+      console.log('CREDIT', paymentType)
       userStore.investCredit({
         payload: {
           paymentType: 'CREDIT',
@@ -343,9 +345,9 @@ function ProjectPost(props) {
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
       {printSnackbar()}
       <div className={classes.projectContentWrapper}>
-        {console.log('height', size.height)}
+        {/* {console.log('height', size.height)}
         {console.log('bodyHeight', size.bodyHeight)}
-        {console.log('windowHeight', size.windowHeight)}
+        {console.log('windowHeight', size.windowHeight)} */}
         <Grid container spacing={3} alignItems="flex-stretch" direction="row" justify="center">
           <Grid item xl={2} md={2} xs={12} className={classes.gridOhers}>
             <Grid container spacing={1}>
