@@ -300,7 +300,7 @@ function ProjectPost(props) {
             onClose={handleClose}
           >
             <Alert onClose={handleClose} severity="success">
-              This is a success message!
+              Success!
             </Alert>
           </Snackbar>
         )
@@ -310,7 +310,7 @@ function ProjectPost(props) {
             disableWindowBlurListener
             key="disableWindowBlurListener"
             open={open}
-            autoHideDuration={3000}
+            autoHideDuration={4000}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'center',
@@ -318,7 +318,7 @@ function ProjectPost(props) {
             onClose={handleClose}
           >
             <Alert severity="error" onClose={handleClose}>
-              This is an error message!
+              Error :{userStore.errorMessage}
             </Alert>
           </Snackbar>
         )

@@ -253,14 +253,12 @@ class UserStore {
       )
       .catch(
         action((error) => {
-          setTimeout(() => {
-            this.isLoadingAddress = false
-            this.snackSuccess = 'failed'
-            const { response } = error
-            this.errorMessage = response.data.message
-            console.log('err', response)
-            return Promise.resolve(error)
-          }, 3000)
+          this.isLoadingInvest = false
+          this.snackSuccess = 'failed'
+          const { response } = error
+          this.errorMessage = response.data.message
+          console.log('err', response)
+          return Promise.resolve(error)
         })
       )
   }
@@ -300,6 +298,7 @@ class UserStore {
           this.isLoadingInvest = false
           this.snackSuccess = 'failed'
           const { response } = error
+          this.errorMessage = response.data.message
           console.log('err', response)
           return Promise.resolve(error)
         })

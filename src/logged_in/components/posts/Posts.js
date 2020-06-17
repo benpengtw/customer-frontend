@@ -64,7 +64,7 @@ class Posts extends PureComponent {
             onClose={this.handleClose}
           >
             <Alert onClose={this.handleClose} severity="success">
-              This is a success message!
+              Success!
             </Alert>
           </Snackbar>
         )
@@ -74,14 +74,14 @@ class Posts extends PureComponent {
             disableWindowBlurListener
             key="disableWindowBlurListener"
             open={open}
-            autoHideDuration={3000}
+            autoHideDuration={4000}
             anchorOrigin={{
               vertical: 'top',
               horizontal: 'center',
             }}
             onClose={this.handleClose}
           >
-            <Alert severity="error">This is an error message!{userStore.errorMessage}</Alert>
+            <Alert severity="error">Error :{userStore.errorMessage}</Alert>
           </Snackbar>
         )
       default:
