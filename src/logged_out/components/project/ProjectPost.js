@@ -161,8 +161,8 @@ function ProjectPost(props) {
   const { classes } = props
   const { title, titleText, startDate, endDate, percent, totalAmount, irr, investAmount } = userStore.projectDetail
   const [completed, setCompleted] = useState(0)
-  const [paymentType, setrPaymentType] = useState('')
-  const [amount, setAmount] = useState(0)
+  const [paymentType, setrPaymentType] = useState('CREDIT')
+  const [amount, setAmount] = useState(1)
   const [open, setOpen] = useState(true)
   const [clickbtn, setClickbtn] = useState(false)
   const [sticky, setSticky] = useState(true)
@@ -235,7 +235,7 @@ function ProjectPost(props) {
   }, [])
 
   const handleChange = (event) => {
-    if (event.target.value < 0) {
+    if (event.target.value <= 0) {
       setAmount(0)
       setClickbtn(true)
     }
@@ -327,20 +327,20 @@ function ProjectPost(props) {
     }
   }
 
-  const buildingType = () => {
-    switch (userStore.projectDetail.column6) {
-      case '1':
-        return <span>住宅大樓(11層含以上有電梯)</span>
-      case '2':
-        return <span>華廈(10層含以下有電梯)</span>
-      case '3':
-        return <span>透天厝</span>
-      case '4':
-        return <span>公寓</span>
-      default:
-        return <span></span>
-    }
-  }
+  // const buildingType = () => {
+  //   switch (userStore.projectDetail.column6) {
+  //     case '1':
+  //       return <span>住宅大樓(11層含以上有電梯)</span>
+  //     case '2':
+  //       return <span>華廈(10層含以下有電梯)</span>
+  //     case '3':
+  //       return <span>透天厝</span>
+  //     case '4':
+  //       return <span>公寓</span>
+  //     default:
+  //       return <span></span>
+  //   }
+  // }
 
   return useObserver(() => (
     <Box className={classNames('lg-p-top', classes.wrapper)} display="flex" justifyContent="center">
@@ -564,10 +564,10 @@ function ProjectPost(props) {
                             <TextField
                               id="standard-adornment-weight"
                               value={amount}
-                              error={amount < 0}
+                              error={amount <= 0}
                               onChange={handleChange}
                               type="number"
-                              helperText={amount < 0 && '投資金額不正確，請修改至正確數值'}
+                              //helperText={amount <= 0 && '投資金額不正確，請修改至正確數值'}
                               FormHelperTextProps={{ error: true }}
                               InputProps={{
                                 endAdornment: <InputAdornment position="end">萬</InputAdornment>,

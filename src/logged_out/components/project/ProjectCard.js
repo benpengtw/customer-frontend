@@ -163,7 +163,7 @@ function ProjectCard(props) {
     if (moment().isAfter(moment(endDate, 'YYYY-MM-DD'))) {
       setIFendDate(true)
     }
-    if (percent == 100) {
+    if (percent >= 100) {
       setIFfullPercent(true)
     }
     //console.log('dddddd', moment(endDate, 'YYYY-MM-DD').isValid())

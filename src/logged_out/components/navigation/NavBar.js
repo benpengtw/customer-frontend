@@ -76,6 +76,7 @@ function NavBar(props) {
     //console.log('userStore', userStore.currentUser.name)
     userStore.forgetUser()
     window.localStorage.removeItem('token')
+    window.sessionStorage.removeItem('address')
     window.location.reload(true)
   }
 

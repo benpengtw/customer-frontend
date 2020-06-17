@@ -104,7 +104,7 @@ const ColorButton = withStyles((theme) => ({
 }))(Button)
 
 function HeadSection(props) {
-  const { classes, theme, width } = props
+  const { classes, theme, width, openLoginDialog } = props
   return (
     <Fragment>
       <div className={classNames('lg-p-top', classes.wrapper)}>
@@ -136,7 +136,7 @@ function HeadSection(props) {
                           fullWidth
                           className={classes.extraLargeButton}
                           //classes={{ label: classes.extraLargeButtonLabel }}
-                          href={process.env.REACT_APP_URL + '/project'}
+                          onClick={openLoginDialog}
                         >
                           立即支持
                         </ColorButton>
@@ -158,6 +158,7 @@ HeadSection.propTypes = {
   classes: PropTypes.object,
   width: PropTypes.string,
   theme: PropTypes.object,
+  openLoginDialog: PropTypes.func.isRequired,
 }
 
 export default withWidth()(withStyles(styles, { withTheme: true })(HeadSection))

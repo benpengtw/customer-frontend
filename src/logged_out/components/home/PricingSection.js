@@ -146,7 +146,7 @@ function PricingSection(props) {
                   }}
                 >
                   <Typography variant="h5" className={classes.title}>
-                    Agnel Bird 與您一起共享經濟
+                    Angel Bird 與您一起共享經濟
                   </Typography>
                 </Grid>
                 <Grid

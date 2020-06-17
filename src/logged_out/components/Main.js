@@ -121,7 +121,11 @@ class Main extends PureComponent {
           handleMobileDrawerClose={this.handleMobileDrawerClose}
           currentUserName={userStore.currentUser.name}
         />
-        <Routing selectHome={this.selectHome} selectProject={this.selectProject} />
+        <Routing
+          selectHome={this.selectHome}
+          selectProject={this.selectProject}
+          openLoginDialog={this.openLoginDialog}
+        />
         <Footer />
       </div>
     )

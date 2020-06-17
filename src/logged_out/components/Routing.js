@@ -14,7 +14,7 @@ function useStores() {
 function Routing(props) {
   let store = useStores()
   const { userStore } = store
-  const { selectProject, selectHome } = props
+  const { selectProject, selectHome, openLoginDialog } = props
   //console.log('sdsdsdsd', toJS(userStore.projectList))
   return useObserver(() => (
     <Switch>
@@ -42,7 +42,7 @@ function Routing(props) {
       <PropsRoute path="/project/post/:id" component={ProjectPost} />
       <PropsRoute exact path="/project" component={Project} selectProject={selectProject} />
       )
-      <PropsRoute path="/" component={Home} selectHome={selectHome} />)
+      <PropsRoute path="/" component={Home} selectHome={selectHome} openLoginDialog={openLoginDialog} />)
     </Switch>
   ))
 }

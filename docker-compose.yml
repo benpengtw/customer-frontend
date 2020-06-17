@@ -4,7 +4,7 @@ services:
   customer-frontend:
     image: nginx
     ports:
-      - 83:80
+      - 81:80
     restart: unless-stopped
     volumes:
       - ./build:/usr/share/nginx/html:ro

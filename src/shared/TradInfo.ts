@@ -33,13 +33,13 @@ export class TradeModules {
     // this.HashKey = hashKey
     // this.HashIV = hashIV
     this.URL = process.env.REACT_APP_URL || ''
-    this.MerchantID = 'MS311175634'
-    this.HashKey = 'M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422'
-    this.HashIV = 'CsvJT0E8dn7i8h2P'
+    this.MerchantID = process.env.REACT_APP_MERCHANTID || ''
+    this.HashKey = process.env.REACT_APP_HASHKEY || ''
+    this.HashIV = process.env.REACT_APP_HASHV || ''
     this.PayGateWay = process.env.REACT_APP_API || ''
-    this.ReturnURL = this.URL + ':83/c/projectOrderList'
-    this.NotifyURL = this.URL + '/api/customer_api/v1/cashFlow/spgateway/callback'
-    this.ClientBackURL = this.URL + ':83/c/projectOrderList'
+    this.ReturnURL = this.URL + '/loan/c/projectOrderList'
+    this.NotifyURL = this.PayGateWay + '/api/customer_api/v1/cashFlow/spgateway/callback'
+    this.ClientBackURL = this.URL + '/loan/c/projectOrderList'
   }
 
   private genDataChain(TradeInfo: object): string {
