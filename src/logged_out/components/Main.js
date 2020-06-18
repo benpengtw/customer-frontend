@@ -8,6 +8,7 @@ import 'aos/dist/aos.css'
 import CookieRulesDialog from './cookies/CookieRulesDialog'
 import CookieConsent from './cookies/CookieConsent'
 //import dummyProjectPosts from '../dummy_data/projectPosts'
+import ConsecutiveSnackbarMessages from '../../shared/components/ConsecutiveSnackbarMessages'
 import DialogSelector from './register_login/DialogSelector'
 import Routing from './Routing'
 import smoothScrollTop from '../../shared/functions/smoothScrollTop'
@@ -96,6 +97,15 @@ class Main extends PureComponent {
     this.setState({ cookieRulesDialogOpen: false })
   }
 
+  /**
+   * We have to call the pushSnackBarMessage function of this
+   * child's consecutiveSnackbarMessages component. Thats why we pass it
+   * when the component did mount to this components state.
+   */
+  getPushMessageFromChild = (pushFunction) => {
+    this.pushMessageToSnackbar = pushFunction
+  }
+
   render() {
     const { classes, userStore } = this.props
     const { selectedTab, mobileDrawerOpen, dialogOpen, cookieRulesDialogOpen } = this.state
@@ -121,10 +131,12 @@ class Main extends PureComponent {
           handleMobileDrawerClose={this.handleMobileDrawerClose}
           currentUserName={userStore.currentUser.name}
         />
+        <ConsecutiveSnackbarMessages getPushMessageFromChild={this.getPushMessageFromChild} />
         <Routing
           selectHome={this.selectHome}
           selectProject={this.selectProject}
           openLoginDialog={this.openLoginDialog}
+          pushMessageToSnackbar={this.pushMessageToSnackbar}
         />
         <Footer />
       </div>

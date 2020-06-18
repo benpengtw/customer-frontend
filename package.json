@@ -55,9 +55,10 @@
     "prettier": "^1.19.1"
   },
   "scripts": {
-    "start:dev": "cross-env REACT_APP_URL=https://dev.blockchain.wegames.com.tw REACT_APP_API=https://dev.blockchain.wegames.com.tw/payment REACT_APP_MERCHANTID=MS311919776 REACT_APP_HASHKEY=Wf9HtIKEn5t0x2l4QwWF653w2PjNGUac REACT_APP_HASHV=Csb1Up8qU37OK03P  react-app-rewired start",
-    "build:dev": "cross-env REACT_APP_URL=https://dev.blockchain.wegames.com.tw REACT_APP_API=https://dev.blockchain.wegames.com.tw/payment REACT_APP_MERCHANTID=MS311919776 REACT_APP_HASHKEY=Wf9HtIKEn5t0x2l4QwWF653w2PjNGUac REACT_APP_HASHV=Csb1Up8qU37OK03P  react-app-rewired build",
-    "build:prod": "cross-env REACT_APP_URL=http://test.blockchain.wegames.com.tw REACT_APP_API=http://test.blockchain.wegames.com.tw/payment react-app-rewired build",
+    "start:test": "cross-env REACT_APP_URL=http://test.blockchain.wegames.com.tw REACT_APP_API=http://test.blockchain.wegames.com.tw/payment REACT_APP_MERCHANTID=MS311175634 REACT_APP_HASHKEY=M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422 REACT_APP_HASHV=CsvJT0E8dn7i8h2P  react-app-rewired start",
+    "start:dev": "cross-env REACT_APP_URL=https://dev.blockchain.wegames.com.tw REACT_APP_API=https://dev.blockchain.wegames.com.tw/payment REACT_APP_MERCHANTID=MS311175634 REACT_APP_HASHKEY=M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422 REACT_APP_HASHV=CsvJT0E8dn7i8h2P  react-app-rewired start",
+    "build:test": "cross-env REACT_APP_URL=http://test.blockchain.wegames.com.tw REACT_APP_API=http://test.blockchain.wegames.com.tw/payment REACT_APP_MERCHANTID=MS311175634 REACT_APP_HASHKEY=M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422 REACT_APP_HASHV=CsvJT0E8dn7i8h2P  react-app-rewired build",
+    "build:dev": "cross-env REACT_APP_URL=https://dev.blockchain.wegames.com.tw REACT_APP_API=https://dev.blockchain.wegames.com.tw/payment REACT_APP_MERCHANTID=MS311175634 REACT_APP_HASHKEY=M1ZCLnHeKCJ3iyBW2D1HEElIotKh7422 REACT_APP_HASHV=CsvJT0E8dn7i8h2P react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },

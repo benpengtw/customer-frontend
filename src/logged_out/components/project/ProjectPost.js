@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState, useRef } from 'react'
+import React, { useEffect, Fragment, useState, useRef, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import format from 'date-fns/format'
@@ -24,7 +24,6 @@ import {
   FormLabel,
   Snackbar,
 } from '@material-ui/core'
-import MuiAlert from '@material-ui/lab/Alert'
 import TimerOffIcon from '@material-ui/icons/TimerOff'
 import TimerIcon from '@material-ui/icons/Timer'
 import TrendingUpIcon from '@material-ui/icons/TrendingUp'
@@ -42,9 +41,6 @@ import { MobXProviderContext, useObserver, Observer } from 'mobx-react'
 
 function useStores() {
   return React.useContext(MobXProviderContext)
-}
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 const styles = (theme) => ({
   projectContentWrapper: {
@@ -158,12 +154,11 @@ function useWindowSize() {
 function ProjectPost(props) {
   let store = useStores()
   const { userStore } = store
-  const { classes } = props
+  const { classes, pushMessageToSnackbar } = props
   const { title, titleText, startDate, endDate, percent, totalAmount, irr, investAmount } = userStore.projectDetail
   const [completed, setCompleted] = useState(0)
   const [paymentType, setrPaymentType] = useState('CREDIT')
   const [amount, setAmount] = useState(1)
-  const [open, setOpen] = useState(true)
   const [clickbtn, setClickbtn] = useState(false)
   const [sticky, setSticky] = useState(true)
   const progress = useRef(() => {})
@@ -280,50 +275,21 @@ function ProjectPost(props) {
     }
   }
 
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   const printSnackbar = () => {
-    switch (userStore.snackSuccess) {
-      case 'success':
-        return (
-          <Snackbar
-            disableWindowBlurListener
-            key="disableWindowBlurListener"
-            open={open}
-            autoHideDuration={3000}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              Success!
-            </Alert>
-          </Snackbar>
-        )
-      case 'failed':
-        return (
-          <Snackbar
-            disableWindowBlurListener
-            key="disableWindowBlurListener"
-            open={open}
-            autoHideDuration={4000}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            onClose={handleClose}
-          >
-            <Alert severity="error" onClose={handleClose}>
-              Error :{userStore.errorMessage}
-            </Alert>
-          </Snackbar>
-        )
-      default:
-        return null
+    if (userStore.snackSuccess == 'failed') {
+      userStore.initSnackSuccess()
+      pushMessageToSnackbar({
+        text: userStore.errorMessage,
+        severity: 'error',
+      })
+    } else if (userStore.snackSuccess == 'success') {
+      userStore.initSnackSuccess()
+      pushMessageToSnackbar({
+        text: 'Success!',
+        severity: 'success',
+      })
+    } else {
+      return null
     }
   }
 
@@ -382,33 +348,6 @@ function ProjectPost(props) {
                   <b>{titleText}</b>
                 </Typography>
                 <br />
-                {/* <Grid container spacing={1}>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>開發團隊: {userStore.projectDetail.column1}</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <span>平台: {userStore.projectDetail.column3}</span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-
-                <Divider style={{ marginTop: 8, marginBottom: 8 }} />
-                <Grid container spacing={1}>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
-                      <PlayArrowIcon style={{ fontSize: 9 }} />
-                      <span>售價: {userStore.projectDetail.column4}</span>
-                    </Typography>
-                  </Grid>
-                  <Grid container item spacing={1} item xs={6}>
-                    <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} align="justify">
-                      <span> 語言: {userStore.projectDetail.column5}</span>
-                    </Typography>
-                  </Grid>
-                </Grid> */}
               </Box>
               <CardContent>
                 <ImageGallery
@@ -608,17 +547,17 @@ function ProjectPost(props) {
 }
 
 ProjectPost.propTypes = {
-  classes: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  titleText: PropTypes.string.isRequired,
-  startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
-  irr: PropTypes.number.isRequired,
-  totalAmount: PropTypes.number.isRequired,
+  classes: PropTypes.object,
+  title: PropTypes.string,
+  titleText: PropTypes.string,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  irr: PropTypes.number,
+  totalAmount: PropTypes.number,
   investAmount: PropTypes.number,
   percent: PropTypes.number,
-  //otherArticles: PropTypes.arrayOf(PropTypes.object).isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
+  pushMessageToSnackbar: PropTypes.func,
 }
 
 export default withStyles(styles, { withTheme: true })(ProjectPost)

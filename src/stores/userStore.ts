@@ -74,6 +74,10 @@ class UserStore {
     ]
   }
 
+  @action initSnackSuccess() {
+    this.snackSuccess = ''
+  }
+
   @action getMyProjectOrderList({ payload }) {
     return request('/customer/me/projectOrder/list', {
       params: {
@@ -236,6 +240,7 @@ class UserStore {
 
   @action addWallet({ payload }) {
     this.isLoadingAddress = true
+    this.snackSuccess = ''
     return request('/customer/me/address', {
       method: 'POST',
       data: payload,
@@ -256,7 +261,7 @@ class UserStore {
           this.isLoadingInvest = false
           this.snackSuccess = 'failed'
           const { response } = error
-          this.errorMessage = response.data.message
+          this.errorMessage = response.data.message || ''
           console.log('err', response)
           return Promise.resolve(error)
         })
@@ -265,6 +270,7 @@ class UserStore {
 
   @action invest({ payload }) {
     this.isLoadingInvest = true
+    this.snackSuccess = ''
     return request('/project/' + payload.projectId + '/invest', {
       method: 'POST',
       data: payload,
@@ -298,7 +304,7 @@ class UserStore {
           this.isLoadingInvest = false
           this.snackSuccess = 'failed'
           const { response } = error
-          this.errorMessage = response.data.message
+          this.errorMessage = response.data.message || ''
           console.log('err', response)
           return Promise.resolve(error)
         })
@@ -307,6 +313,7 @@ class UserStore {
 
   @action investCredit({ payload }) {
     this.isLoadingInvest = true
+    this.snackSuccess = ''
     return request('/project/' + payload.projectId + '/invest', {
       method: 'POST',
       data: payload,

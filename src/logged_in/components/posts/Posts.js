@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Typography, Grid, FormControl, Button, Box, Paper, Toolbar, TextField, Snackbar } from '@material-ui/core'
-import MuiAlert from '@material-ui/lab/Alert'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
 import { observer, inject, useObserver } from 'mobx-react'
 const styles = {
   dBlock: { display: 'block' },
   dNone: { display: 'none' },
-}
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 @inject('userStore')
 @observer
@@ -18,7 +14,6 @@ class Posts extends PureComponent {
     addPostPaperOpen: false,
     address: '',
     validStatus: null,
-    open: true,
   }
 
   componentDidMount() {
@@ -46,63 +41,32 @@ class Posts extends PureComponent {
     }
   }
 
-  printSnackbar = () => {
-    const { userStore } = this.props
-    const { open } = this.state
-    switch (userStore.snackSuccess) {
-      case 'success':
-        return (
-          <Snackbar
-            disableWindowBlurListener
-            key="disableWindowBlurListener"
-            open={open}
-            autoHideDuration={3000}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            onClose={this.handleClose}
-          >
-            <Alert onClose={this.handleClose} severity="success">
-              Success!
-            </Alert>
-          </Snackbar>
-        )
-      case 'failed':
-        return (
-          <Snackbar
-            disableWindowBlurListener
-            key="disableWindowBlurListener"
-            open={open}
-            autoHideDuration={4000}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            onClose={this.handleClose}
-          >
-            <Alert severity="error">Error :{userStore.errorMessage}</Alert>
-          </Snackbar>
-        )
-      default:
-        return null
-    }
-  }
-
-  handleClose = (_, reason) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    this.setState({ open: false })
-  }
-
   render() {
     const { address, validStatus, open } = this.state
     const { classes, userStore, pushMessageToSnackbar } = this.props
-    console.log('isLoadingAddress', userStore)
+    //console.log('isLoadingAddress', userStore)
+
+    const printSnackbar = () => {
+      if (userStore.snackSuccess == 'failed') {
+        userStore.initSnackSuccess()
+        pushMessageToSnackbar({
+          text: userStore.errorMessage,
+          severity: 'error',
+        })
+      } else if (userStore.snackSuccess == 'success') {
+        userStore.initSnackSuccess()
+        pushMessageToSnackbar({
+          text: 'Success!',
+          severity: 'success',
+        })
+      } else {
+        return null
+      }
+    }
+
     return (
       <Paper>
-        {this.printSnackbar()}
+        {printSnackbar()}
         <Toolbar style={{ justifyContent: 'space-between' }}>
           <Typography variant="h6">付款錢包設定</Typography>
         </Toolbar>

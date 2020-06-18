@@ -14,32 +14,11 @@ function useStores() {
 function Routing(props) {
   let store = useStores()
   const { userStore } = store
-  const { selectProject, selectHome, openLoginDialog } = props
+  const { selectProject, selectHome, openLoginDialog, pushMessageToSnackbar } = props
   //console.log('sdsdsdsd', toJS(userStore.projectList))
   return useObserver(() => (
     <Switch>
-      {
-        // userStore.projectList.map((post) => {
-        //   return (
-        //     <PropsRoute
-        //       path={post.url}
-        //       component={ProjectPost}
-        //       title={post.title}
-        //       titleText={post.titleText}
-        //       // startDate={post.startDate}
-        //       // endDate={post.endDate}
-        //       // irr={post.irr}
-        //       // percent={post.percent}
-        //       // investAmount={post.investAmount}
-        //       // totalAmount={post.totalAmount}
-        //       // key={post.id}
-        //       id={post.id}
-        //       // otherArticles={userStore.projectList.filter((projectPost) => projectPost.id !== post.id)}
-        //     />
-        //   )
-        // })
-      }
-      <PropsRoute path="/project/post/:id" component={ProjectPost} />
+      <PropsRoute path="/project/post/:id" component={ProjectPost} pushMessageToSnackbar={pushMessageToSnackbar} />
       <PropsRoute exact path="/project" component={Project} selectProject={selectProject} />
       )
       <PropsRoute path="/" component={Home} selectHome={selectHome} openLoginDialog={openLoginDialog} />)

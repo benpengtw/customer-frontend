@@ -88,10 +88,10 @@ function ProjectCardOld(props) {
 }
 
 ProjectCardOld.propTypes = {
-  classes: PropTypes.object.isRequired,
-  url: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  totalAmount: PropTypes.number.isRequired,
+  classes: PropTypes.object,
+  url: PropTypes.string,
+  title: PropTypes.string,
+  totalAmount: PropTypes.number,
   investAmount: PropTypes.number,
   src: PropTypes.string,
   endDate: PropTypes.string,
