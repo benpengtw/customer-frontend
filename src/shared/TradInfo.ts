@@ -38,7 +38,7 @@ export class TradeModules {
     this.HashIV = process.env.REACT_APP_HASHV || ''
     this.PayGateWay = process.env.REACT_APP_API || ''
     this.ReturnURL = this.URL + '/loan/c/projectOrderList'
-    this.NotifyURL = this.PayGateWay + '/api/customer_api/v1/cashFlow/spgateway/callback'
+    this.NotifyURL = this.PayGateWay + '/customer_api/v1/cashFlow/spgateway/callback'
     this.ClientBackURL = this.URL + '/loan/c/projectOrderList'
   }
 
