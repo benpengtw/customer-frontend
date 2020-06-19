@@ -285,7 +285,7 @@ class UserStore {
               this.snackSuccess = 'success'
               window.location.href =
                 this.qrUrl +
-                '/loan/payment/?address=' +
+                '/qrpage/?address=' +
                 res.data.projectAddress +
                 '&amount=' +
                 res.data.cryptoAmount +
