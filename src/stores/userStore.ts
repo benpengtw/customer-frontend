@@ -4,6 +4,7 @@ import agent from '../agent'
 import { TradeModules } from '../shared/TradInfo'
 import { AxiosResponse } from './data.d'
 class UserStore {
+  @observable qrUrl = process.env.REACT_APP_URL || ''
   @observable isLoading = false
   @observable isLoadingAddress = false
   @observable isLoadingInvest = false
@@ -283,7 +284,8 @@ class UserStore {
               this.isLoadingInvest = false
               this.snackSuccess = 'success'
               window.location.href =
-                'http://18.180.172.86:81/?address=' +
+                this.qrUrl +
+                '/payment/?address=' +
                 res.data.projectAddress +
                 '&amount=' +
                 res.data.cryptoAmount +
