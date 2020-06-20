@@ -165,14 +165,6 @@ function ProjectPost(props) {
   const size = useWindowSize()
   const { id } = useParams()
 
-  // useEffect(() => {
-  //   userStore.getProject({
-  //     payload: {
-  //       page: 1,
-  //     },
-  //   })
-  // }, [1])
-
   useEffect(() => {
     document.title = `安喬博德 - ${titleText}`
     smoothScrollTop()

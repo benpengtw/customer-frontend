@@ -41,6 +41,9 @@ function getVerticalProjectPosts(width, projectList) {
   } else if (isWidthUp('sm', width)) {
     rows = 2
     xs = 6
+  } else if (isWidthUp('lg', width)) {
+    rows = 2
+    xs = 6
   } else {
     rows = 1
     xs = 12
@@ -50,7 +53,7 @@ function getVerticalProjectPosts(width, projectList) {
   projectListData.map((projectPost, index) => {
     //console.log('bbb', projectPost)
     gridRows[index % rows].push(
-      <Grid key={projectPost.id} item xs={12}>
+      <Grid key={projectPost.id} item xs={xs}>
         <Box mb={3} marginTop={6}>
           <LazyLoad height={900} offset={100}>
             <ProjectCard
@@ -100,13 +103,13 @@ function Project(props) {
       },
     })
   }, [page])
-
+  console.log('ppp', width)
   return useObserver(() => (
     <Fragment>
       <ProjectHeadSection />
       <Box display="flex" justifyContent="center" className={classNames(classes.wrapper, 'lg-p-top')}>
         <div className={classes.projectContentWrapper}>
-          <Grid container direction="row" justify="center" alignItems="center" spacing={8}>
+          <Grid container direction="row" justify="center" alignItems="flex-start" spacing={8}>
             {getVerticalProjectPosts(width, userStore.projectList)}
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
