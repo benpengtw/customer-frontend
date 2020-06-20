@@ -86,7 +86,7 @@ class LoginDialog extends PureComponent {
             this.login()
           }}
           hideBackdrop
-          headline="Login"
+          headline="會員登入"
           content={
             <Fragment>
               <TextField
@@ -95,7 +95,7 @@ class LoginDialog extends PureComponent {
                 error={status === 'invalidEmail'}
                 required
                 fullWidth
-                label="Email Address"
+                label="會員信箱"
                 inputRef={(node) => {
                   this.loginEmail = node
                 }}
@@ -116,7 +116,7 @@ class LoginDialog extends PureComponent {
                 required
                 fullWidth
                 error={status === 'invalidPassword'}
-                label="Name"
+                label="會員帳號"
                 inputRef={(node) => {
                   this.loginPassword = node
                 }}
@@ -139,7 +139,7 @@ class LoginDialog extends PureComponent {
                 onVisibilityChange={this.onVisibilityChange}
                 isVisible={passwordIsVisible}
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 className={classes.formControlLabel}
                 control={
                   <Checkbox
@@ -150,7 +150,7 @@ class LoginDialog extends PureComponent {
                   />
                 }
                 label={<Typography variant="body1">Remember me</Typography>}
-              />
+              /> */}
               {status === 'verificationEmailSend' && (
                 <HighlightedInformation>我們已將密碼重設信發送至您的電子郵件信箱</HighlightedInformation>
               )}
@@ -159,7 +159,7 @@ class LoginDialog extends PureComponent {
           actions={
             <Fragment>
               <Button type="submit" fullWidth variant="contained" color="secondary" disabled={loading} size="large">
-                Login
+                登入
                 {loading && <ButtonCircularProgress />}
               </Button>
               <Typography
@@ -176,7 +176,7 @@ class LoginDialog extends PureComponent {
                   }
                 }}
               >
-                Forgot Password?
+                忘記密碼
               </Typography>
             </Fragment>
           }
