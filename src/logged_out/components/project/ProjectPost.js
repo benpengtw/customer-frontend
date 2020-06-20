@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState, useRef, useCallback } from 'react'
+import React, { useEffect, Fragment, useState, useRef, useCallback, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import format from 'date-fns/format'
@@ -67,7 +67,7 @@ const styles = (theme) => ({
   },
   cardNoSticky: {
     boxShadow: theme.shadows[3],
-    height: '75vh',
+    height: '82vh',
     width: '405px',
     display: 'flex',
     '@media (max-width: 960px)': {
@@ -77,10 +77,10 @@ const styles = (theme) => ({
   },
   cardSticky: {
     boxShadow: theme.shadows[3],
-    height: '75vh',
+    height: '82vh',
     //height: '730px',
     width: '405px',
-    top: '160px',
+    top: '6rem',
     right: 'calc(50%-585px)',
     position: 'fixed',
     '@media (max-width: 960px)': {
@@ -135,7 +135,7 @@ function useWindowSize() {
 
   const [windowSize, setWindowSize] = useState(getSize)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isClient) {
       return false
     }
@@ -177,8 +177,8 @@ function ProjectPost(props) {
     }
   }, [userStore.formHTML])
 
-  useEffect(() => {
-    if (size.height !== 0 && size.height > size.bodyHeight - size.windowHeight - 360) {
+  useLayoutEffect(() => {
+    if (size.height !== 0 && size.height > size.bodyHeight - size.windowHeight - 540) {
       setSticky(false)
       return
     } else {
@@ -315,7 +315,7 @@ function ProjectPost(props) {
               </Typography>
               {userStore.projectList
                 // .filter((projectPost) => projectPost.id !== id)
-                // .slice(0, 6)
+                .slice(0, 6)
                 .map((projectPost) => (
                   <Grid key={projectPost.id} item md={12} xs={12}>
                     <Box mb={12} xs={12} marginBottom="12px">
@@ -384,7 +384,7 @@ function ProjectPost(props) {
             </Card>
             <Box p={3}>
               <Grid spacing={1} container justify="flex-start" alignItems="center">
-                {['Line', 'E-Mail', 'Facebook'].map((type, index) => (
+                {['Line', 'Facebook'].map((type, index) => (
                   <Grid item key={index}>
                     <ShareButton
                       type={type}
