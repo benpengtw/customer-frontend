@@ -30,6 +30,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import ProjectCardOld from './ProjectCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
+import { GAtools } from '../../../shared/GoogleAnalytics'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
@@ -166,7 +167,9 @@ function ProjectPost(props) {
   const { id } = useParams()
 
   useEffect(() => {
+    const GA = new GAtools()
     document.title = `安喬博德 - ${titleText}`
+    GA.setPage(titleText)
     smoothScrollTop()
   }, [title])
 

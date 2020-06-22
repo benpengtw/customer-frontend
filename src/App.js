@@ -1,10 +1,11 @@
-import React, { Fragment, Suspense, lazy } from 'react'
+import React, { Fragment, Suspense, lazy, useEffect } from 'react'
 import { MuiThemeProvider, CssBaseline } from '@material-ui/core'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import theme from './theme'
 import GlobalStyles from './GlobalStyles'
 import * as serviceWorker from './serviceWorker'
 import Pace from './shared/components/Pace'
+import { GAtools } from './shared/GoogleAnalytics'
 import { Provider } from 'mobx-react'
 import articlesStore from './stores/articlesStore'
 import commentsStore from './stores/commentsStore'
@@ -26,6 +27,11 @@ const stores = {
 }
 
 function App() {
+  useEffect(() => {
+    const GA = new GAtools()
+    GA.initGA()
+  }, [])
+
   return (
     <Provider {...stores}>
       <BrowserRouter basename="/loan/">
