@@ -34,6 +34,19 @@ class UserStore {
       url: '/project/post/0',
     },
   ]
+  @observable projectListView = [
+    {
+      irr: 0,
+      investAmount: 0,
+      startDate: '',
+      endDate: '',
+      id: 0,
+      imageSrc: '',
+      title: '',
+      totalAmount: 0,
+      url: '/project/post/0',
+    },
+  ]
   @observable projectDetail = {
     column1: '',
     column2: '',
@@ -70,6 +83,22 @@ class UserStore {
         titleText: '',
         totalAmount: 0,
         repaymentType: '',
+        url: '/project/post/0',
+      },
+    ]
+  }
+
+  @action initListView() {
+    this.projectListView = [
+      {
+        irr: 0,
+        investAmount: 0,
+        startDate: '',
+        endDate: '',
+        id: 0,
+        imageSrc: '',
+        title: '',
+        totalAmount: 0,
         url: '/project/post/0',
       },
     ]
@@ -203,6 +232,38 @@ class UserStore {
       })
   }
 
+  @action getProjectView() {
+    return request('/project/view/list?size=6')
+      .then(
+        action((response: AxiosResponse) => {
+          this.initListView()
+          const status: any = response.status
+          if (status === 'success') {
+            this.projectListView = response.data.map((project) => {
+              return {
+                url: `/project/post/${project.id}`,
+                irr: project.IRR ? project.IRR * 10 : 0,
+                investAmount: project.ProjectsInvestingListingTotalAmount,
+                startDate: project.startDate,
+                endDate: project.endDate,
+                id: project.id,
+                imageSrc: project.projectMutiplePhotos[0].coverUrl,
+                title: project.title,
+                totalAmount: project.totalAmount,
+              }
+            })
+          }
+        })
+      )
+      .catch((error) => {
+        const { response } = error
+        if (response) {
+          console.log('err', response)
+        }
+        return Promise.resolve(error)
+      })
+  }
+
   @action getProjectDetail({ payload }) {
     return request('/project/' + payload.id)
       .then(
@@ -237,6 +298,12 @@ class UserStore {
         }
         return Promise.resolve(error)
       })
+  }
+
+  @action projectViewCount({ payload }) {
+    return request('/project/' + payload.id + '/view', {
+      method: 'POST',
+    })
   }
 
   @action addWallet({ payload }) {

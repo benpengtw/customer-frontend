@@ -5,7 +5,6 @@ import theme from './theme'
 import GlobalStyles from './GlobalStyles'
 import * as serviceWorker from './serviceWorker'
 import Pace from './shared/components/Pace'
-import { GAtools } from './shared/GoogleAnalytics'
 import { Provider } from 'mobx-react'
 import articlesStore from './stores/articlesStore'
 import commentsStore from './stores/commentsStore'
@@ -27,11 +26,6 @@ const stores = {
 }
 
 function App() {
-  useEffect(() => {
-    const GA = new GAtools()
-    GA.initGA()
-  }, [])
-
   return (
     <Provider {...stores}>
       <BrowserRouter basename="/loan/">

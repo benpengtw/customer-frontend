@@ -30,7 +30,6 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import ProjectCardOld from './ProjectCardOld'
 import ShareButton from '../../../shared/components/ShareButton'
-import { GAtools } from '../../../shared/GoogleAnalytics'
 import smoothScrollTop from '../../../shared/functions/smoothScrollTop'
 import ImageGallery from 'react-image-gallery'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
@@ -167,9 +166,7 @@ function ProjectPost(props) {
   const { id } = useParams()
 
   useEffect(() => {
-    const GA = new GAtools()
     document.title = `安喬博德 - ${titleText}`
-    GA.setPage(titleText)
     smoothScrollTop()
   }, [title])
 
@@ -195,6 +192,12 @@ function ProjectPost(props) {
         id: id,
       },
     })
+    userStore.projectViewCount({
+      payload: {
+        id: id,
+      },
+    })
+    userStore.getProjectView()
   }, [id])
 
   useEffect(() => {
@@ -316,23 +319,20 @@ function ProjectPost(props) {
               <Typography variant="h6" paragraph>
                 其他投資計畫
               </Typography>
-              {userStore.projectList
-                // .filter((projectPost) => projectPost.id !== id)
-                .slice(0, 6)
-                .map((projectPost) => (
-                  <Grid key={projectPost.id} item md={12} xs={12}>
-                    <Box mb={12} xs={12} marginBottom="12px">
-                      <ProjectCardOld
-                        title={projectPost.title}
-                        src={projectPost.imageSrc}
-                        endDate={projectPost.endDate}
-                        url={projectPost.url}
-                        totalAmount={projectPost.totalAmount}
-                        investAmount={projectPost.investAmount}
-                      />
-                    </Box>
-                  </Grid>
-                ))}
+              {userStore.projectListView.map((projectPost) => (
+                <Grid key={projectPost.id} item md={12} xs={12}>
+                  <Box mb={12} xs={12} marginBottom="12px">
+                    <ProjectCardOld
+                      title={projectPost.title}
+                      src={projectPost.imageSrc}
+                      endDate={projectPost.endDate}
+                      url={projectPost.url}
+                      totalAmount={projectPost.totalAmount}
+                      investAmount={projectPost.investAmount}
+                    />
+                  </Box>
+                </Grid>
+              ))}
             </Grid>
           </Grid>
           <Grid item xl={6} md={6} xs={12}>
