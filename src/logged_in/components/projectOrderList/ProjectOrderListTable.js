@@ -89,13 +89,7 @@ function ProjectOrderListTable(props) {
         return (
           <Fragment>
             <ColorfulChip label={`${amount} USDT`} color={'#37b8b5'} />
-            {/* <Button href={transactionCheckUrl} color="secondary"> */}
-            <Button
-              onclick={() => {
-                window.open(transactionCheckUrl, '_blank')
-              }}
-              color="secondary"
-            >
+            <Button href={transactionCheckUrl} color="secondary" target="_blank">
               交易詳細資料
             </Button>
           </Fragment>
