@@ -356,13 +356,13 @@ function ProjectPost(props) {
                   <Grid container item spacing={1} item xs={6}>
                     <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
                       <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
-                      <span>開發團隊: {userStore.projectDetail.column1}</span>
+                      <span>內含物: {userStore.projectDetail.column1}</span>
                     </Typography>
                   </Grid>
                   <Grid container item spacing={1} item xs={6}>
                     <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
                       <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
-                      <span>平台: {userStore.projectDetail.column3}</span>
+                      <span>產地: {userStore.projectDetail.column3}</span>
                     </Typography>
                   </Grid>
                 </Grid>
@@ -370,13 +370,13 @@ function ProjectPost(props) {
                   <Grid container item spacing={1} item xs={6}>
                     <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6}>
                       <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
-                      <span>售價: {userStore.projectDetail.column4}</span>
+                      <span>重量/規格: {userStore.projectDetail.column4}</span>
                     </Typography>
                   </Grid>
                   <Grid container item spacing={1} item xs={6}>
                     <Typography variant="subtitle1" fontWeight="fontWeightBold" letterSpacing={6} align="justify">
                       <PlayArrowIcon style={{ fontSize: 10, color: '#8B0000' }} />
-                      <span>語言: {userStore.projectDetail.column5}</span>
+                      <span>保存方式: {userStore.projectDetail.column5}</span>
                     </Typography>
                   </Grid>
                 </Grid>
