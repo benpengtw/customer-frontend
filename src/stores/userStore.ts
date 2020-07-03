@@ -208,12 +208,16 @@ class UserStore {
               return {
                 url: `/project/post/${project.id}`,
                 irr: project.IRR ? project.IRR * 10 : 0,
-                investAmount: project.ProjectsInvestingListingTotalAmount,
+                investAmount: project.ProjectsInvestingListingTotalAmount
+                  ? project.ProjectsInvestingListingTotalAmount
+                  : 0,
                 startDate: project.startDate,
                 endDate: project.endDate,
                 id: project.id,
                 imageSrc: project.projectMutiplePhotos[0].coverUrl,
-                percent: Math.round((project.ProjectsInvestingListingTotalAmount / project.totalAmount) * 100),
+                percent: project.ProjectsInvestingListingTotalAmount
+                  ? Math.round((project.ProjectsInvestingListingTotalAmount / project.totalAmount) * 100)
+                  : 0,
                 title: project.title,
                 titleText: project.title,
                 totalAmount: project.totalAmount,
@@ -243,7 +247,9 @@ class UserStore {
               return {
                 url: `/project/post/${project.id}`,
                 irr: project.IRR ? project.IRR * 10 : 0,
-                investAmount: project.ProjectsInvestingListingTotalAmount,
+                investAmount: project.ProjectsInvestingListingTotalAmount
+                  ? project.ProjectsInvestingListingTotalAmount
+                  : 0,
                 startDate: project.startDate,
                 endDate: project.endDate,
                 id: project.id,
@@ -282,11 +288,13 @@ class UserStore {
           this.projectDetail.totalAmount = response.data.totalAmount
           this.projectDetail.irr = response.data.IRR ? response.data.IRR * 10 : 0
           this.projectDetail.investAmount = response.data.ProjectsInvestingListingTotalAmount
+            ? response.data.ProjectsInvestingListingTotalAmount
+            : 0
           this.projectDetail.startDate = response.data.startDate
           this.projectDetail.endDate = response.data.endDate
-          this.projectDetail.percent = Math.round(
-            (response.data.ProjectsInvestingListingTotalAmount / response.data.totalAmount) * 100
-          )
+          this.projectDetail.percent = response.data.ProjectsInvestingListingTotalAmount
+            ? Math.round((response.data.ProjectsInvestingListingTotalAmount / response.data.totalAmount) * 100)
+            : 0
           this.projectDetail.title = response.data.title
           this.projectDetail.titleText = response.data.title
         })
