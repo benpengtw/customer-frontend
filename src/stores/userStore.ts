@@ -2,7 +2,9 @@ import { observable, action } from 'mobx'
 import request from '../shared/request'
 import agent from '../agent'
 import { TradeModules } from '../shared/TradInfo'
-import { AxiosResponse } from './data.d'
+//import { AxiosResponse } from './data.d'
+import fakeProjectList from './fakeProjectList'
+import { customerMe } from './fakeProjectOthers'
 class UserStore {
   @observable qrUrl = process.env.REACT_APP_URL || ''
   @observable isLoading = false
@@ -174,100 +176,146 @@ class UserStore {
   }
 
   @action getMe() {
-    return request('/customer/me')
-      .then(
-        action((response) => {
-          const status: any = response.status
-          if (status === 'success') {
-            this.currentUser.email = response.data.email
-            this.currentUser.name = response.data.name
-            this.currentUser.address = response.data.customerProjectServices[0].address
-            window.sessionStorage.setItem('address', response.data.customerProjectServices[0].address)
-          }
-        })
-      )
-      .catch((error) => {
-        const { response } = error
-        if (response) {
-          console.log('err', response)
-        }
-        return Promise.resolve(error)
-      })
+    // return request('/customer/me')
+    //   .then(
+    //     action((response) => {
+    //       const status: any = response.status
+    //       if (status === 'success') {
+    //         this.currentUser.email = response.data.email
+    //         this.currentUser.name = response.data.name
+    //         this.currentUser.address = response.data.customerProjectServices[0].address
+    //         window.sessionStorage.setItem('address', response.data.customerProjectServices[0].address)
+    //       }
+    //     })
+    //   )
+    //   .catch((error) => {
+    //     const { response } = error
+    //     if (response) {
+    //       console.log('err', response)
+    //     }
+    //     return Promise.resolve(error)
+    //   })
+    const status: any = customerMe.status
+    if (status === 'success') {
+      this.currentUser.email = customerMe.data.email
+      this.currentUser.name = customerMe.data.name
+      this.currentUser.address = customerMe.data.customerProjectServices[0].address
+      window.sessionStorage.setItem('address', customerMe.data.customerProjectServices[0].address)
+    }
   }
 
   @action getProject({ payload }) {
-    return request('/project/?sort=ASC&page=' + payload.page)
-      .then(
-        action((response: AxiosResponse) => {
-          this.init()
-          const status: any = response.status
-          const total: any = response.total
-          if (status === 'success') {
-            this.pageCount = Math.ceil(total / 10)
-            this.projectList = response.data.map((project) => {
-              return {
-                url: `/project/post/${project.id}`,
-                irr: project.IRR ? project.IRR * 10 : 0,
-                investAmount: project.ProjectsInvestingListingTotalAmount
-                  ? project.ProjectsInvestingListingTotalAmount
-                  : 0,
-                startDate: project.startDate,
-                endDate: project.endDate,
-                id: project.id,
-                imageSrc: project.projectMutiplePhotos[0].coverUrl,
-                percent: project.ProjectsInvestingListingTotalAmount
-                  ? Math.round((project.ProjectsInvestingListingTotalAmount / project.totalAmount) * 100)
-                  : 0,
-                title: project.title,
-                titleText: project.title,
-                totalAmount: project.totalAmount,
-                repaymentType: '每月付息到期還本',
-              }
-            })
-          }
-        })
-      )
-      .catch((error) => {
-        const { response } = error
-        if (response) {
-          console.log('err', response)
+    // return request('/project/?sort=ASC&page=' + payload.page)
+    //   .then(
+    //     action((response: AxiosResponse) => {
+    //       this.init()
+    //       const status: any = response.status
+    //       const total: any = response.total
+    //       if (status === 'success') {
+    //         this.pageCount = Math.ceil(total / 10)
+    //         this.projectList = response.data.map((project) => {
+    //           return {
+    //             url: `/project/post/${project.id}`,
+    //             irr: project.IRR ? project.IRR * 10 : 0,
+    //             investAmount: project.ProjectsInvestingListingTotalAmount
+    //               ? project.ProjectsInvestingListingTotalAmount
+    //               : 0,
+    //             startDate: project.startDate,
+    //             endDate: project.endDate,
+    //             id: project.id,
+    //             imageSrc: project.projectMutiplePhotos[0].coverUrl,
+    //             percent: project.ProjectsInvestingListingTotalAmount
+    //               ? Math.round((project.ProjectsInvestingListingTotalAmount / project.totalAmount) * 100)
+    //               : 0,
+    //             title: project.title,
+    //             titleText: project.title,
+    //             totalAmount: project.totalAmount,
+    //             repaymentType: '每月付息到期還本',
+    //           }
+    //         })
+    //       }
+    //     })
+    //   )
+    //   .catch((error) => {
+    //     const { response } = error
+    //     if (response) {
+    //       console.log('err', response)
+    //     }
+    //     return Promise.resolve(error)
+    //   })
+    const total: any = fakeProjectList.total
+    const status: any = fakeProjectList.status
+    if (status === 'success') {
+      this.pageCount = Math.ceil(total / 10)
+      this.projectList = fakeProjectList.data.map((project) => {
+        return {
+          url: `/project/post/${project.id}`,
+          irr: project.IRR ? project.IRR * 10 : 0,
+          investAmount: project.ProjectsInvestingListingTotalAmount ? project.ProjectsInvestingListingTotalAmount : 0,
+          startDate: project.startDate,
+          endDate: project.endDate,
+          id: project.id,
+          imageSrc: project.projectMutiplePhotos[0].coverUrl,
+          percent: project.ProjectsInvestingListingTotalAmount
+            ? Math.round((project.ProjectsInvestingListingTotalAmount / project.totalAmount) * 100)
+            : 0,
+          title: project.title,
+          titleText: project.title,
+          totalAmount: project.totalAmount,
+          repaymentType: '每月付息到期還本',
         }
-        return Promise.resolve(error)
       })
+    }
   }
 
   @action getProjectView() {
-    return request('/project/view/list?size=6')
-      .then(
-        action((response: AxiosResponse) => {
-          this.initListView()
-          const status: any = response.status
-          if (status === 'success') {
-            this.projectListView = response.data.map((project) => {
-              return {
-                url: `/project/post/${project.id}`,
-                irr: project.IRR ? project.IRR * 10 : 0,
-                investAmount: project.ProjectsInvestingListingTotalAmount
-                  ? project.ProjectsInvestingListingTotalAmount
-                  : 0,
-                startDate: project.startDate,
-                endDate: project.endDate,
-                id: project.id,
-                imageSrc: project.projectMutiplePhotos[0].coverUrl,
-                title: project.title,
-                totalAmount: project.totalAmount,
-              }
-            })
-          }
-        })
-      )
-      .catch((error) => {
-        const { response } = error
-        if (response) {
-          console.log('err', response)
+    // return request('/project/view/list?size=6')
+    //   .then(
+    //     action((response: AxiosResponse) => {
+    //       this.initListView()
+    //       const status: any = response.status
+    //       if (status === 'success') {
+    //         this.projectListView = response.data.map((project) => {
+    //           return {
+    //             url: `/project/post/${project.id}`,
+    //             irr: project.IRR ? project.IRR * 10 : 0,
+    //             investAmount: project.ProjectsInvestingListingTotalAmount
+    //               ? project.ProjectsInvestingListingTotalAmount
+    //               : 0,
+    //             startDate: project.startDate,
+    //             endDate: project.endDate,
+    //             id: project.id,
+    //             imageSrc: project.projectMutiplePhotos[0].coverUrl,
+    //             title: project.title,
+    //             totalAmount: project.totalAmount,
+    //           }
+    //         })
+    //       }
+    //     })
+    //   )
+    //   .catch((error) => {
+    //     const { response } = error
+    //     if (response) {
+    //       console.log('err', response)
+    //     }
+    //     return Promise.resolve(error)
+    //   })
+    const status: any = fakeProjectList.status
+    if (status === 'success') {
+      this.projectListView = fakeProjectList.data.map((project) => {
+        return {
+          url: `/project/post/${project.id}`,
+          irr: project.IRR ? project.IRR * 10 : 0,
+          investAmount: project.ProjectsInvestingListingTotalAmount ? project.ProjectsInvestingListingTotalAmount : 0,
+          startDate: project.startDate,
+          endDate: project.endDate,
+          id: project.id,
+          imageSrc: project.projectMutiplePhotos[0].coverUrl,
+          title: project.title,
+          totalAmount: project.totalAmount,
         }
-        return Promise.resolve(error)
       })
+    }
   }
 
   @action getProjectDetail({ payload }) {
