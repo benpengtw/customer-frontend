@@ -1,3 +1,13 @@
+import p1_1 from '../assets/p1_1.png'
+import p1_2 from '../assets/p1_2.png'
+import p1_3 from '../assets/p1_3.png'
+import p2_1 from '../assets/p2_1.png'
+import p2_2 from '../assets/p2_2.jpg'
+import p3_1 from '../assets/p3_1.jpg'
+import p3_2 from '../assets/p3_2.jpg'
+import p4_1 from '../assets/p4_1.jpg'
+import p4_2 from '../assets/p4_2.jpg'
+import p4_3 from '../assets/p4_3.jpg'
 const customerMe = {
   status: 'success',
   msg: 'success',
@@ -31,12 +41,12 @@ const getMyProjectOrderList = {
       transactionHash: null,
       createdAt: '2020-07-03T08:16:13.000Z',
       project: {
-        totalAmount: 3600000,
+        totalAmount: 4000000,
         IRR: 0.999999,
         repaymentType: 'MONTH_PAYMENT',
         id: 1,
         merchantId: '2',
-        title: '花田有機美濃瓜',
+        title: 'DESERTOPIA 荒漠樂園',
         createdAt: '2020-07-03T02:00:11.000Z',
         updatedAt: '2020-07-03T02:00:11.000Z',
         startDate: '2020-07-01T09:56:17.000Z',
@@ -56,12 +66,12 @@ const getMyProjectOrderList = {
       transactionHash: '0x6c5cae3d53bab424cad627e05071a062012faa53eb60a30319aefd814e0d188e',
       createdAt: '2020-07-08T05:37:20.000Z',
       project: {
-        totalAmount: 3600000,
+        totalAmount: 4000000,
         IRR: 0.999999,
         repaymentType: 'MONTH_PAYMENT',
         id: 1,
         merchantId: '2',
-        title: '花田有機美濃瓜',
+        title: 'DESERTOPIA 荒漠樂園',
         createdAt: '2020-07-03T02:00:11.000Z',
         updatedAt: '2020-07-03T02:00:11.000Z',
         startDate: '2020-07-01T09:56:17.000Z',
@@ -114,24 +124,21 @@ const project1 = {
         type: null,
         weights: 1,
         coverId: 59,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_13c9b6d0-ac71-11ea-898b-79b9b0fc692f_2020-06-12T05%3A53%3A45%2B00%3A00_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T063925Z&X-Amz-Expires=3600&X-Amz-Signature=195aa866a672b4d1bf4101c21445920f1f2962f0e17b134a6840ce2f764856c3&X-Amz-SignedHeaders=host',
+        coverUrl: p1_1,
       },
       {
         id: 50,
         type: null,
         weights: 2,
         coverId: 60,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_3cec1c10-ac71-11ea-898b-79b9b0fc692f_2020-06-12T05%3A54%3A54%2B00%3A00_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T063925Z&X-Amz-Expires=3600&X-Amz-Signature=6a6406489856563137c5657e39c3ea494b05a673303ed2f7b643b53e7c2a5167&X-Amz-SignedHeaders=host',
+        coverUrl: p1_2,
       },
       {
         id: 51,
         type: null,
         weights: 3,
         coverId: 61,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_3d5a9550-ac71-11ea-898b-79b9b0fc692f_2020-06-12T05%3A54%3A54%2B00%3A00_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T063925Z&X-Amz-Expires=3600&X-Amz-Signature=791258d6ac03f83a578fd616851e60cd4234b874aca4ed63bceb2cced40c24dc&X-Amz-SignedHeaders=host',
+        coverUrl: p1_3,
       },
     ],
     wallet: {
@@ -187,16 +194,14 @@ const project2 = {
         type: null,
         weights: 2,
         coverId: 63,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_64be0520-ac74-11ea-898b-79b9b0fc692f_2020-06-12T06%3A17%3A29%2B00%3A00_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T061908Z&X-Amz-Expires=3600&X-Amz-Signature=11e80965a2a49d1a4bcee7b65555f31a4b2ee115b8848b0e5110a98c4e306c08&X-Amz-SignedHeaders=host',
+        coverUrl: p2_1,
       },
       {
         id: 54,
         type: null,
         weights: 3,
         coverId: 64,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_652d1aa0-ac74-11ea-898b-79b9b0fc692f_2020-06-12T06%3A17%3A30%2B00%3A00_.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T061908Z&X-Amz-Expires=3600&X-Amz-Signature=7d6b04acefb2879e3bbc806e4708011284cfbdad901cbb4e8b86622838bb9c31&X-Amz-SignedHeaders=host',
+        coverUrl: p2_2,
       },
     ],
     wallet: {
@@ -249,16 +254,14 @@ const project3 = {
         type: null,
         weights: 1,
         coverId: 65,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_823b3c60-ac76-11ea-898b-79b9b0fc692f_2020-06-12T06%3A32%3A37%2B00%3A00_.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T064535Z&X-Amz-Expires=3600&X-Amz-Signature=c10cbe96f90ef1876b59a575fe824b2c131ac387a72212da2377cb7bb80c314b&X-Amz-SignedHeaders=host',
+        coverUrl: p3_1,
       },
       {
         id: 56,
         type: null,
         weights: 2,
         coverId: 66,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_82749be0-ac76-11ea-898b-79b9b0fc692f_2020-06-12T06%3A32%3A38%2B00%3A00_.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T064535Z&X-Amz-Expires=3600&X-Amz-Signature=8d549b7ba22b8f7624ff8b24ca15fb59716c7e81e24cb5dddd6da613f4ac5f23&X-Amz-SignedHeaders=host',
+        coverUrl: p3_2,
       },
     ],
     wallet: {
@@ -311,24 +314,21 @@ const project4 = {
         type: null,
         weights: 1,
         coverId: 67,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_56d436f0-ac79-11ea-898b-79b9b0fc692f_2020-06-12T06%3A52%3A53%2B00%3A00_.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T064704Z&X-Amz-Expires=3600&X-Amz-Signature=0ca3535d47d8ae844e302ca137fa3186b4d0b959a5453ac40d5b82a5a1548af0&X-Amz-SignedHeaders=host',
+        coverUrl: p4_1,
       },
       {
         id: 58,
         type: null,
         weights: 2,
         coverId: 68,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_571362d0-ac79-11ea-898b-79b9b0fc692f_2020-06-12T06%3A52%3A54%2B00%3A00_.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T064704Z&X-Amz-Expires=3600&X-Amz-Signature=c0d14e7a5b52e8c7a53884f49bbbc8802d19fd1e39600bbe04aed40c19d0fac4&X-Amz-SignedHeaders=host',
+        coverUrl: p4_2,
       },
       {
         id: 59,
         type: null,
         weights: 3,
         coverId: 69,
-        coverUrl:
-          'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_572c4200-ac79-11ea-898b-79b9b0fc692f_2020-06-12T06%3A52%3A54%2B00%3A00_.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200708%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200708T064704Z&X-Amz-Expires=3600&X-Amz-Signature=521ae86de7d358e529d5244cd9f7382906140b6bc940cce3a0cf34e436974394&X-Amz-SignedHeaders=host',
+        coverUrl: p4_3,
       },
     ],
     wallet: {

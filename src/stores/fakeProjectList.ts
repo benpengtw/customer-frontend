@@ -1,3 +1,7 @@
+import p1_1 from '../assets/p1_1.png'
+import p2_1 from '../assets/p2_1.png'
+import p3_1 from '../assets/p3_1.jpg'
+import p4_1 from '../assets/p4_1.jpg'
 export default {
   status: 'success',
   msg: 'success',
@@ -19,8 +23,7 @@ export default {
           type: null,
           weights: 1,
           coverId: 59,
-          coverUrl:
-            'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_13c9b6d0-ac71-11ea-898b-79b9b0fc692f_2020-06-12T05%3A53%3A45%2B00%3A00_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200707%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200707T090703Z&X-Amz-Expires=3600&X-Amz-Signature=8c7aa77c74d672486669e307a33a1579ec467c37fa13f59f71a599bf476fde99&X-Amz-SignedHeaders=host',
+          coverUrl: p1_1,
         },
       ],
       paymentType: ['CREDIT', 'CRYPTOCURRENCY'],
@@ -43,8 +46,7 @@ export default {
           type: null,
           weights: 2,
           coverId: 63,
-          coverUrl:
-            'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_64be0520-ac74-11ea-898b-79b9b0fc692f_2020-06-12T06%3A17%3A29%2B00%3A00_.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200707%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200707T090703Z&X-Amz-Expires=3600&X-Amz-Signature=78f69c4e3b2ef62e2b97d6c755d978fbc333f3f3caa9ec79a0ee0558818b725e&X-Amz-SignedHeaders=host',
+          coverUrl: p2_1,
         },
       ],
       paymentType: ['CREDIT', 'CRYPTOCURRENCY'],
@@ -67,8 +69,7 @@ export default {
           type: null,
           weights: 1,
           coverId: 65,
-          coverUrl:
-            'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_823b3c60-ac76-11ea-898b-79b9b0fc692f_2020-06-12T06%3A32%3A37%2B00%3A00_.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200707%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200707T090703Z&X-Amz-Expires=3600&X-Amz-Signature=f90ce2abbe137fd528fdbea6d3b514d28936d038b4bc24009eecf8f994465229&X-Amz-SignedHeaders=host',
+          coverUrl: p3_1,
         },
       ],
       paymentType: ['CREDIT', 'CRYPTOCURRENCY'],
@@ -91,8 +92,7 @@ export default {
           type: null,
           weights: 1,
           coverId: 67,
-          coverUrl:
-            'https://wgpayment.s3.ap-northeast-1.amazonaws.com/app/public/uploads/2_56d436f0-ac79-11ea-898b-79b9b0fc692f_2020-06-12T06%3A52%3A53%2B00%3A00_.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIASFMCEMW4QF3TQWLS%2F20200707%2Fap-northeast-1%2Fs3%2Faws4_request&X-Amz-Date=20200707T090703Z&X-Amz-Expires=3600&X-Amz-Signature=43c75862a8c30201f7be7946d30db42b50bf4589d11a6f7d4713f2fa7ee8c77e&X-Amz-SignedHeaders=host',
+          coverUrl: p4_1,
         },
       ],
       paymentType: ['CREDIT', 'CRYPTOCURRENCY'],
