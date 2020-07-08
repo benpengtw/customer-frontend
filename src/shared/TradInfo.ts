@@ -37,9 +37,9 @@ export class TradeModules {
     this.HashKey = process.env.REACT_APP_HASHKEY || ''
     this.HashIV = process.env.REACT_APP_HASHV || ''
     this.PayGateWay = process.env.REACT_APP_API || ''
-    this.ReturnURL = this.URL + '/loan/c/projectOrderList'
+    this.ReturnURL = this.URL + '/c/projectOrderList'
     this.NotifyURL = this.PayGateWay + '/customer_api/v1/cashFlow/spgateway/callback'
-    this.ClientBackURL = this.URL + '/loan/c/projectOrderList'
+    this.ClientBackURL = this.URL + '/c/projectOrderList'
   }
 
   private genDataChain(TradeInfo: object): string {

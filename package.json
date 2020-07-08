@@ -2,7 +2,6 @@
   "name": "react-saas-template",
   "version": "1.0.0",
   "private": true,
-  "homepage": "/loan/",
   "description": "Template for building an SaaS/admin application using React + Material-UI",
   "dependencies": {
     "@babel/plugin-proposal-decorators": "^7.8.3",
