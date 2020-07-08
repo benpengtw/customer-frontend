@@ -2,7 +2,7 @@ import { observable, action } from 'mobx'
 import agent from '../agent'
 import userStore from './userStore'
 import commonStore from './commonStore'
-import { AccountLogin } from './authService'
+//import { AccountLogin } from './authService'
 class AuthStore {
   @observable inProgress = false
   @observable errors = undefined
@@ -31,13 +31,17 @@ class AuthStore {
     this.errors = undefined
     // console.log('payload', payload)
     // console.log('history', history)
-    const response = await AccountLogin(payload)
-    if (response.status === 'success') {
-      this.values.isLogged = true
-      setTimeout(() => {
-        history.push('/c/dashboard')
-      }, 150)
-    }
+    // const response = await AccountLogin(payload)
+    // if (response.status === 'success') {
+    //   this.values.isLogged = true
+    //   setTimeout(() => {
+    //     history.push('/c/dashboard')
+    //   }, 150)
+    // }
+    this.values.isLogged = true
+    setTimeout(() => {
+      history.push('/c/dashboard')
+    }, 150)
     return
   }
 

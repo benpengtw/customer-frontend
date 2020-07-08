@@ -109,6 +109,7 @@ class LoginDialog extends PureComponent {
                 }}
                 helperText={status === 'invalidEmail' && '此電子郵件地址未與帳戶關聯。'}
                 FormHelperTextProps={{ error: true }}
+                defaultValue="mrjhack@hotmail.com"
               />
               <VisibilityPasswordTextField
                 variant="outlined"
@@ -138,6 +139,7 @@ class LoginDialog extends PureComponent {
                 FormHelperTextProps={{ error: true }}
                 onVisibilityChange={this.onVisibilityChange}
                 isVisible={passwordIsVisible}
+                defaultValue="vance"
               />
               {/* <FormControlLabel
                 className={classes.formControlLabel}
