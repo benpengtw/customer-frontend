@@ -4,7 +4,7 @@ import agent from '../agent'
 import { TradeModules } from '../shared/TradInfo'
 //import { AxiosResponse } from './data.d'
 import fakeProjectList from './fakeProjectList'
-import { customerMe, getMyProjectOrderList } from './fakeProjectOthers'
+import { customerMe, getMyProjectOrderList, project4, project3, project2, project1 } from './fakeProjectOthers'
 class UserStore {
   @observable qrUrl = process.env.REACT_APP_URL || ''
   @observable isLoading = false
@@ -69,7 +69,7 @@ class UserStore {
     column5: '',
     column6: '',
     column7: '',
-    photos: [],
+    photos: [{}],
     irr: 0,
     investAmount: 0,
     startDate: '',
@@ -345,41 +345,67 @@ class UserStore {
   }
 
   @action getProjectDetail({ payload }) {
-    return request('/project/' + payload.id)
-      .then(
-        action((response) => {
-          this.projectDetail.column1 = response.data.projectInfo.column1
-          this.projectDetail.column2 = response.data.projectInfo.column2
-          this.projectDetail.column3 = response.data.projectInfo.column3
-          this.projectDetail.column4 = response.data.projectInfo.column4
-          this.projectDetail.column5 = response.data.projectInfo.column5
-          this.projectDetail.column6 = response.data.projectInfo.column6
-          this.projectDetail.column7 = response.data.projectInfo.column7
-          this.projectDetail.photos = response.data.projectMutiplePhotos.map((photo) => ({
-            original: photo.coverUrl,
-            thumbnail: photo.coverUrl,
-          }))
-          this.projectDetail.totalAmount = response.data.totalAmount
-          this.projectDetail.irr = response.data.IRR ? response.data.IRR * 10 : 0
-          this.projectDetail.investAmount = response.data.ProjectsInvestingListingTotalAmount
-            ? response.data.ProjectsInvestingListingTotalAmount
-            : 0
-          this.projectDetail.startDate = response.data.startDate
-          this.projectDetail.endDate = response.data.endDate
-          this.projectDetail.percent = response.data.ProjectsInvestingListingTotalAmount
-            ? Math.round((response.data.ProjectsInvestingListingTotalAmount / response.data.totalAmount) * 100)
-            : 0
-          this.projectDetail.title = response.data.title
-          this.projectDetail.titleText = response.data.title
-        })
-      )
-      .catch((error) => {
-        const { response } = error
-        if (response) {
-          console.log('err', response)
-        }
-        return Promise.resolve(error)
-      })
+    // return request('/project/' + payload.id)
+    //   .then(
+    //     action((response) => {
+    //       this.projectDetail.column1 = response.data.projectInfo.column1
+    //       this.projectDetail.column2 = response.data.projectInfo.column2
+    //       this.projectDetail.column3 = response.data.projectInfo.column3
+    //       this.projectDetail.column4 = response.data.projectInfo.column4
+    //       this.projectDetail.column5 = response.data.projectInfo.column5
+    //       this.projectDetail.column6 = response.data.projectInfo.column6
+    //       this.projectDetail.column7 = response.data.projectInfo.column7
+    //       this.projectDetail.photos = response.data.projectMutiplePhotos.map((photo) => ({
+    //         original: photo.coverUrl,
+    //         thumbnail: photo.coverUrl,
+    //       }))
+    //       this.projectDetail.totalAmount = response.data.totalAmount
+    //       this.projectDetail.irr = response.data.IRR ? response.data.IRR * 10 : 0
+    //       this.projectDetail.investAmount = response.data.ProjectsInvestingListingTotalAmount
+    //         ? response.data.ProjectsInvestingListingTotalAmount
+    //         : 0
+    //       this.projectDetail.startDate = response.data.startDate
+    //       this.projectDetail.endDate = response.data.endDate
+    //       this.projectDetail.percent = response.data.ProjectsInvestingListingTotalAmount
+    //         ? Math.round((response.data.ProjectsInvestingListingTotalAmount / response.data.totalAmount) * 100)
+    //         : 0
+    //       this.projectDetail.title = response.data.title
+    //       this.projectDetail.titleText = response.data.title
+    //     })
+    //   )
+    //   .catch((error) => {
+    //     const { response } = error
+    //     if (response) {
+    //       console.log('err', response)
+    //     }
+    //     return Promise.resolve(error)
+    //   })
+    const fakeArray = [project1, project2, project3, project4]
+    this.projectDetail.column1 = fakeArray[payload.id - 1].data.projectInfo.column1
+    this.projectDetail.column2 = fakeArray[payload.id - 1].data.projectInfo.column2
+    this.projectDetail.column3 = fakeArray[payload.id - 1].data.projectInfo.column3
+    this.projectDetail.column4 = fakeArray[payload.id - 1].data.projectInfo.column4
+    this.projectDetail.column5 = fakeArray[payload.id - 1].data.projectInfo.column5
+    this.projectDetail.column6 = fakeArray[payload.id - 1].data.projectInfo.column6
+    this.projectDetail.column7 = fakeArray[payload.id - 1].data.projectInfo.column7
+    this.projectDetail.photos = fakeArray[payload.id - 1].data.projectMutiplePhotos.map((photo) => ({
+      original: photo.coverUrl,
+      thumbnail: photo.coverUrl,
+    }))
+    this.projectDetail.totalAmount = fakeArray[payload.id - 1].data.totalAmount
+    this.projectDetail.irr = fakeArray[payload.id - 1].data.IRR * 10
+    this.projectDetail.investAmount = fakeArray[payload.id - 1].data.ProjectsInvestingListingTotalAmount
+    this.projectDetail.startDate = fakeArray[payload.id - 1].data.startDate
+    this.projectDetail.endDate = fakeArray[payload.id - 1].data.endDate
+    this.projectDetail.percent = fakeArray[payload.id - 1].data.ProjectsInvestingListingTotalAmount
+      ? Math.round(
+          (fakeArray[payload.id - 1].data.ProjectsInvestingListingTotalAmount /
+            fakeArray[payload.id - 1].data.totalAmount) *
+            100
+        )
+      : 0
+    this.projectDetail.title = fakeArray[payload.id - 1].data.title
+    this.projectDetail.titleText = fakeArray[payload.id - 1].data.title
   }
 
   @action projectViewCount({ payload }) {
