@@ -4,7 +4,7 @@ import agent from '../agent'
 import { TradeModules } from '../shared/TradInfo'
 //import { AxiosResponse } from './data.d'
 import fakeProjectList from './fakeProjectList'
-import { customerMe } from './fakeProjectOthers'
+import { customerMe, getMyProjectOrderList } from './fakeProjectOthers'
 class UserStore {
   @observable qrUrl = process.env.REACT_APP_URL || ''
   @observable isLoading = false
@@ -19,7 +19,19 @@ class UserStore {
   @observable loadingUser
   @observable updatingUser
   @observable updatingUserErrors
-  @observable projectOrderList = []
+  @observable projectOrderList = [
+    {
+      id: 0,
+      currency: '',
+      totalAmount: 0,
+      title: '',
+      endDate: '',
+      irr: 0,
+      updatedAt: '',
+      amount: 0,
+      transactionCheckUrl: '',
+    },
+  ]
   @observable projectList = [
     {
       irr: 0,
@@ -111,33 +123,47 @@ class UserStore {
   }
 
   @action getMyProjectOrderList({ payload }) {
-    return request('/customer/me/projectOrder/list', {
-      params: {
-        sort: payload.sort,
-      },
-    })
-      .then(
-        action((response) => {
-          this.projectOrderList = response.data.map((project) => ({
-            id: project.project.id,
-            currency: project.currency,
-            totalAmount: project.project.totalAmount,
-            title: project.project.title,
-            endDate: project.project.endDate,
-            irr: project.project.IRR ? project.project.IRR * 10 : 0,
-            updatedAt: project.createdAt,
-            amount: project.amount,
-            transactionCheckUrl: project.transactionCheckUrl,
-          }))
-        })
-      )
-      .catch((error) => {
-        const { response } = error
-        if (response) {
-          console.log('err', response)
-        }
-        return Promise.resolve(error)
-      })
+    // return request('/customer/me/projectOrder/list', {
+    //   params: {
+    //     sort: payload.sort,
+    //   },
+    // })
+    //   .then(
+    //     action((response) => {
+    //       this.projectOrderList = response.data.map((project) => ({
+    //         id: project.project.id,
+    //         currency: project.currency,
+    //         totalAmount: project.project.totalAmount,
+    //         title: project.project.title,
+    //         endDate: project.project.endDate,
+    //         irr: project.project.IRR ? project.project.IRR * 10 : 0,
+    //         updatedAt: project.createdAt,
+    //         amount: project.amount,
+    //         transactionCheckUrl: project.transactionCheckUrl,
+    //       }))
+    //     })
+    //   )
+    //   .catch((error) => {
+    //     const { response } = error
+    //     if (response) {
+    //       console.log('err', response)
+    //     }
+    //     return Promise.resolve(error)
+    //   })
+    const status: any = getMyProjectOrderList.status
+    if (status === 'success') {
+      this.projectOrderList = getMyProjectOrderList.data.map((project) => ({
+        id: project.project.id,
+        currency: project.currency,
+        totalAmount: project.project.totalAmount,
+        title: project.project.title,
+        endDate: project.project.endDate,
+        irr: project.project.IRR * 10,
+        updatedAt: project.createdAt,
+        amount: project.amount,
+        transactionCheckUrl: project.transactionCheckUrl,
+      }))
+    }
   }
 
   @action pullUser() {
