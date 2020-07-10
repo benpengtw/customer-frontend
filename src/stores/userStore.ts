@@ -491,42 +491,56 @@ class UserStore {
   @action investCredit({ payload }) {
     this.isLoadingInvest = true
     this.snackSuccess = ''
-    return request('/project/' + payload.projectId + '/invest', {
-      method: 'POST',
-      data: payload,
-    })
-      .then(
-        action((response) => {
-          console.log('investCredit', response)
-          const trade = new TradeModules()
-          const tradeInfo = trade.getTradeInfo(
-            payload.amount,
-            payload.DESC,
-            payload.email,
-            response.data.projectOrderId
-          )
-          console.log('tradeInfo', tradeInfo.TradeSha)
-          var szHtml =
-            '<form id="newebpay" method="post" action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post" >'
-          szHtml += '<input type="hidden" name="MerchantID" value="' + tradeInfo.MerchantID + '" type="hidden">'
-          szHtml += '<input type="hidden" name="TradeInfo" value="' + tradeInfo.TradeInfo + '" type="hidden">'
-          szHtml += '<input type="hidden" name="TradeSha" value="' + tradeInfo.TradeSha + '" type="hidden">'
-          szHtml += '<input type="hidden" name="Version"  value="' + tradeInfo.Version + '" type="hidden">'
-          szHtml += '</form>'
+    // return request('/project/' + payload.projectId + '/invest', {
+    //   method: 'POST',
+    //   data: payload,
+    // })
+    //   .then(
+    //     action((response) => {
+    //       console.log('investCredit', response)
+    //       const trade = new TradeModules()
+    //       const tradeInfo = trade.getTradeInfo(
+    //         payload.amount,
+    //         payload.DESC,
+    //         payload.email,
+    //         response.data.projectOrderId
+    //       )
+    //       console.log('tradeInfo', tradeInfo.TradeSha)
+    //       var szHtml =
+    //         '<form id="newebpay" method="post" action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post" >'
+    //       szHtml += '<input type="hidden" name="MerchantID" value="' + tradeInfo.MerchantID + '" type="hidden">'
+    //       szHtml += '<input type="hidden" name="TradeInfo" value="' + tradeInfo.TradeInfo + '" type="hidden">'
+    //       szHtml += '<input type="hidden" name="TradeSha" value="' + tradeInfo.TradeSha + '" type="hidden">'
+    //       szHtml += '<input type="hidden" name="Version"  value="' + tradeInfo.Version + '" type="hidden">'
+    //       szHtml += '</form>'
 
-          this.formHTML = szHtml
-          return szHtml
-        })
-      )
-      .catch(
-        action((error) => {
-          this.isLoadingInvest = false
-          this.snackSuccess = 'failed'
-          const { response } = error
-          console.log('err', response)
-          return Promise.resolve(error)
-        })
-      )
+    //       this.formHTML = szHtml
+    //       return szHtml
+    //     })
+    //   )
+    //   .catch(
+    //     action((error) => {
+    //       this.isLoadingInvest = false
+    //       this.snackSuccess = 'failed'
+    //       const { response } = error
+    //       console.log('err', response)
+    //       return Promise.resolve(error)
+    //     })
+    //   )
+    const dateTime = Date.now()
+    const timestamp = Math.floor(dateTime / 1000)
+    const trade = new TradeModules()
+    const tradeInfo = trade.getTradeInfo(payload.amount, payload.DESC, payload.email, timestamp.toString())
+    console.log('tradeInfo', tradeInfo.TradeSha)
+    var szHtml = '<form id="newebpay" method="post" action="https://ccore.newebpay.com/MPG/mpg_gateway" method="post" >'
+    szHtml += '<input type="hidden" name="MerchantID" value="' + tradeInfo.MerchantID + '" type="hidden">'
+    szHtml += '<input type="hidden" name="TradeInfo" value="' + tradeInfo.TradeInfo + '" type="hidden">'
+    szHtml += '<input type="hidden" name="TradeSha" value="' + tradeInfo.TradeSha + '" type="hidden">'
+    szHtml += '<input type="hidden" name="Version"  value="' + tradeInfo.Version + '" type="hidden">'
+    szHtml += '</form>'
+
+    this.formHTML = szHtml
+    return szHtml
   }
 }
 
