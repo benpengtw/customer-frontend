@@ -1,34 +1,44 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Dialog, DialogContent, Box, withStyles } from '@material-ui/core'
-import DialogTitleWithCloseIcon from './DialogTitleWithCloseIcon'
+import React from "react";
+import PropTypes from "prop-types";
+import { Dialog, DialogContent, Box, withStyles } from "@material-ui/core";
+import DialogTitleWithCloseIcon from "./DialogTitleWithCloseIcon";
 
-const styles = (theme) => ({
+const styles = theme => ({
   dialogPaper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     paddingBottom: theme.spacing(3),
-    maxWidth: 420,
+    maxWidth: 420
   },
   actions: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(2)
   },
   dialogPaperScrollPaper: {
-    maxHeight: 'none',
+    maxHeight: "none"
   },
   dialogContent: {
     paddingTop: 0,
-    paddingBottom: 0,
-  },
-})
+    paddingBottom: 0
+  }
+});
 
 /**
  * A Wrapper around the Dialog component to create centered
  * Login, Register or other Dialogs.
  */
 function FormDialog(props) {
-  const { classes, open, onClose, loading, headline, onFormSubmit, content, actions, hideBackdrop } = props
+  const {
+    classes,
+    open,
+    onClose,
+    loading,
+    headline,
+    onFormSubmit,
+    content,
+    actions,
+    hideBackdrop
+  } = props;
   return (
     <Dialog
       open={open}
@@ -37,11 +47,15 @@ function FormDialog(props) {
       disableEscapeKeyDown={loading}
       classes={{
         paper: classes.dialogPaper,
-        paperScrollPaper: classes.dialogPaperScrollPaper,
+        paperScrollPaper: classes.dialogPaperScrollPaper
       }}
       hideBackdrop={hideBackdrop ? hideBackdrop : false}
     >
-      <DialogTitleWithCloseIcon title={headline} onClose={onClose} disabled={loading} />
+      <DialogTitleWithCloseIcon
+        title={headline}
+        onClose={onClose}
+        disabled={loading}
+      />
       <DialogContent className={classes.dialogContent}>
         <form onSubmit={onFormSubmit}>
           <div>{content}</div>
@@ -51,7 +65,7 @@ function FormDialog(props) {
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 FormDialog.propTypes = {
@@ -63,7 +77,7 @@ FormDialog.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   content: PropTypes.element.isRequired,
   actions: PropTypes.element.isRequired,
-  hideBackdrop: PropTypes.bool.isRequired,
-}
+  hideBackdrop: PropTypes.bool.isRequired
+};
 
-export default withStyles(styles, { withTheme: true })(FormDialog)
+export default withStyles(styles, { withTheme: true })(FormDialog);

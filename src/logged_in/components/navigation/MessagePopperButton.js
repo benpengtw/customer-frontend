@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useRef, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import React, { Fragment, useState, useRef, useCallback } from "react";
+import PropTypes from "prop-types";
 import {
   Popover,
   IconButton,
@@ -10,47 +10,47 @@ import {
   ListItemText,
   Typography,
   Box,
-  withStyles,
-} from '@material-ui/core'
-import MessageIcon from '@material-ui/icons/Message'
-import MessageListItem from './MessageListItem'
+  withStyles
+} from "@material-ui/core";
+import MessageIcon from "@material-ui/icons/Message";
+import MessageListItem from "./MessageListItem";
 
-const styles = (theme) => ({
+const styles = theme => ({
   tabContainer: {
-    overflowY: 'auto',
-    maxHeight: 350,
+    overflowY: "auto",
+    maxHeight: 350
   },
   popoverPaper: {
-    width: '100%',
+    width: "100%",
     maxWidth: 350,
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: 270,
-    },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: 270
+    }
   },
   divider: {
-    marginTop: -2,
+    marginTop: -2
   },
   noShadow: {
-    boxShadow: 'none !important',
-  },
-})
+    boxShadow: "none !important"
+  }
+});
 
 function MessagePopperButton(props) {
-  const { classes, messages } = props
-  const anchorEl = useRef()
-  const [isOpen, setIsOpen] = useState(false)
+  const { classes, messages } = props;
+  const anchorEl = useRef();
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = useCallback(() => {
-    setIsOpen(!isOpen)
-  }, [isOpen, setIsOpen])
+    setIsOpen(!isOpen);
+  }, [isOpen, setIsOpen]);
 
   const handleClickAway = useCallback(() => {
-    setIsOpen(false)
-  }, [setIsOpen])
+    setIsOpen(false);
+  }, [setIsOpen]);
 
-  const id = isOpen ? 'scroll-playground' : null
+  const id = isOpen ? "scroll-playground" : null;
   return (
     <Fragment>
       <IconButton
@@ -67,12 +67,12 @@ function MessagePopperButton(props) {
         open={isOpen}
         anchorEl={anchorEl.current}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left"
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right"
         }}
         classes={{ paper: classes.popoverPaper }}
         onClose={handleClickAway}
@@ -86,22 +86,28 @@ function MessagePopperButton(props) {
         <List dense className={classes.tabContainer}>
           {messages.length === 0 ? (
             <ListItem>
-              <ListItemText>You haven&apos;t received any messages yet.</ListItemText>
+              <ListItemText>
+                You haven&apos;t received any messages yet.
+              </ListItemText>
             </ListItem>
           ) : (
             messages.map((element, index) => (
-              <MessageListItem key={index} message={element} divider={index !== messages.length - 1} />
+              <MessageListItem
+                key={index}
+                message={element}
+                divider={index !== messages.length - 1}
+              />
             ))
           )}
         </List>
       </Popover>
     </Fragment>
-  )
+  );
 }
 
 MessagePopperButton.propTypes = {
   classes: PropTypes.object.isRequired,
-  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
-}
+  messages: PropTypes.arrayOf(PropTypes.object).isRequired
+};
 
-export default withStyles(styles, { withTheme: true })(MessagePopperButton)
+export default withStyles(styles, { withTheme: true })(MessagePopperButton);

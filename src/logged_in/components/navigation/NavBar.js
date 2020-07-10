@@ -21,16 +21,18 @@ import {
   withWidth,
 } from '@material-ui/core'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-import ImageIcon from '@material-ui/icons/Image'
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
 import MenuIcon from '@material-ui/icons/Menu'
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
-import MessagePopperButton from './MessagePopperButton'
-import SideDrawer from './SideDrawer'
-import Balance from './Balance'
+import ReplyIcon from '@material-ui/icons/Reply'
 import NavigationDrawer from '../../../shared/components/NavigationDrawer'
-import profilePicture from '../../dummy_data/images/profilePicture.jpg'
+import profilePicture from '../../../assets/profilePicture.jpg'
+import logo from '../../../assets/logoRed.png'
+import { MobXProviderContext, useObserver } from 'mobx-react'
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
 
 const styles = (theme) => ({
   appBar: {
@@ -82,7 +84,8 @@ const styles = (theme) => ({
     overflowX: 'hidden',
     marginTop: theme.spacing(8),
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
+      //width: theme.spacing(9),
+      width: '200px',
     },
     backgroundColor: theme.palette.common.black,
   },
@@ -106,6 +109,9 @@ const styles = (theme) => ({
   textPrimary: {
     color: theme.palette.primary.main,
   },
+  textRedTheme: {
+    color: '#8a1818',
+  },
   mobileItemSelected: {
     backgroundColor: `${theme.palette.primary.main} !important`,
   },
@@ -128,12 +134,14 @@ const styles = (theme) => ({
 })
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, width, openAddBalanceDialog } = props
+  const { selectedTab, classes, width, currentUserName } = props
   // Will be use to make website more accessible by screen readers
   const links = useRef([])
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false)
+  let store = useStores()
+  const { userStore } = store
 
+  //console.log('NavBar', userStore.currentUser.name)
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true)
   }, [setIsMobileOpen])
@@ -142,15 +150,24 @@ function NavBar(props) {
     setIsMobileOpen(false)
   }, [setIsMobileOpen])
 
-  const openDrawer = useCallback(() => {
-    setIsSideDrawerOpen(true)
-  }, [setIsSideDrawerOpen])
-
-  const closeDrawer = useCallback(() => {
-    setIsSideDrawerOpen(false)
-  }, [setIsSideDrawerOpen])
+  const clearLoginData = () => {
+    //console.log('userStore', userStore.currentUser.name)
+    userStore.forgetUser()
+    window.localStorage.removeItem('token')
+    window.sessionStorage.removeItem('address')
+    window.location.reload(true)
+  }
 
   const menuItems = [
+    {
+      link: '/',
+      name: '返回前台',
+      onClick: closeMobileDrawer,
+      icon: {
+        desktop: <ReplyIcon className="text-white" fontSize="small" />,
+        mobile: <ReplyIcon className="text-white" />,
+      },
+    },
     {
       link: '/c/dashboard',
       name: 'Dashboard',
@@ -158,7 +175,7 @@ function NavBar(props) {
       icon: {
         desktop: (
           <DashboardIcon
-            className={selectedTab === 'Dashboard' ? classes.textPrimary : 'text-white'}
+            className={selectedTab === 'Dashboard' ? classes.textRedTheme : 'text-white'}
             fontSize="small"
           />
         ),
@@ -167,23 +184,26 @@ function NavBar(props) {
     },
     {
       link: '/c/posts',
-      name: 'Posts',
+      name: '錢包設定',
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
-          <ImageIcon className={selectedTab === 'Posts' ? classes.textPrimary : 'text-white'} fontSize="small" />
+          <AccountBalanceWalletIcon
+            className={selectedTab === 'Posts' ? classes.textRedTheme : 'text-white'}
+            fontSize="small"
+          />
         ),
-        mobile: <ImageIcon className="text-white" />,
+        mobile: <AccountBalanceWalletIcon className="text-white" />,
       },
     },
     {
-      link: '/c/subscription',
-      name: 'Subscription',
+      link: '/c/projectOrderList',
+      name: '已投資項目',
       onClick: closeMobileDrawer,
       icon: {
         desktop: (
           <AccountBalanceIcon
-            className={selectedTab === 'Subscription' ? classes.textPrimary : 'text-white'}
+            className={selectedTab === 'ProjectOrderList' ? classes.textRedTheme : 'text-white'}
             fontSize="small"
           />
         ),
@@ -192,14 +212,15 @@ function NavBar(props) {
     },
     {
       link: '/',
-      name: 'Logout',
+      name: '登出',
+      onClick: clearLoginData,
       icon: {
         desktop: <PowerSettingsNewIcon className="text-white" fontSize="small" />,
         mobile: <PowerSettingsNewIcon className="text-white" />,
       },
     },
   ]
-  return (
+  return useObserver(() => (
     <Fragment>
       <AppBar position="sticky" className={classes.appBar}>
         <Toolbar className={classes.appBarToolbar}>
@@ -212,35 +233,22 @@ function NavBar(props) {
               </Box>
             </Hidden>
             <Hidden xsDown>
-              <Typography variant="h4" className={classes.brandText} display="inline" color="primary">
-                Wa
-              </Typography>
-              <Typography variant="h4" className={classes.brandText} display="inline" color="secondary">
-                Ver
-              </Typography>
+              <Link to="/" className={classes.noDecoration}>
+                <img src={logo} width="120px" alt="" />
+              </Link>
             </Hidden>
           </Box>
           <Box display="flex" justifyContent="flex-end" alignItems="center" width="100%">
-            {isWidthUp('sm', width) && (
-              <Box mr={3}>
-                <Balance balance={2573} openAddBalanceDialog={openAddBalanceDialog} />
-              </Box>
-            )}
-            <MessagePopperButton messages={messages} />
             <ListItem disableGutters className={classNames(classes.iconListItem, classes.smBordered)}>
               <Avatar alt="profile picture" src={profilePicture} className={classNames(classes.accountAvatar)} />
               {isWidthUp('sm', width) && (
                 <ListItemText
                   className={classes.username}
-                  primary={<Typography color="textPrimary">Username</Typography>}
+                  primary={<Typography color="textPrimary">{currentUserName}</Typography>}
                 />
               )}
             </ListItem>
           </Box>
-          <IconButton onClick={openDrawer} color="primary" aria-label="Open Sidedrawer">
-            <SupervisorAccountIcon />
-          </IconButton>
-          <SideDrawer open={isSideDrawerOpen} onClose={closeDrawer} />
         </Toolbar>
       </AppBar>
       <Hidden xsDown>
@@ -274,6 +282,13 @@ function NavBar(props) {
                     aria-label={element.name === 'Logout' ? 'Logout' : `Go to ${element.name}`}
                   >
                     <ListItemIcon className={classes.justifyCenter}>{element.icon.desktop}</ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Typography variant="subtitle1" className="text-white">
+                          {element.name}
+                        </Typography>
+                      }
+                    />
                   </ListItem>
                 </Tooltip>
               </Link>
@@ -294,15 +309,15 @@ function NavBar(props) {
         onClose={closeMobileDrawer}
       />
     </Fragment>
-  )
+  ))
 }
 
 NavBar.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedTab: PropTypes.string.isRequired,
+  currentUserName: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
 }
 
 export default withWidth()(withStyles(styles, { withTheme: true })(NavBar))

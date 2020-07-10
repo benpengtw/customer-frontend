@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Typography, withStyles } from '@material-ui/core'
+import { Typography, withStyles, Card, Grid } from '@material-ui/core'
 
 const styles = (theme) => ({
   iconWrapper: {
@@ -11,6 +11,16 @@ const styles = (theme) => ({
     justifyContent: 'center',
     marginBottom: theme.spacing(3),
     padding: theme.spacing(1) * 1.5,
+  },
+  card: {
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    marginTop: theme.spacing(2),
+    border: `2px solid ${theme.palette.primary.dark}`,
+    borderRadius: theme.shape.borderRadius * 2,
+    height: '350px',
   },
 })
 
@@ -39,25 +49,51 @@ function shadeColor(hex, percent) {
 function FeatureCard(props) {
   const { classes, Icon, color, headline, text } = props
   return (
-    <Fragment>
-      <div
-        // We will set color and fill here, due to some prios complications
-        className={classes.iconWrapper}
-        style={{
-          color: color,
-          backgroundColor: shadeColor(color, 0.5),
-          fill: color,
-        }}
-      >
-        {Icon}
-      </div>
-      <Typography variant="h5" paragraph>
-        {headline}
-      </Typography>
-      <Typography variant="body1" color="textSecondary">
-        {text}
-      </Typography>
-    </Fragment>
+    <div className={classes.card}>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          <div
+            // We will set color and fill here, due to some prios complications
+            className={classes.iconWrapper}
+            style={{
+              color: color,
+              //backgroundColor: shadeColor(color, 0.5),
+              fill: color,
+            }}
+          >
+            {Icon}
+          </div>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h5" paragraph>
+            {headline}
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          style={{
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="body1" color="textSecondary">
+            {text}
+          </Typography>
+        </Grid>
+      </Grid>
+    </div>
   )
 }
 

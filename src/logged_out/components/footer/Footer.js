@@ -16,10 +16,13 @@ import MailIcon from '@material-ui/icons/Mail'
 import WaveBorder from '../../../shared/components/WaveBorder'
 import transitions from '@material-ui/core/styles/transitions'
 import ColoredButton from '../../../shared/components/ColoredButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHandshake } from '@fortawesome/free-solid-svg-icons'
+import { faComments } from '@fortawesome/free-solid-svg-icons'
 
 const styles = (theme) => ({
   footerInner: {
-    backgroundColor: theme.palette.common.darkBlack,
+    backgroundImage: 'linear-gradient(0deg, rgba(161,2,0,1) 21%, rgba(203,47,95,1) 99%)',
     paddingTop: theme.spacing(8),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
@@ -77,26 +80,16 @@ const styles = (theme) => ({
 
 const infos = [
   {
-    icon: <PhoneIcon />,
-    description: '+1 555 123456',
+    icon: <FontAwesomeIcon icon={faHandshake} />,
+    description: '商務合作：blockchain.service@wegames.com.tw',
   },
   {
-    icon: <MailIcon />,
-    description: 'support@company.com',
+    icon: <FontAwesomeIcon icon={faComments} />,
+    description: '公關聯繫：blockchain.service@wegames.com.tw',
   },
 ]
 
 const socialIcons = [
-  {
-    icon: (
-      <svg role="img" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <title>GitHub</title>
-        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-      </svg>
-    ),
-    label: 'Github',
-    href: 'https://github.com/dunky11/react-saas-template',
-  },
   {
     icon: (
       <svg role="img" width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -133,7 +126,7 @@ function Footer(props) {
   const { classes, theme, width } = props
   return (
     <footer className="lg-p-top">
-      <WaveBorder upperColor="#FFFFFF" lowerColor={theme.palette.common.darkBlack} animationNegativeDelay={4} />
+      <WaveBorder upperColor="#FFFFFF" lowerColor="#cb2f5f" animationNegativeDelay={4} />
       <div className={classes.footerInner}>
         <Grid container spacing={isWidthUp('md', width) ? 10 : 5}>
           <Grid item xs={12} md={6} lg={4}>
@@ -185,9 +178,9 @@ function Footer(props) {
             <Typography variant="h6" paragraph className="text-white">
               About the Company
             </Typography>
-            <Typography style={{ color: '#8f9296' }} paragraph>
-              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus
-              vehicula sit amet.
+            <Typography className="text-white" paragraph>
+              Angel Bird
+              遊戲募資平台是唯數娛樂科技股份有限公司旗下之服務平台，致力於為遊戲開發團隊提供最專業的服務，我們不只提供媒合服務，更提供加密貨幣金流服務。
             </Typography>
             <Box display="flex">
               {socialIcons.map((socialIcon, index) => (

@@ -73,7 +73,13 @@ function ZoomImage(props) {
           </div>
         </Portal>
       )}
-      <img alt={alt} src={src} onClick={zoomIn} style={{ cursor: 'pointer' }} {...rest}></img>
+      <img
+        alt={alt}
+        src={src}
+        onClick={zoomIn}
+        style={{ cursor: 'pointer', height: '300px', width: '400px' }}
+        {...rest}
+      ></img>
     </Fragment>
   )
 }

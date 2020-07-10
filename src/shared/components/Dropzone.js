@@ -1,44 +1,52 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useDropzone } from 'react-dropzone'
-import classNames from 'classnames'
-import { Box, withStyles } from '@material-ui/core'
-import ColoredButton from './ColoredButton'
+import React from "react";
+import PropTypes from "prop-types";
+import { useDropzone } from "react-dropzone";
+import classNames from "classnames";
+import { Box, withStyles } from "@material-ui/core";
+import ColoredButton from "./ColoredButton";
 
 const styles = {
   button: {
     borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.23)',
+    borderColor: "rgba(0, 0, 0, 0.23)",
     borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
+    borderBottomLeftRadius: 0
   },
   fullHeight: {
-    height: '100%',
-  },
-}
+    height: "100%"
+  }
+};
 
 function getColor(isDragAccept, isDragReject, theme) {
   if (isDragAccept) {
-    return theme.palette.success.main
+    return theme.palette.success.main;
   }
   if (isDragReject) {
-    return theme.palette.error.dark
+    return theme.palette.error.dark;
   }
-  return theme.palette.common.black
+  return theme.palette.common.black;
 }
 
 function Dropzone(props) {
-  const { onDrop, accept, fullHeight, children, classes, style, theme } = props
-  const { getRootProps, getInputProps, isDragAccept, isDragReject } = useDropzone({
+  const { onDrop, accept, fullHeight, children, classes, style, theme } = props;
+  const {
+    getRootProps,
+    getInputProps,
+    isDragAccept,
+    isDragReject
+  } = useDropzone({
     accept: accept,
-    onDrop: onDrop,
-  })
+    onDrop: onDrop
+  });
   return (
     <Box {...getRootProps()} height="100%">
       <input {...getInputProps()} />
       <ColoredButton
         fullWidth
-        className={classNames(fullHeight ? classes.fullHeight : null, classes.button)}
+        className={classNames(
+          fullHeight ? classes.fullHeight : null,
+          classes.button
+        )}
         variant="outlined"
         color={getColor(isDragAccept, isDragReject, theme)}
         style={style}
@@ -46,7 +54,7 @@ function Dropzone(props) {
         {children}
       </ColoredButton>
     </Box>
-  )
+  );
 }
 
 Dropzone.propTypes = {
@@ -56,7 +64,7 @@ Dropzone.propTypes = {
   accept: PropTypes.string,
   fullHeight: PropTypes.bool,
   style: PropTypes.object,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-}
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.func])
+};
 
-export default withStyles(styles, { withTheme: true })(Dropzone)
+export default withStyles(styles, { withTheme: true })(Dropzone);

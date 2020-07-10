@@ -5,7 +5,9 @@ import TermsOfServiceDialog from './TermsOfServiceDialog'
 import LoginDialog from './LoginDialog'
 import ChangePasswordDialog from './ChangePasswordDialog'
 import ModalBackdrop from '../../../shared/components/ModalBackdrop'
-
+import { observer, inject } from 'mobx-react'
+@inject('articlesStore', 'profileStore', 'userStore')
+@observer
 class DialogSelector extends PureComponent {
   state = {
     loginStatus: null,
@@ -27,6 +29,7 @@ class DialogSelector extends PureComponent {
   }
 
   printDialog = () => {
+    this.props.articlesStore.loadArticles()
     const { dialogOpen, openTermsDialog, openRegisterDialog, openLoginDialog, openChangePasswordDialog } = this.props
     const { loginStatus, registerStatus } = this.state
     switch (dialogOpen) {
@@ -57,7 +60,8 @@ class DialogSelector extends PureComponent {
   }
 
   render() {
-    const { dialogOpen } = this.props
+    const { dialogOpen, articlesStore } = this.props
+    //console.log('ssss', articlesStore.totalPagesCount)
     return (
       <Fragment>
         {dialogOpen && <ModalBackdrop open />}
@@ -76,4 +80,5 @@ DialogSelector.propTypes = {
   openChangePasswordDialog: PropTypes.func.isRequired,
 }
 
+//export default DialogSelector;
 export default DialogSelector

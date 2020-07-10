@@ -1,28 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Grid, SvgIcon } from '@material-ui/core'
-import ColoredButton from './ColoredButton'
+import React from "react";
+import PropTypes from "prop-types";
+import { Grid, SvgIcon } from "@material-ui/core";
+import ColoredButton from "./ColoredButton";
 
 /**
  * Losely based on: https://sharingbuttons.io/
  */
 function ShareButtons(props) {
-  const { types, forceWhite } = props
-  let { title, description } = props
-  const site = window.location.href
-  title = encodeURIComponent(title)
-  description = encodeURIComponent(description)
+  const { types, forceWhite } = props;
+  let { title, description } = props;
+  const site = window.location.href;
+  title = encodeURIComponent(title);
+  description = encodeURIComponent(description);
   return (
     <Grid container spacing={1}>
       {types.map((element, index) => {
         switch (element) {
-          case 'Facebook':
+          case "Facebook":
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#3b5998"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://facebook.com/sharer/sharer.php?u=${site}`}
@@ -35,14 +35,14 @@ function ShareButtons(props) {
                   Share on Facebook
                 </ColoredButton>
               </Grid>
-            )
-          case 'Twitter': {
+            );
+          case "Twitter": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#55acee"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://twitter.com/intent/tweet/?text=${description}&amp;url=${site}`}
@@ -55,15 +55,15 @@ function ShareButtons(props) {
                   Share on Twitter
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'Tumblr': {
+          case "Tumblr": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#35465c"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://www.tumblr.com/widgets/share/tool/preview?posttype=link&title=${title}&caption=${description}&content=${site}&canonicalUrl=${site}&shareSource=tumblr_share_button`}
@@ -76,15 +76,15 @@ function ShareButtons(props) {
                   Share on Tumblr
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'E-Mail': {
+          case "E-Mail": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#777"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`mailto:?subject=${title}&amp;body=${site}`}
@@ -97,15 +97,15 @@ function ShareButtons(props) {
                   Share by E-Mail
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'Pinterest': {
+          case "Pinterest": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#bd081c"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://pinterest.com/pin/create/button/?url=${site}&amp;media=${site}&amp;description=${description}`}
@@ -118,15 +118,15 @@ function ShareButtons(props) {
                   Share on Pinterest
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'LinkedIn': {
+          case "LinkedIn": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#0077b5"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://www.linkedin.com/shareArticle?mini=true&amp;url=${site}&amp;title=${title}&amp;summary=${description}&amp;source=${site}`}
@@ -139,15 +139,15 @@ function ShareButtons(props) {
                   Share on LinkedIn
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'Reddit': {
+          case "Reddit": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#5f99cf"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://reddit.com/submit/?url=${site}&amp;resubmit=true&amp;&title=${title}`}
@@ -160,15 +160,15 @@ function ShareButtons(props) {
                   Share on Reddit
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'XING': {
+          case "XING": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#1a7576"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://www.xing.com/app/user?op=share;url=${site};title=${description}`}
@@ -181,15 +181,15 @@ function ShareButtons(props) {
                   Share on XING
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'WhatsApp': {
+          case "WhatsApp": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#25d366"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`whatsapp://send?text=${description}`}
@@ -202,15 +202,15 @@ function ShareButtons(props) {
                   Share on WhatsApp
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'Hacker News': {
+          case "Hacker News": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#ff6600"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://news.ycombinator.com/submitlink?u=${site}&amp;&t=${description}`}
@@ -226,15 +226,15 @@ function ShareButtons(props) {
                   Share on Hacker News
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'VK': {
+          case "VK": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#507299"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://vk.com/share.php?title=${description}&amp;&url=${site}`}
@@ -247,15 +247,15 @@ function ShareButtons(props) {
                   Share on VK
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
-          case 'Telegram': {
+          case "Telegram": {
             return (
               <Grid item key={index}>
                 <ColoredButton
                   color="#54A9EB"
-                  className={forceWhite ? 'text-white' : null}
-                  classes={{ label: forceWhite ? 'text-white' : null }}
+                  className={forceWhite ? "text-white" : null}
+                  classes={{ label: forceWhite ? "text-white" : null }}
                   variant="contained"
                   disableElevation
                   href={`https://telegram.me/share/url?text=${description}&amp;&url=${site}`}
@@ -268,22 +268,24 @@ function ShareButtons(props) {
                   Share on Telegram
                 </ColoredButton>
               </Grid>
-            )
+            );
           }
           default: {
-            throw new Error(`No branch taken in switch-statement: ${element} is not a valid type.`)
+            throw new Error(
+              `No branch taken in switch-statement: ${element} is not a valid type.`
+            );
           }
         }
       })}
     </Grid>
-  )
+  );
 }
 
 ShareButtons.propTypes = {
   types: PropTypes.arrayOf(PropTypes.string).isRequired,
   description: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  forceWhite: PropTypes.bool,
-}
+  forceWhite: PropTypes.bool
+};
 
-export default ShareButtons
+export default ShareButtons;

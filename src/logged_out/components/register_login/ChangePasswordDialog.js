@@ -46,15 +46,13 @@ class ChangePassword extends PureComponent {
           }}
         >
           <DialogContent className={classes.dialogContent}>
-            <Typography paragraph>
-              Enter your email address below and we will send you instructions on how to reset your password.
-            </Typography>
+            <Typography paragraph>輸入您註冊的郵箱，我們將向您發送有關如何重設密碼的信息。</Typography>
             <TextField
               variant="outlined"
               margin="dense"
               required
               fullWidth
-              label="Email Address"
+              label="會員信箱"
               autoFocus
               type="email"
               autoComplete="off"
@@ -62,10 +60,10 @@ class ChangePassword extends PureComponent {
           </DialogContent>
           <DialogActions className={classes.dialogActions}>
             <Button onClick={onClose} disabled={loading}>
-              Cancel
+              取消
             </Button>
             <Button type="submit" variant="contained" color="secondary" disabled={loading}>
-              Reset password
+              重設密碼
               {loading && <ButtonCircularProgress />}
             </Button>
           </DialogActions>

@@ -4,7 +4,7 @@ import { Switch } from 'react-router-dom'
 import { withStyles } from '@material-ui/core'
 import Dashboard from './dashboard/Dashboard'
 import Posts from './posts/Posts'
-import Subscription from './subscription/Subscription'
+import ProjectOrderList from './projectOrderList/ProjectOrderList'
 import PropsRoute from '../../shared/components/PropsRoute'
 
 const styles = (theme) => ({
@@ -51,7 +51,6 @@ function Routing(props) {
     DateTimePicker,
     pushMessageToSnackbar,
     posts,
-    transactions,
     handleNumberChange,
     handleSwitchToggle,
     handleSelectChange,
@@ -62,8 +61,7 @@ function Routing(props) {
     isAccountActivated,
     selectDashboard,
     selectPosts,
-    selectSubscription,
-    openAddBalanceDialog,
+    selectProjectOrderList,
   } = props
   return (
     <div className={classes.wrapper}>
@@ -80,12 +78,10 @@ function Routing(props) {
           selectPosts={selectPosts}
         />
         <PropsRoute
-          path="/c/subscription"
-          component={Subscription}
-          transactions={transactions}
+          path="/c/projectOrderList"
+          component={ProjectOrderList}
           pushMessageToSnackbar={pushMessageToSnackbar}
-          selectSubscription={selectSubscription}
-          openAddBalanceDialog={openAddBalanceDialog}
+          selectProjectOrderList={selectProjectOrderList}
         />
         <PropsRoute
           path=""
@@ -114,7 +110,6 @@ Routing.propTypes = {
   DateTimePicker: PropTypes.elementType,
   pushMessageToSnackbar: PropTypes.func,
   posts: PropTypes.arrayOf(PropTypes.object).isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleNumberChange: PropTypes.func,
   handleSwitchToggle: PropTypes.func,
   handleSelectChange: PropTypes.func,
@@ -125,8 +120,7 @@ Routing.propTypes = {
   isAccountActivated: PropTypes.bool.isRequired,
   selectDashboard: PropTypes.func.isRequired,
   selectPosts: PropTypes.func.isRequired,
-  selectSubscription: PropTypes.func.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
+  selectProjectOrderList: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(memo(Routing))

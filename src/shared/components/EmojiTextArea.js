@@ -1,111 +1,128 @@
-import React, { Fragment, useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import 'emoji-mart/css/emoji-mart.css'
-import { Picker } from 'emoji-mart'
-import { TextField, IconButton, Collapse, FormHelperText, Box, Grid, withStyles } from '@material-ui/core'
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions'
-import CloseIcon from '@material-ui/icons/Close'
-import countWithEmojis from '../functions/countWithEmojis'
+import React, { Fragment, useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import "emoji-mart/css/emoji-mart.css";
+import { Picker } from "emoji-mart";
+import {
+  TextField,
+  IconButton,
+  Collapse,
+  FormHelperText,
+  Box,
+  Grid,
+  withStyles
+} from "@material-ui/core";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
+import CloseIcon from "@material-ui/icons/Close";
+import countWithEmojis from "../functions/countWithEmojis";
 
-const styles = (theme) => ({
-  '@global': {
-    '.emoji-mart-category-label': theme.typography.body1,
-    '.emoji-mart-bar': { display: 'none !important' },
-    '.emoji-mart-search input': {
+const styles = theme => ({
+  "@global": {
+    ".emoji-mart-category-label": theme.typography.body1,
+    ".emoji-mart-bar": { display: "none !important" },
+    ".emoji-mart-search input": {
       ...theme.typography.body1,
-      ...theme.border,
+      ...theme.border
     },
-    '.emoji-mart-search': {
+    ".emoji-mart-search": {
       marginTop: `${theme.spacing(1)}px !important`,
       paddingRight: `${theme.spacing(1)}px !important`,
       paddingLeft: `${theme.spacing(1)}px !important`,
-      paddingBottom: `${theme.spacing(1)}px !important`,
+      paddingBottom: `${theme.spacing(1)}px !important`
     },
-    '.emoji-mart-search-icon': {
-      top: '5px !important',
-      right: '14px !important',
-      fontSize: 20,
+    ".emoji-mart-search-icon": {
+      top: "5px !important",
+      right: "14px !important",
+      fontSize: 20
     },
-    '.emoji-mart-scroll': {
-      height: 240,
+    ".emoji-mart-scroll": {
+      height: 240
     },
-    '.emoji-mart': {
-      ...theme.border,
-    },
+    ".emoji-mart": {
+      ...theme.border
+    }
   },
   floatButtonWrapper: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 12,
-    right: 12,
+    right: 12
   },
   floatButtonSVG: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.light
   },
   relative: {
-    position: 'relative',
-  },
-})
+    position: "relative"
+  }
+});
 
 /**
  * Emojis whose unified is greater than 5 sometimes
  * are not displayed correcty in the browser.
  * We won't display them.
  */
-const emojisToShowFilter = (emoji) => {
+const emojisToShowFilter = emoji => {
   if (emoji.unified.length > 5) {
-    return false
+    return false;
   }
-  return true
-}
+  return true;
+};
 
 function EmojiTextarea(props) {
-  const { theme, classes, rightContent, placeholder, maxCharacters, emojiSet, inputClassName, onChange } = props
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState('')
-  const [characters, setCharacters] = useState(0)
+  const {
+    theme,
+    classes,
+    rightContent,
+    placeholder,
+    maxCharacters,
+    emojiSet,
+    inputClassName,
+    onChange
+  } = props;
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const [characters, setCharacters] = useState(0);
 
   const onSelectEmoji = useCallback(
-    (emoji) => {
-      let _characters
-      let _value = value + emoji.native
+    emoji => {
+      let _characters;
+      let _value = value + emoji.native;
       if (maxCharacters) {
-        _characters = countWithEmojis(_value)
+        _characters = countWithEmojis(_value);
         if (_characters > maxCharacters) {
-          return
+          return;
         }
       }
       if (onChange) {
-        onChange(_value, _characters)
+        onChange(_value, _characters);
       }
-      setValue(_value)
-      setCharacters(_characters)
+      setValue(_value);
+      setCharacters(_characters);
     },
     [value, setValue, setCharacters, maxCharacters, onChange]
-  )
+  );
 
   const handleTextFieldChange = useCallback(
-    (event) => {
-      const { target } = event
-      const { value } = target
-      let characters
+    event => {
+      const { target } = event;
+      const { value } = target;
+      let characters;
       if (maxCharacters) {
-        characters = countWithEmojis(value)
+        characters = countWithEmojis(value);
         if (characters > maxCharacters) {
-          return
+          return;
         }
       }
       if (onChange) {
-        onChange(value, characters)
+        onChange(value, characters);
       }
-      setValue(value)
-      setCharacters(characters)
+      setValue(value);
+      setCharacters(characters);
     },
     [maxCharacters, onChange, setValue, setCharacters]
-  )
+  );
 
   const toggleOpen = useCallback(() => {
-    setOpen(!open)
-  }, [open, setOpen])
+    setOpen(!open);
+  }, [open, setOpen]);
 
   return (
     <Fragment>
@@ -127,13 +144,17 @@ function EmojiTextarea(props) {
             placeholder={placeholder}
             InputProps={{
               classes: {
-                notchedOutline: inputClassName ? inputClassName : null,
-              },
+                notchedOutline: inputClassName ? inputClassName : null
+              }
             }}
           />
           <div className={classes.floatButtonWrapper}>
             <IconButton onClick={toggleOpen}>
-              {open ? <CloseIcon color="primary" /> : <EmojiEmotionsIcon color="primary" />}
+              {open ? (
+                <CloseIcon color="primary" />
+              ) : (
+                <EmojiEmotionsIcon color="primary" />
+              )}
             </IconButton>
           </div>
         </Grid>
@@ -153,14 +174,14 @@ function EmojiTextarea(props) {
           <Picker
             set={emojiSet}
             color={theme.palette.primary.main}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             onSelect={onSelectEmoji}
             emojisToShowFilter={emojisToShowFilter}
           />
         </Box>
       </Collapse>
     </Fragment>
-  )
+  );
 }
 
 EmojiTextarea.propTypes = {
@@ -171,7 +192,7 @@ EmojiTextarea.propTypes = {
   placeholder: PropTypes.string,
   maxCharacters: PropTypes.number,
   onChange: PropTypes.func,
-  inputClassName: PropTypes.string,
-}
+  inputClassName: PropTypes.string
+};
 
-export default withStyles(styles, { withTheme: true })(EmojiTextarea)
+export default withStyles(styles, { withTheme: true })(EmojiTextarea);

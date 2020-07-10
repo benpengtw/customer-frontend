@@ -10,89 +10,100 @@
  */
 
 /** Used as references for various `Number` constants. */
-const MAX_SAFE_INTEGER = 9007199254740991
+const MAX_SAFE_INTEGER = 9007199254740991;
 
 /** `Object#toString` result references. */
-const argsTag = '[object Arguments]'
+const argsTag = "[object Arguments]";
 
-const funcTag = '[object Function]'
+const funcTag = "[object Function]";
 
-const genTag = '[object GeneratorFunction]'
+const genTag = "[object GeneratorFunction]";
 
-const mapTag = '[object Map]'
+const mapTag = "[object Map]";
 
-const objectTag = '[object Object]'
+const objectTag = "[object Object]";
 
-const promiseTag = '[object Promise]'
+const promiseTag = "[object Promise]";
 
-const setTag = '[object Set]'
+const setTag = "[object Set]";
 
-const stringTag = '[object String]'
+const stringTag = "[object String]";
 
-const weakMapTag = '[object WeakMap]'
+const weakMapTag = "[object WeakMap]";
 
-const dataViewTag = '[object DataView]'
+const dataViewTag = "[object DataView]";
 
 /**
  * Used to match `RegExp`
  * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
  */
-const reRegExpChar = /[\\^$.*+?()[\]{}|]/g
+const reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
 
 /** Used to detect host constructors (Safari). */
-const reIsHostCtor = /^\[object .+?Constructor\]$/
+const reIsHostCtor = /^\[object .+?Constructor\]$/;
 
 /** Used to detect unsigned integer values. */
-const reIsUint = /^(?:0|[1-9]\d*)$/
+const reIsUint = /^(?:0|[1-9]\d*)$/;
 
 /** Used to compose unicode character classes. */
-const rsAstralRange = '\\ud800-\\udfff'
+const rsAstralRange = "\\ud800-\\udfff";
 
-const rsComboMarksRange = '\\u0300-\\u036f\\ufe20-\\ufe23'
+const rsComboMarksRange = "\\u0300-\\u036f\\ufe20-\\ufe23";
 
-const rsComboSymbolsRange = '\\u20d0-\\u20f0'
+const rsComboSymbolsRange = "\\u20d0-\\u20f0";
 
-const rsVarRange = '\\ufe0e\\ufe0f'
+const rsVarRange = "\\ufe0e\\ufe0f";
 
 /** Used to compose unicode capture groups. */
-const rsAstral = `[${rsAstralRange}]`
+const rsAstral = `[${rsAstralRange}]`;
 
-const rsCombo = `[${rsComboMarksRange}${rsComboSymbolsRange}]`
+const rsCombo = `[${rsComboMarksRange}${rsComboSymbolsRange}]`;
 
-const rsFitz = '\\ud83c[\\udffb-\\udfff]'
+const rsFitz = "\\ud83c[\\udffb-\\udfff]";
 
-const rsModifier = `(?:${rsCombo}|${rsFitz})`
+const rsModifier = `(?:${rsCombo}|${rsFitz})`;
 
-const rsNonAstral = `[^${rsAstralRange}]`
+const rsNonAstral = `[^${rsAstralRange}]`;
 
-const rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}'
+const rsRegional = "(?:\\ud83c[\\udde6-\\uddff]){2}";
 
-const rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]'
+const rsSurrPair = "[\\ud800-\\udbff][\\udc00-\\udfff]";
 
-const rsZWJ = '\\u200d'
+const rsZWJ = "\\u200d";
 
 /** Used to compose unicode regexes. */
-const reOptMod = `${rsModifier}?`
+const reOptMod = `${rsModifier}?`;
 
-const rsOptVar = `[${rsVarRange}]?`
+const rsOptVar = `[${rsVarRange}]?`;
 
-const rsOptJoin = `(?:${rsZWJ}(?:${[rsNonAstral, rsRegional, rsSurrPair].join('|')})${rsOptVar}${reOptMod})*`
+const rsOptJoin = `(?:${rsZWJ}(?:${[rsNonAstral, rsRegional, rsSurrPair].join(
+  "|"
+)})${rsOptVar}${reOptMod})*`;
 
-const rsSeq = rsOptVar + reOptMod + rsOptJoin
+const rsSeq = rsOptVar + reOptMod + rsOptJoin;
 
-const rsSymbol = `(?:${[`${rsNonAstral + rsCombo}?`, rsCombo, rsRegional, rsSurrPair, rsAstral].join('|')})`
+const rsSymbol = `(?:${[
+  `${rsNonAstral + rsCombo}?`,
+  rsCombo,
+  rsRegional,
+  rsSurrPair,
+  rsAstral
+].join("|")})`;
 
 /** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-const reUnicode = RegExp(`${rsFitz}(?=${rsFitz})|${rsSymbol}${rsSeq}`, 'g')
+const reUnicode = RegExp(`${rsFitz}(?=${rsFitz})|${rsSymbol}${rsSeq}`, "g");
 
 /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-const reHasUnicode = RegExp(`[${rsZWJ}${rsAstralRange}${rsComboMarksRange}${rsComboSymbolsRange}${rsVarRange}]`)
+const reHasUnicode = RegExp(
+  `[${rsZWJ}${rsAstralRange}${rsComboMarksRange}${rsComboSymbolsRange}${rsVarRange}]`
+);
 
 /** Detect free variable `global` from Node.js. */
-const freeGlobal = typeof global === 'object' && global && global.Object === Object && global
+const freeGlobal =
+  typeof global === "object" && global && global.Object === Object && global;
 
 /** Used as a reference to the global object. */
-var root = freeGlobal || Function('return this')()
+var root = freeGlobal || Function("return this")();
 
 /**
  * A specialized version of `_.map` for arrays without support for iteratee
@@ -104,16 +115,16 @@ var root = freeGlobal || Function('return this')()
  * @returns {Array} Returns the new mapped array.
  */
 function arrayMap(array, iteratee) {
-  let index = -1
+  let index = -1;
 
-  const length = array ? array.length : 0
+  const length = array ? array.length : 0;
 
-  const result = Array(length)
+  const result = Array(length);
 
   while (++index < length) {
-    result[index] = iteratee(array[index], index, array)
+    result[index] = iteratee(array[index], index, array);
   }
-  return result
+  return result;
 }
 
 /**
@@ -124,7 +135,7 @@ function arrayMap(array, iteratee) {
  * @returns {Array} Returns the converted array.
  */
 function asciiToArray(string) {
-  return string.split('')
+  return string.split("");
 }
 
 /**
@@ -137,14 +148,14 @@ function asciiToArray(string) {
  * @returns {Array} Returns the array of results.
  */
 function baseTimes(n, iteratee) {
-  let index = -1
+  let index = -1;
 
-  const result = Array(n)
+  const result = Array(n);
 
   while (++index < n) {
-    result[index] = iteratee(index)
+    result[index] = iteratee(index);
   }
-  return result
+  return result;
 }
 
 /**
@@ -158,7 +169,7 @@ function baseTimes(n, iteratee) {
  * @returns {Object} Returns the array of property values.
  */
 function baseValues(object, props) {
-  return arrayMap(props, (key) => object[key])
+  return arrayMap(props, key => object[key]);
 }
 
 /**
@@ -170,7 +181,7 @@ function baseValues(object, props) {
  * @returns {*} Returns the property value.
  */
 function getValue(object, key) {
-  return object == null ? undefined : object[key]
+  return object == null ? undefined : object[key];
 }
 
 /**
@@ -181,7 +192,7 @@ function getValue(object, key) {
  * @returns {boolean} Returns `true` if a symbol is found, else `false`.
  */
 function hasUnicode(string) {
-  return reHasUnicode.test(string)
+  return reHasUnicode.test(string);
 }
 
 /**
@@ -194,13 +205,13 @@ function hasUnicode(string) {
 function isHostObject(value) {
   // Many host objects are `Object` objects that can coerce to strings
   // despite having improperly defined `toString` methods.
-  let result = false
-  if (value !== null && typeof value.toString !== 'function') {
+  let result = false;
+  if (value !== null && typeof value.toString !== "function") {
     try {
-      result = !!`${value}`
+      result = !!`${value}`;
     } catch (e) {}
   }
-  return result
+  return result;
 }
 
 /**
@@ -211,14 +222,14 @@ function isHostObject(value) {
  * @returns {Array} Returns the converted array.
  */
 function iteratorToArray(iterator) {
-  let data
+  let data;
 
-  const result = []
+  const result = [];
 
   while (!(data = iterator.next()).done) {
-    result.push(data.value)
+    result.push(data.value);
   }
-  return result
+  return result;
 }
 
 /**
@@ -229,14 +240,14 @@ function iteratorToArray(iterator) {
  * @returns {Array} Returns the key-value pairs.
  */
 function mapToArray(map) {
-  let index = -1
+  let index = -1;
 
-  const result = Array(map.size)
+  const result = Array(map.size);
 
   map.forEach((value, key) => {
-    result[++index] = [key, value]
-  })
-  return result
+    result[++index] = [key, value];
+  });
+  return result;
 }
 
 /**
@@ -248,9 +259,9 @@ function mapToArray(map) {
  * @returns {Function} Returns the new function.
  */
 function overArg(func, transform) {
-  return function (arg) {
-    return func(transform(arg))
-  }
+  return function(arg) {
+    return func(transform(arg));
+  };
 }
 
 /**
@@ -261,14 +272,14 @@ function overArg(func, transform) {
  * @returns {Array} Returns the values.
  */
 function setToArray(set) {
-  let index = -1
+  let index = -1;
 
-  const result = Array(set.size)
+  const result = Array(set.size);
 
-  set.forEach((value) => {
-    result[++index] = value
-  })
-  return result
+  set.forEach(value => {
+    result[++index] = value;
+  });
+  return result;
 }
 
 /**
@@ -279,7 +290,7 @@ function setToArray(set) {
  * @returns {Array} Returns the converted array.
  */
 function stringToArray(string) {
-  return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string)
+  return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string);
 }
 
 /**
@@ -290,75 +301,80 @@ function stringToArray(string) {
  * @returns {Array} Returns the converted array.
  */
 function unicodeToArray(string) {
-  return string.match(reUnicode) || []
+  return string.match(reUnicode) || [];
 }
 
 /** Used for built-in method references. */
-const funcProto = Function.prototype
+const funcProto = Function.prototype;
 
-const objectProto = Object.prototype
+const objectProto = Object.prototype;
 
 /** Used to detect overreaching core-js shims. */
-const coreJsData = root['__core-js_shared__']
+const coreJsData = root["__core-js_shared__"];
 
 /** Used to detect methods masquerading as native. */
-const maskSrcKey = (function () {
-  const uid = /[^.]+$/.exec((coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) || '')
-  return uid ? `Symbol(src)_1.${uid}` : ''
-})()
+const maskSrcKey = (function() {
+  const uid = /[^.]+$/.exec(
+    (coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO) || ""
+  );
+  return uid ? `Symbol(src)_1.${uid}` : "";
+})();
 
 /** Used to resolve the decompiled source of functions. */
-const funcToString = funcProto.toString
+const funcToString = funcProto.toString;
 
 /** Used to check objects for own properties. */
-const hasOwnProperty = objectProto.hasOwnProperty
+const hasOwnProperty = objectProto.hasOwnProperty;
 
 /**
  * Used to resolve the
  * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
  * of values.
  */
-const objectToString = objectProto.toString
+const objectToString = objectProto.toString;
 
 /** Used to detect if a method is native. */
 const reIsNative = RegExp(
   `^${funcToString
     .call(hasOwnProperty)
-    .replace(reRegExpChar, '\\$&')
-    .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?')}$`
-)
+    .replace(reRegExpChar, "\\$&")
+    .replace(
+      /hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,
+      "$1.*?"
+    )}$`
+);
 
 /** Built-in value references. */
-const Symbol = root.Symbol
+const Symbol = root.Symbol;
 
-const iteratorSymbol = Symbol ? Symbol.iterator : undefined
+const iteratorSymbol = Symbol ? Symbol.iterator : undefined;
 
-const propertyIsEnumerable = objectProto.propertyIsEnumerable
+const propertyIsEnumerable = objectProto.propertyIsEnumerable;
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
-const nativeKeys = overArg(Object.keys, Object)
+const nativeKeys = overArg(Object.keys, Object);
 
 /* Built-in method references that are verified to be native. */
-const DataView = getNative(root, 'DataView')
+const DataView = getNative(root, "DataView");
 
-const Map = getNative(root, 'Map')
+const Map = getNative(root, "Map");
 
-const Promise = getNative(root, 'Promise')
+const Promise = getNative(root, "Promise");
 
-const Set = getNative(root, 'Set')
+const Set = getNative(root, "Set");
 
-const WeakMap = getNative(root, 'WeakMap')
+const WeakMap = getNative(root, "WeakMap");
 
 /** Used to detect maps, sets, and weakmaps. */
-const dataViewCtorString = toSource(DataView)
+const dataViewCtorString = toSource(DataView);
 
-const mapCtorString = toSource(Map)
+const mapCtorString = toSource(Map);
 
-const promiseCtorString = toSource(Promise)
+const promiseCtorString = toSource(Promise);
 
-const setCtorString = toSource(Set)
+const setCtorString = toSource(Set);
 
-const weakMapCtorString = toSource(WeakMap)
+const weakMapCtorString = toSource(WeakMap);
 
 /**
  * Creates an array of the enumerable property names of the array-like `value`.
@@ -371,21 +387,22 @@ const weakMapCtorString = toSource(WeakMap)
 function arrayLikeKeys(value, inherited) {
   // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
   // Safari 9 makes `arguments.length` enumerable in strict mode.
-  const result = isArray(value) || isArguments(value) ? baseTimes(value.length, String) : []
+  const result =
+    isArray(value) || isArguments(value) ? baseTimes(value.length, String) : [];
 
-  const length = result.length
+  const length = result.length;
 
-  const skipIndexes = !!length
+  const skipIndexes = !!length;
 
   for (const key in value) {
     if (
       (inherited || hasOwnProperty.call(value, key)) &&
-      !(skipIndexes && (key === 'length' || isIndex(key, length)))
+      !(skipIndexes && (key === "length" || isIndex(key, length)))
     ) {
-      result.push(key)
+      result.push(key);
     }
   }
-  return result
+  return result;
 }
 
 /**
@@ -396,7 +413,7 @@ function arrayLikeKeys(value, inherited) {
  * @returns {string} Returns the `toStringTag`.
  */
 function baseGetTag(value) {
-  return objectToString.call(value)
+  return objectToString.call(value);
 }
 
 /**
@@ -409,10 +426,11 @@ function baseGetTag(value) {
  */
 function baseIsNative(value) {
   if (!isObject(value) || isMasked(value)) {
-    return false
+    return false;
   }
-  const pattern = isFunction(value) || isHostObject(value) ? reIsNative : reIsHostCtor
-  return pattern.test(toSource(value))
+  const pattern =
+    isFunction(value) || isHostObject(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource(value));
 }
 
 /**
@@ -424,15 +442,15 @@ function baseIsNative(value) {
  */
 function baseKeys(object) {
   if (!isPrototype(object)) {
-    return nativeKeys(object)
+    return nativeKeys(object);
   }
-  const result = []
+  const result = [];
   for (const key in Object(object)) {
-    if (hasOwnProperty.call(object, key) && key !== 'constructor') {
-      result.push(key)
+    if (hasOwnProperty.call(object, key) && key !== "constructor") {
+      result.push(key);
     }
   }
-  return result
+  return result;
 }
 
 /**
@@ -444,15 +462,15 @@ function baseKeys(object) {
  * @returns {Array} Returns `array`.
  */
 function copyArray(source, array) {
-  let index = -1
+  let index = -1;
 
-  const length = source.length
+  const length = source.length;
 
-  array || (array = Array(length))
+  array || (array = Array(length));
   while (++index < length) {
-    array[index] = source[index]
+    array[index] = source[index];
   }
-  return array
+  return array;
 }
 
 /**
@@ -464,8 +482,8 @@ function copyArray(source, array) {
  * @returns {*} Returns the function if it's native, else `undefined`.
  */
 function getNative(object, key) {
-  const value = getValue(object, key)
-  return baseIsNative(value) ? value : undefined
+  const value = getValue(object, key);
+  return baseIsNative(value) ? value : undefined;
 }
 
 /**
@@ -475,7 +493,7 @@ function getNative(object, key) {
  * @param {*} value The value to query.
  * @returns {string} Returns the `toStringTag`.
  */
-let getTag = baseGetTag
+let getTag = baseGetTag;
 
 // Fallback for data views, maps, sets, and weak maps in IE 11,
 // for data views in Edge < 14, and promises in Node.js.
@@ -486,31 +504,31 @@ if (
   (Set && getTag(new Set()) !== setTag) ||
   (WeakMap && getTag(new WeakMap()) !== weakMapTag)
 ) {
-  getTag = function (value) {
-    const result = objectToString.call(value)
+  getTag = function(value) {
+    const result = objectToString.call(value);
 
-    const Ctor = result === objectTag ? value.constructor : undefined
+    const Ctor = result === objectTag ? value.constructor : undefined;
 
-    const ctorString = Ctor ? toSource(Ctor) : undefined
+    const ctorString = Ctor ? toSource(Ctor) : undefined;
 
     if (ctorString) {
       switch (ctorString) {
         case dataViewCtorString:
-          return dataViewTag
+          return dataViewTag;
         case mapCtorString:
-          return mapTag
+          return mapTag;
         case promiseCtorString:
-          return promiseTag
+          return promiseTag;
         case setCtorString:
-          return setTag
+          return setTag;
         case weakMapCtorString:
-          return weakMapTag
+          return weakMapTag;
         default:
-          return
+          return;
       }
     }
-    return result
-  }
+    return result;
+  };
 }
 
 /**
@@ -522,10 +540,12 @@ if (
  * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
  */
 function isIndex(value, length) {
-  length = length == null ? MAX_SAFE_INTEGER : length
+  length = length == null ? MAX_SAFE_INTEGER : length;
   return (
-    !!length && (typeof value === 'number' || reIsUint.test(value)) && value > -1 && value % 1 === 0 && value < length
-  )
+    !!length &&
+    (typeof value === "number" || reIsUint.test(value)) &&
+    (value > -1 && value % 1 === 0 && value < length)
+  );
 }
 
 /**
@@ -536,7 +556,7 @@ function isIndex(value, length) {
  * @returns {boolean} Returns `true` if `func` is masked, else `false`.
  */
 function isMasked(func) {
-  return !!maskSrcKey && maskSrcKey in func
+  return !!maskSrcKey && maskSrcKey in func;
 }
 
 /**
@@ -547,11 +567,11 @@ function isMasked(func) {
  * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
  */
 function isPrototype(value) {
-  const Ctor = value && value.constructor
+  const Ctor = value && value.constructor;
 
-  const proto = (typeof Ctor === 'function' && Ctor.prototype) || objectProto
+  const proto = (typeof Ctor === "function" && Ctor.prototype) || objectProto;
 
-  return value === proto
+  return value === proto;
 }
 
 /**
@@ -564,13 +584,13 @@ function isPrototype(value) {
 function toSource(func) {
   if (func !== null) {
     try {
-      return funcToString.call(func)
+      return funcToString.call(func);
     } catch (e) {}
     try {
-      return `${func}`
+      return `${func}`;
     } catch (e) {}
   }
-  return ''
+  return "";
 }
 
 /**
@@ -595,9 +615,10 @@ function isArguments(value) {
   // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
   return (
     isArrayLikeObject(value) &&
-    hasOwnProperty.call(value, 'callee') &&
-    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) === argsTag)
-  )
+    hasOwnProperty.call(value, "callee") &&
+    (!propertyIsEnumerable.call(value, "callee") ||
+      objectToString.call(value) === argsTag)
+  );
 }
 
 /**
@@ -623,7 +644,7 @@ function isArguments(value) {
  * _.isArray(_.noop);
  * // => false
  */
-var isArray = Array.isArray
+var isArray = Array.isArray;
 
 /**
  * Checks if `value` is array-like. A value is considered array-like if it's
@@ -651,7 +672,7 @@ var isArray = Array.isArray
  * // => false
  */
 function isArrayLike(value) {
-  return value != null && isLength(value.length) && !isFunction(value)
+  return value != null && isLength(value.length) && !isFunction(value);
 }
 
 /**
@@ -680,7 +701,7 @@ function isArrayLike(value) {
  * // => false
  */
 function isArrayLikeObject(value) {
-  return isObjectLike(value) && isArrayLike(value)
+  return isObjectLike(value) && isArrayLike(value);
 }
 
 /**
@@ -703,8 +724,8 @@ function isArrayLikeObject(value) {
 function isFunction(value) {
   // The use of `Object#toString` avoids issues with the `typeof` operator
   // in Safari 8-9 which returns 'object' for typed array and other constructors.
-  const tag = isObject(value) ? objectToString.call(value) : ''
-  return tag === funcTag || tag === genTag
+  const tag = isObject(value) ? objectToString.call(value) : "";
+  return tag === funcTag || tag === genTag;
 }
 
 /**
@@ -734,7 +755,12 @@ function isFunction(value) {
  * // => false
  */
 function isLength(value) {
-  return typeof value === 'number' && value > -1 && value % 1 === 0 && value <= MAX_SAFE_INTEGER
+  return (
+    typeof value === "number" &&
+    value > -1 &&
+    value % 1 === 0 &&
+    value <= MAX_SAFE_INTEGER
+  );
 }
 
 /**
@@ -763,8 +789,8 @@ function isLength(value) {
  * // => false
  */
 function isObject(value) {
-  const type = typeof value
-  return !!value && (type === 'object' || type === 'function')
+  const type = typeof value;
+  return !!value && (type === "object" || type === "function");
 }
 
 /**
@@ -792,7 +818,7 @@ function isObject(value) {
  * // => false
  */
 function isObjectLike(value) {
-  return !!value && typeof value === 'object'
+  return !!value && typeof value === "object";
 }
 
 /**
@@ -814,8 +840,11 @@ function isObjectLike(value) {
  */
 function isString(value) {
   return (
-    typeof value === 'string' || (!isArray(value) && isObjectLike(value) && objectToString.call(value) === stringTag)
-  )
+    typeof value === "string" ||
+    (!isArray(value) &&
+      isObjectLike(value) &&
+      objectToString.call(value) === stringTag)
+  );
 }
 
 /**
@@ -843,19 +872,20 @@ function isString(value) {
  */
 function toArray(value) {
   if (!value) {
-    return []
+    return [];
   }
   if (isArrayLike(value)) {
-    return isString(value) ? stringToArray(value) : copyArray(value)
+    return isString(value) ? stringToArray(value) : copyArray(value);
   }
   if (iteratorSymbol && value[iteratorSymbol]) {
-    return iteratorToArray(value[iteratorSymbol]())
+    return iteratorToArray(value[iteratorSymbol]());
   }
-  const tag = getTag(value)
+  const tag = getTag(value);
 
-  const func = tag === mapTag ? mapToArray : tag === setTag ? setToArray : values
+  const func =
+    tag === mapTag ? mapToArray : tag === setTag ? setToArray : values;
 
-  return func(value)
+  return func(value);
 }
 
 /**
@@ -887,7 +917,7 @@ function toArray(value) {
  * // => ['0', '1']
  */
 function keys(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object)
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
 }
 
 /**
@@ -917,7 +947,7 @@ function keys(object) {
  * // => ['h', 'i']
  */
 function values(object) {
-  return object ? baseValues(object, keys(object)) : []
+  return object ? baseValues(object, keys(object)) : [];
 }
 
-module.exports = toArray
+module.exports = toArray;

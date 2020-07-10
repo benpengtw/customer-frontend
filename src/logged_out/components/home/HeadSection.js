@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Grid, Typography, Card, Button, Hidden, Box, withStyles, withWidth, isWidthUp } from '@material-ui/core'
-import headerImage from '../../dummy_data/images/headerImage.jpg'
+import headerImage from '../../dummy_data/images/crowdfunding.jpg'
 import WaveBorder from '../../../shared/components/WaveBorder'
 
 const styles = (theme) => ({
@@ -25,9 +25,10 @@ const styles = (theme) => ({
     },
   },
   card: {
+    //backgroundImage: `url(${headerImage})`,
     boxShadow: theme.shadows[4],
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
     [theme.breakpoints.up('xs')]: {
       paddingTop: theme.spacing(3),
       paddingBottom: theme.spacing(3),
@@ -41,8 +42,8 @@ const styles = (theme) => ({
     [theme.breakpoints.up('md')]: {
       paddingTop: theme.spacing(5.5),
       paddingBottom: theme.spacing(5.5),
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
     },
     [theme.breakpoints.up('lg')]: {
       paddingTop: theme.spacing(6),
@@ -51,19 +52,22 @@ const styles = (theme) => ({
       paddingRight: theme.spacing(6),
     },
     [theme.breakpoints.down('lg')]: {
-      width: 'auto',
+      //width: 'auto',
+      width: '80vw',
     },
   },
   wrapper: {
     position: 'relative',
-    backgroundColor: theme.palette.secondary.main,
+    //backgroundColor: '#0054A0',
+    backgroundImage: 'linear-gradient(180deg, rgba(32,188,255,1) 0%, rgba(0,84,160,1) 79%)',
     paddingBottom: theme.spacing(2),
   },
   image: {
     maxWidth: '100%',
     verticalAlign: 'middle',
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[4],
+    width: '80%',
+    // borderRadius: theme.shape.borderRadius,
+    // boxShadow: theme.shadows[4],
   },
   container: {
     marginTop: theme.spacing(6),
@@ -82,66 +86,70 @@ const styles = (theme) => ({
     [theme.breakpoints.up('md')]: {
       maxWidth: 'none !important',
     },
+    //backgroundImage: `url(${headerImage})`,
   },
   waveBorder: {
     paddingTop: theme.spacing(4),
   },
 })
 
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: '#FFFFFF',
+    backgroundColor: '#37B8AF',
+    '&:hover': {
+      backgroundColor: '#31a59d',
+    },
+  },
+}))(Button)
+
 function HeadSection(props) {
-  const { classes, theme, width } = props
+  const { classes, theme, width, openLoginDialog } = props
   return (
     <Fragment>
       <div className={classNames('lg-p-top', classes.wrapper)}>
-        <div className={classNames('container-fluid', classes.container)}>
-          <Box display="flex" justifyContent="center" className="row">
+        <div className={classNames('container-fluid')}>
+          <Box display="flex" justifyContent="center">
             <Card className={classes.card} data-aos-delay="200" data-aos="zoom-in">
               <div className={classNames(classes.containerFix, 'container')}>
                 <Box justifyContent="space-between" className="row">
-                  <Grid item xs={12} md={5}>
-                    <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
-                      <Box mb={4}>
-                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>
-                          Free Template for building an SaaS app using Material-UI
-                        </Typography>
-                      </Box>
-                      <div>
-                        <Box mb={2}>
-                          <Typography variant={isWidthUp('lg', width) ? 'h6' : 'body1'} color="textSecondary">
-                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                            invidunt
-                          </Typography>
-                        </Box>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          fullWidth
-                          className={classes.extraLargeButton}
-                          classes={{ label: classes.extraLargeButtonLabel }}
-                          href="https://github.com/dunky11/react-saas-template"
-                        >
-                          Download from GitHub
-                        </Button>
-                      </div>
-                    </Box>
-                  </Grid>
                   <Hidden smDown>
                     <Grid item md={6}>
                       <img src={headerImage} className={classes.image} alt="header example" />
                     </Grid>
                   </Hidden>
+                  <Grid item xs={12} md={6}>
+                    <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
+                      <Box mb={4}>
+                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>歡迎光臨Angel Bird</Typography>
+                        <Typography variant={isWidthUp('lg', width) ? 'h3' : 'h4'}>我們將著你的夢想起飛！</Typography>
+                      </Box>
+                      <div>
+                        <Box mb={2}>
+                          <Typography variant={isWidthUp('lg', width) ? 'h6' : 'body1'} color="textSecondary">
+                            現在就支持你所愛的遊戲吧！
+                          </Typography>
+                        </Box>
+                        <ColorButton
+                          variant="contained"
+                          color="secondary"
+                          fullWidth
+                          className={classes.extraLargeButton}
+                          //classes={{ label: classes.extraLargeButtonLabel }}
+                          onClick={openLoginDialog}
+                        >
+                          立即支持
+                        </ColorButton>
+                      </div>
+                    </Box>
+                  </Grid>
                 </Box>
               </div>
             </Card>
           </Box>
         </div>
       </div>
-      <WaveBorder
-        upperColor={theme.palette.secondary.main}
-        lowerColor="#FFFFFF"
-        className={classes.waveBorder}
-        animationNegativeDelay={2}
-      />
+      <WaveBorder upperColor="#0054A0" lowerColor="#FFFFFF" className={classes.waveBorder} animationNegativeDelay={2} />
     </Fragment>
   )
 }
@@ -150,6 +158,7 @@ HeadSection.propTypes = {
   classes: PropTypes.object,
   width: PropTypes.string,
   theme: PropTypes.object,
+  openLoginDialog: PropTypes.func.isRequired,
 }
 
 export default withWidth()(withStyles(styles, { withTheme: true })(HeadSection))

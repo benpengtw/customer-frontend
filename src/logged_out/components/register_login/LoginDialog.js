@@ -7,7 +7,7 @@ import FormDialog from '../../../shared/components/FormDialog'
 import HighlightedInformation from '../../../shared/components/HighlightedInformation'
 import ButtonCircularProgress from '../../../shared/components/ButtonCircularProgress'
 import VisibilityPasswordTextField from '../../../shared/components/VisibilityPasswordTextField'
-
+import { observer, inject } from 'mobx-react'
 const styles = (theme) => ({
   forgotPassword: {
     marginTop: theme.spacing(2),
@@ -28,9 +28,10 @@ const styles = (theme) => ({
     marginRight: 0,
   },
 })
-
+@inject('authStore')
+@observer
 class LoginDialog extends PureComponent {
-  state = { loading: false, passwordIsVisible: false }
+  state = { loading: false, passwordIsVisible: true }
 
   onVisibilityChange = (isVisible) => {
     this.setState({ passwordIsVisible: isVisible })
@@ -42,25 +43,33 @@ class LoginDialog extends PureComponent {
       loading: true,
     })
     setStatus(null)
-    if (this.loginEmail.value !== 'test@web.com') {
-      setTimeout(() => {
-        setStatus('invalidEmail')
-        this.setState({
-          loading: false,
-        })
-      }, 1500)
-    } else if (this.loginPassword.value !== 'test') {
-      setTimeout(() => {
-        setStatus('invalidPassword')
-        this.setState({
-          loading: false,
-        })
-      }, 1500)
-    } else {
-      setTimeout(() => {
-        history.push('/c/dashboard')
-      }, 150)
-    }
+    // if (this.loginEmail.value !== 'test@web.com') {
+    //   setTimeout(() => {
+    //     setStatus('invalidEmail')
+    //     this.setState({
+    //       loading: false,
+    //     })
+    //   }, 1500)
+    // } else if (this.loginPassword.value !== 'test') {
+    //   setTimeout(() => {
+    //     setStatus('invalidPassword')
+    //     this.setState({
+    //       loading: false,
+    //     })
+    //   }, 1500)
+    // } else {
+    //   setTimeout(() => {
+    //     history.push('/c/dashboard')
+    //   }, 150)
+    // }
+
+    this.props.authStore.login({
+      payload: {
+        email: this.loginEmail.value,
+        name: this.loginPassword.value,
+      },
+      history,
+    })
   }
 
   render() {
@@ -77,7 +86,7 @@ class LoginDialog extends PureComponent {
             this.login()
           }}
           hideBackdrop
-          headline="Login"
+          headline="會員登入"
           content={
             <Fragment>
               <TextField
@@ -86,7 +95,7 @@ class LoginDialog extends PureComponent {
                 error={status === 'invalidEmail'}
                 required
                 fullWidth
-                label="Email Address"
+                label="會員信箱"
                 inputRef={(node) => {
                   this.loginEmail = node
                 }}
@@ -98,8 +107,9 @@ class LoginDialog extends PureComponent {
                     setStatus(null)
                   }
                 }}
-                helperText={status === 'invalidEmail' && "This email address isn't associated with an account."}
+                helperText={status === 'invalidEmail' && '此電子郵件地址未與帳戶關聯。'}
                 FormHelperTextProps={{ error: true }}
+                defaultValue="mrjhack@hotmail.com"
               />
               <VisibilityPasswordTextField
                 variant="outlined"
@@ -107,7 +117,7 @@ class LoginDialog extends PureComponent {
                 required
                 fullWidth
                 error={status === 'invalidPassword'}
-                label="Password"
+                label="會員帳號"
                 inputRef={(node) => {
                   this.loginPassword = node
                 }}
@@ -120,7 +130,7 @@ class LoginDialog extends PureComponent {
                 helperText={
                   status === 'invalidPassword' ? (
                     <span>
-                      Incorrect password. Try again, or click on <b>&quot;Forgot Password?&quot;</b> to reset it.
+                      密碼錯誤。 再試一次，或點擊 <b>&quot;忘記密碼?&quot;</b> 去重設.
                     </span>
                   ) : (
                     ''
@@ -129,8 +139,9 @@ class LoginDialog extends PureComponent {
                 FormHelperTextProps={{ error: true }}
                 onVisibilityChange={this.onVisibilityChange}
                 isVisible={passwordIsVisible}
+                defaultValue="vance"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 className={classes.formControlLabel}
                 control={
                   <Checkbox
@@ -141,24 +152,16 @@ class LoginDialog extends PureComponent {
                   />
                 }
                 label={<Typography variant="body1">Remember me</Typography>}
-              />
-              {status === 'verificationEmailSend' ? (
-                <HighlightedInformation>
-                  We have send instructions on how to reset your password to your email address
-                </HighlightedInformation>
-              ) : (
-                <HighlightedInformation>
-                  Email is: <b>test@web.com</b>
-                  <br />
-                  Password is: <b>test</b>
-                </HighlightedInformation>
+              /> */}
+              {status === 'verificationEmailSend' && (
+                <HighlightedInformation>我們已將密碼重設信發送至您的電子郵件信箱</HighlightedInformation>
               )}
             </Fragment>
           }
           actions={
             <Fragment>
               <Button type="submit" fullWidth variant="contained" color="secondary" disabled={loading} size="large">
-                Login
+                登入
                 {loading && <ButtonCircularProgress />}
               </Button>
               <Typography
@@ -175,7 +178,7 @@ class LoginDialog extends PureComponent {
                   }
                 }}
               >
-                Forgot Password?
+                忘記密碼
               </Typography>
             </Fragment>
           }

@@ -107,6 +107,6 @@ dist
 build/
 
 #lockfiles
-package-lock.json
+#package-lock.json
 yarn.lock
 

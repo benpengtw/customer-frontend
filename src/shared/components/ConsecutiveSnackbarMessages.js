@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Snackbar, withStyles } from '@material-ui/core'
-
+import MuiAlert from '@material-ui/lab/Alert'
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 const styles = (theme) => ({
   root: {
     backgroundColor: theme.palette.primary.main,
@@ -65,11 +68,11 @@ class ConsecutiveSnackbars extends PureComponent {
         disableWindowBlurListener
         key={messageInfo.key}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: 'top',
+          horizontal: 'center',
         }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={this.handleClose}
         onExited={this.processQueue}
         ContentProps={{
@@ -77,8 +80,12 @@ class ConsecutiveSnackbars extends PureComponent {
             root: classes.root,
           },
         }}
-        message={<span>{messageInfo.message ? messageInfo.message.text : null}</span>}
-      />
+        //message={<span>{messageInfo.message ? messageInfo.message.text : null}</span>}
+      >
+        <Alert severity={messageInfo.message ? messageInfo.message.severity : 'success'} onClose={this.handleClose}>
+          {messageInfo.message ? messageInfo.message.text : null}
+        </Alert>
+      </Snackbar>
     )
   }
 }

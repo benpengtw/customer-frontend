@@ -1,45 +1,34 @@
-import React, { memo } from "react";
-import PropTypes from "prop-types";
-import { Switch } from "react-router-dom";
-import PropsRoute from "../../shared/components/PropsRoute";
-import Home from "./home/Home";
-import Blog from "./blog/Blog";
-import BlogPost from "./blog/BlogPost";
+import React, { memo, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { Switch } from 'react-router-dom'
+import PropsRoute from '../../shared/components/PropsRoute'
+import Home from './home/Home'
+import Project from './project/Project'
+import ProjectPost from './project/ProjectPost'
+import { MobXProviderContext, useObserver, Observer, useLocalStore } from 'mobx-react'
+import { toJS, computed, reaction } from 'mobx'
+function useStores() {
+  return React.useContext(MobXProviderContext)
+}
 
 function Routing(props) {
-  const { blogPosts, selectBlog, selectHome } = props;
-  return (
+  let store = useStores()
+  const { userStore } = store
+  const { selectProject, selectHome, openLoginDialog, pushMessageToSnackbar } = props
+  //console.log('sdsdsdsd', toJS(userStore.projectList))
+  return useObserver(() => (
     <Switch>
-      {blogPosts.map(post => (
-        <PropsRoute
-          /* We cannot use the url here as it contains the get params */
-          path={post.url}
-          component={BlogPost}
-          title={post.title}
-          key={post.title}
-          src={post.imageSrc}
-          date={post.date}
-          content={post.content}
-          otherArticles={blogPosts.filter(blogPost => blogPost.id !== post.id)}
-        />
-      ))}
-      <PropsRoute
-        exact
-        path="/blog"
-        component={Blog}
-        selectBlog={selectBlog}
-        blogPosts={blogPosts}
-      />
+      <PropsRoute path="/project/post/:id" component={ProjectPost} pushMessageToSnackbar={pushMessageToSnackbar} />
+      <PropsRoute exact path="/project" component={Project} selectProject={selectProject} />
       )
-      <PropsRoute path="/" component={Home} selectHome={selectHome} />)
+      <PropsRoute path="/" component={Home} selectHome={selectHome} openLoginDialog={openLoginDialog} />)
     </Switch>
-  );
+  ))
 }
 
 Routing.propTypes = {
-  blogposts: PropTypes.arrayOf(PropTypes.object),
   selectHome: PropTypes.func.isRequired,
-  selectBlog: PropTypes.func.isRequired
-};
+  selectProject: PropTypes.func.isRequired,
+}
 
-export default memo(Routing);
+export default memo(Routing)

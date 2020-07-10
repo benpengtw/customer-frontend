@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useCallback } from "react";
+import PropTypes from "prop-types";
 import {
   Table,
   TableBody,
@@ -13,25 +13,25 @@ import {
   ExpansionPanelSummary,
   Typography,
   withStyles,
-} from '@material-ui/core'
-import PlayCirlceOutlineIcon from '@material-ui/icons/PlayCircleOutline'
-import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EnhancedTableHead from '../../../shared/components/EnhancedTableHead'
-import stableSort from '../../../shared/functions/stableSort'
-import getSorting from '../../../shared/functions/getSorting'
-import HighlightedInformation from '../../../shared/components/HighlightedInformation'
-import ConfirmationDialog from '../../../shared/components/ConfirmationDialog'
+} from "@material-ui/core";
+import PlayCirlceOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DeleteIcon from "@material-ui/icons/Delete";
+import EnhancedTableHead from "../../../shared/components/EnhancedTableHead";
+import stableSort from "../../../shared/functions/stableSort";
+import getSorting from "../../../shared/functions/getSorting";
+import HighlightedInformation from "../../../shared/components/HighlightedInformation";
+import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
 
 const styles = (theme) => ({
   tableWrapper: {
-    overflowX: 'auto',
+    overflowX: "auto",
   },
   alignRight: {
-    display: 'flex',
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row-reverse",
+    alignItems: "center",
     paddingLeft: theme.spacing(2),
   },
   blackIcon: {
@@ -48,107 +48,113 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
   },
   dBlock: {
-    display: 'block',
+    display: "block",
   },
   dNone: {
-    display: 'none',
+    display: "none",
   },
-})
+});
 
 const rows = [
   {
-    id: 'icon',
+    id: "icon",
     numeric: true,
-    label: '',
+    label: "",
   },
   {
-    id: 'name',
+    id: "name",
     numeric: false,
-    label: 'Name',
+    label: "Name",
   },
-  { id: 'number1', numeric: false, label: 'Category 1' },
-  { id: 'number2', numeric: false, label: 'Category 2' },
-  { id: 'number3', numeric: false, label: 'Category 3' },
+  { id: "number1", numeric: false, label: "Category 1" },
+  { id: "number2", numeric: false, label: "Category 2" },
+  { id: "number3", numeric: false, label: "Category 3" },
   {
-    id: 'number4',
+    id: "number4",
     numeric: false,
-    label: 'Category 4',
+    label: "Category 4",
   },
   {
-    id: 'actions',
+    id: "actions",
     numeric: false,
-    label: '',
+    label: "",
   },
-]
+];
 
-const rowsPerPage = 25
+const rowsPerPage = 25;
 
 function CustomTable(props) {
-  const { pushMessageToSnackbar, classes, targets } = props
-  const [order, setOrder] = useState('asc')
-  const [orderBy, setOrderBy] = useState(null)
-  const [page, setPage] = useState(0)
-  const [isDeleteTargetDialogOpen, setIsDeleteTargetDialogOpen] = useState(false)
-  const [deleteTargetDialogName, setDeleteTargetDialogName] = useState(null)
-  const [isDeleteTargetLoading, setIsDeleteTargetLoading] = useState(false)
+  const { pushMessageToSnackbar, classes, targets } = props;
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState(null);
+  const [page, setPage] = useState(0);
+  const [isDeleteTargetDialogOpen, setIsDeleteTargetDialogOpen] = useState(
+    false
+  );
+  const [deleteTargetDialogName, setDeleteTargetDialogName] = useState(null);
+  const [isDeleteTargetLoading, setIsDeleteTargetLoading] = useState(false);
 
   const handleRequestSort = useCallback(
     (__, property) => {
-      const _orderBy = property
-      let _order = 'desc'
-      if (orderBy === property && order === 'desc') {
-        _order = 'asc'
+      const _orderBy = property;
+      let _order = "desc";
+      if (orderBy === property && order === "desc") {
+        _order = "asc";
       }
-      setOrder(_order)
-      setOrderBy(_orderBy)
+      setOrder(_order);
+      setOrderBy(_orderBy);
     },
     [setOrder, setOrderBy, order, orderBy]
-  )
+  );
 
   const deleteTarget = useCallback(() => {
-    setIsDeleteTargetLoading(true)
+    setIsDeleteTargetLoading(true);
     setTimeout(() => {
-      setIsDeleteTargetDialogOpen(false)
-      setIsDeleteTargetLoading(false)
+      setIsDeleteTargetDialogOpen(false);
+      setIsDeleteTargetLoading(false);
       pushMessageToSnackbar({
-        text: 'Your friend has been removed',
-      })
-    }, 1500)
-  }, [setIsDeleteTargetDialogOpen, setIsDeleteTargetLoading, pushMessageToSnackbar])
+        text: "Your friend has been removed",
+      });
+    }, 1500);
+  }, [
+    setIsDeleteTargetDialogOpen,
+    setIsDeleteTargetLoading,
+    pushMessageToSnackbar,
+  ]);
 
   const handleChangePage = useCallback(
     (_, page) => {
-      setPage(page)
+      setPage(page);
     },
     [setPage]
-  )
+  );
 
   const handleDeleteTargetDialogClose = useCallback(() => {
-    setIsDeleteTargetDialogOpen(false)
-  }, [setIsDeleteTargetDialogOpen])
+    setIsDeleteTargetDialogOpen(false);
+  }, [setIsDeleteTargetDialogOpen]);
 
   const handleDeleteTargetDialogOpen = useCallback(
     (_, name) => {
-      setIsDeleteTargetDialogOpen(true)
-      setDeleteTargetDialogName(name)
+      setIsDeleteTargetDialogOpen(true);
+      setDeleteTargetDialogName(name);
     },
     [setIsDeleteTargetDialogOpen, setDeleteTargetDialogName]
-  )
+  );
 
   const toggleTarget = useCallback(
     (_, activate) => {
       if (activate) {
         pushMessageToSnackbar({
-          text: 'The row is now activated',
-        })
+          text: "The row is now activated",
+        });
       } else {
         pushMessageToSnackbar({
-          text: 'The row is now deactivated',
-        })
+          text: "The row is now deactivated",
+        });
       }
     },
     [pushMessageToSnackbar]
-  )
+  );
 
   return (
     <ExpansionPanel>
@@ -160,9 +166,9 @@ function CustomTable(props) {
         title="Confirmation"
         content={
           <span>
-            {'Do you really want to remove the friend '}
+            {"Do you really want to remove the friend "}
             <b>{deleteTargetDialogName}</b>
-            {' from your list?'}
+            {" from your list?"}
           </span>
         }
         onClose={handleDeleteTargetDialogClose}
@@ -185,8 +191,15 @@ function CustomTable(props) {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <TableRow hover tabIndex={-1} key={index}>
-                      <TableCell component="th" scope="row" className={classes.firstData}>
-                        <Avatar className={classes.avatar} src={row.profilePicUrl} />
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        className={classes.firstData}
+                      >
+                        <Avatar
+                          className={classes.avatar}
+                          src={row.profilePicUrl}
+                        />
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {row.name}
@@ -209,18 +222,20 @@ function CustomTable(props) {
                             <IconButton
                               className={classes.iconButton}
                               onClick={() => {
-                                toggleTarget(row.id)
+                                toggleTarget(row.id);
                               }}
                               aria-label="Pause"
                             >
-                              <PauseCircleOutlineIcon className={classes.blackIcon} />
+                              <PauseCircleOutlineIcon
+                                className={classes.blackIcon}
+                              />
                             </IconButton>
                           ) : (
                             <IconButton
                               className={classes.iconButton}
                               color="primary"
                               onClick={() => {
-                                toggleTarget(row.id)
+                                toggleTarget(row.id);
                               }}
                               aria-label="Resume"
                             >
@@ -230,7 +245,7 @@ function CustomTable(props) {
                           <IconButton
                             className={classes.iconButton}
                             onClick={() => {
-                              handleDeleteTargetDialogOpen(row.id, row.name)
+                              handleDeleteTargetDialogOpen(row.id, row.name);
                             }}
                             aria-label="Delete"
                           >
@@ -244,7 +259,9 @@ function CustomTable(props) {
             </Table>
           ) : (
             <Box m={2}>
-              <HighlightedInformation>No friends added yet.</HighlightedInformation>
+              <HighlightedInformation>
+                No friends added yet.
+              </HighlightedInformation>
             </Box>
           )}
         </div>
@@ -255,10 +272,10 @@ function CustomTable(props) {
             rowsPerPage={rowsPerPage}
             page={page}
             backIconButtonProps={{
-              'aria-label': 'Previous Page',
+              "aria-label": "Previous Page",
             }}
             nextIconButtonProps={{
-              'aria-label': 'Next Page',
+              "aria-label": "Next Page",
             }}
             onChangePage={handleChangePage}
             classes={{
@@ -272,13 +289,13 @@ function CustomTable(props) {
         </div>
       </Box>
     </ExpansionPanel>
-  )
+  );
 }
 
 CustomTable.propTypes = {
   classes: PropTypes.object.isRequired,
   targets: PropTypes.arrayOf(PropTypes.object).isRequired,
   pushMessageToSnackbar: PropTypes.func,
-}
+};
 
-export default withStyles(styles, { withTheme: true })(CustomTable)
+export default withStyles(styles, { withTheme: true })(CustomTable);

@@ -1,103 +1,119 @@
-import React, { useState, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, YAxis } from 'recharts'
-import format from 'date-fns/format'
-import { Card, CardContent, Typography, IconButton, Menu, MenuItem, withStyles, Box } from '@material-ui/core'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
+import React, { useState, useCallback } from "react";
+import PropTypes from "prop-types";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  Tooltip,
+  ResponsiveContainer,
+  YAxis
+} from "recharts";
+import format from "date-fns/format";
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  Menu,
+  MenuItem,
+  withStyles,
+  Box
+} from "@material-ui/core";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
-const styles = (theme) => ({
+const styles = theme => ({
   cardContentInner: {
-    marginTop: theme.spacing(-4),
-  },
-})
+    marginTop: theme.spacing(-4)
+  }
+});
 
 function labelFormatter(label) {
-  return format(new Date(label * 1000), 'MMMM d, p yyyy')
+  return format(new Date(label * 1000), "MMMM d, p yyyy");
 }
 
 function calculateMin(data, yKey, factor) {
-  let max = Number.POSITIVE_INFINITY
-  data.forEach((element) => {
+  let max = Number.POSITIVE_INFINITY;
+  data.forEach(element => {
     if (max > element[yKey]) {
-      max = element[yKey]
+      max = element[yKey];
     }
-  })
-  return Math.round(max - max * factor)
+  });
+  return Math.round(max - max * factor);
 }
 
-const itemHeight = 216
-const options = ['1 Week', '1 Month', '6 Months']
+const itemHeight = 216;
+const options = ["1 Week", "1 Month", "6 Months"];
 
 function CardChart(props) {
-  const { color, data, title, classes, theme, height } = props
-  const [anchorEl, setAnchorEl] = useState(null)
-  const [selectedOption, setSelectedOption] = useState('1 Month')
+  const { color, data, title, classes, theme, height } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("1 Month");
 
   const handleClick = useCallback(
-    (event) => {
-      setAnchorEl(event.currentTarget)
+    event => {
+      setAnchorEl(event.currentTarget);
     },
     [setAnchorEl]
-  )
+  );
 
   const formatter = useCallback(
-    (value) => {
-      return [value, title]
+    value => {
+      return [value, title];
     },
     [title]
-  )
+  );
 
   const getSubtitle = useCallback(() => {
     switch (selectedOption) {
-      case '1 Week':
-        return 'Last week'
-      case '1 Month':
-        return 'Last month'
-      case '6 Months':
-        return 'Last 6 months'
+      case "1 Week":
+        return "Last week";
+      case "1 Month":
+        return "Last month";
+      case "6 Months":
+        return "Last 6 months";
       default:
-        throw new Error('No branch selected in switch-statement')
+        throw new Error("No branch selected in switch-statement");
     }
-  }, [selectedOption])
+  }, [selectedOption]);
 
   const processData = useCallback(() => {
-    let seconds
+    let seconds;
     switch (selectedOption) {
-      case '1 Week':
-        seconds = 60 * 60 * 24 * 7
-        break
-      case '1 Month':
-        seconds = 60 * 60 * 24 * 7 * 31
-        break
-      case '6 Months':
-        seconds = 60 * 60 * 24 * 7 * 31 * 6
-        break
+      case "1 Week":
+        seconds = 60 * 60 * 24 * 7;
+        break;
+      case "1 Month":
+        seconds = 60 * 60 * 24 * 7 * 31;
+        break;
+      case "6 Months":
+        seconds = 60 * 60 * 24 * 7 * 31 * 6;
+        break;
       default:
-        throw new Error('No branch selected in switch-statement')
+        throw new Error("No branch selected in switch-statement");
     }
-    const minSeconds = new Date() / 1000 - seconds
-    const arr = []
+    const minSeconds = new Date() / 1000 - seconds;
+    const arr = [];
     for (let i = 0; i < data.length; i += 1) {
       if (minSeconds < data[i].timestamp) {
-        arr.unshift(data[i])
+        arr.unshift(data[i]);
       }
     }
-    return arr
-  }, [data, selectedOption])
+    return arr;
+  }, [data, selectedOption]);
 
   const handleClose = useCallback(() => {
-    setAnchorEl(null)
-  }, [setAnchorEl])
+    setAnchorEl(null);
+  }, [setAnchorEl]);
 
   const selectOption = useCallback(
-    (selectedOption) => {
-      setSelectedOption(selectedOption)
-      handleClose()
+    selectedOption => {
+      setSelectedOption(selectedOption);
+      handleClose();
     },
     [setSelectedOption, handleClose]
-  )
+  );
 
-  const isOpen = Boolean(anchorEl)
+  const isOpen = Boolean(anchorEl);
   return (
     <Card>
       <Box pt={2} px={2} pb={4}>
@@ -111,7 +127,7 @@ function CardChart(props) {
           <div>
             <IconButton
               aria-label="More"
-              aria-owns={isOpen ? 'long-menu' : undefined}
+              aria-owns={isOpen ? "long-menu" : undefined}
               aria-haspopup="true"
               onClick={handleClick}
             >
@@ -125,16 +141,16 @@ function CardChart(props) {
               PaperProps={{
                 style: {
                   maxHeight: itemHeight,
-                  width: 200,
-                },
+                  width: 200
+                }
               }}
             >
-              {options.map((option) => (
+              {options.map(option => (
                 <MenuItem
                   key={option}
                   selected={option === selectedOption}
                   onClick={() => {
-                    selectOption(option)
+                    selectOption(option);
                   }}
                   name={option}
                 >
@@ -149,18 +165,31 @@ function CardChart(props) {
         <Box className={classes.cardContentInner} height={height}>
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={processData()} type="number">
-              <XAxis dataKey="timestamp" type="number" domain={['dataMin', 'dataMax']} hide />
-              <YAxis domain={[calculateMin(data, 'value', 0.05), 'dataMax']} hide />
-              <Area type="monotone" dataKey="value" stroke={color} fill={color} />
+              <XAxis
+                dataKey="timestamp"
+                type="number"
+                domain={["dataMin", "dataMax"]}
+                hide
+              />
+              <YAxis
+                domain={[calculateMin(data, "value", 0.05), "dataMax"]}
+                hide
+              />
+              <Area
+                type="monotone"
+                dataKey="value"
+                stroke={color}
+                fill={color}
+              />
               <Tooltip
                 labelFormatter={labelFormatter}
                 formatter={formatter}
                 cursor={false}
                 contentStyle={{
-                  border: 'none',
+                  border: "none",
                   padding: theme.spacing(1),
                   borderRadius: theme.shape.borderRadius,
-                  boxShadow: theme.shadows[1],
+                  boxShadow: theme.shadows[1]
                 }}
                 labelStyle={theme.typography.body1}
                 itemStyle={{
@@ -168,7 +197,7 @@ function CardChart(props) {
                   letterSpacing: theme.typography.body1.letterSpacing,
                   fontFamily: theme.typography.body1.fontFamily,
                   lineHeight: theme.typography.body1.lineHeight,
-                  fontWeight: theme.typography.body1.fontWeight,
+                  fontWeight: theme.typography.body1.fontWeight
                 }}
               />
             </AreaChart>
@@ -176,7 +205,7 @@ function CardChart(props) {
         </Box>
       </CardContent>
     </Card>
-  )
+  );
 }
 
 CardChart.propTypes = {
@@ -185,7 +214,7 @@ CardChart.propTypes = {
   title: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  height: PropTypes.string.isRequired,
-}
+  height: PropTypes.string.isRequired
+};
 
-export default withStyles(styles, { withTheme: true })(CardChart)
+export default withStyles(styles, { withTheme: true })(CardChart);
